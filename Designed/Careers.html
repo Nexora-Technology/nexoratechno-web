@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Careers — Nexora Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="subpages.css" />
+</head>
+<body>
+
+<header class="nav-wrap" id="nav">
+  <div class="container">
+    <nav class="nav">
+      <a href="Nexora Website.html#home" class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nexora<span style="color: var(--accent);">.</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="Nexora Website.html#home" data-i18n="nav_home">Trang chủ</a></li>
+        <li><a href="Nexora Website.html#services" data-i18n="nav_services">Dịch vụ</a></li>
+        <li><a href="Case Studies.html">Case Studies</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+        <li><a href="Careers.html" class="active">Careers</a></li>
+        <li><a href="Nexora Website.html#contact" data-i18n="nav_contact">Liên hệ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle"><button data-lang="vi">VI</button><button data-lang="en">EN</button></div>
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="Nexora Website.html#contact" class="btn btn-primary desktop-cta" data-i18n="nav_cta">Bắt đầu dự án</a>
+        <button class="icon-btn mobile-burger" id="burger" aria-label="Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div id="app"></div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bot" style="border: 0; padding: 24px 0;">
+      <div>© 2026 Nexora Technology.</div>
+      <div>17/5 Tân Thuận Tây, TP.HCM · email@nexoratechno.com</div>
+    </div>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="data.js"></script>
+<script src="subpages.js"></script>
+<script>
+(function(){
+  NX.initSharedChrome();
+  const lang = NX.getLang();
+  const slug = NX.getSlug();
+  const app = document.getElementById('app');
+  const jobs = window.NEXORA_DATA.careers;
+
+  const STR = {
+    vi: { hero_eyebrow: 'Tuyển dụng', hero_title: 'Xây dựng cùng chúng tôi.', hero_lead: 'Chúng tôi đang tìm những người muốn làm phần mềm tốt — không phải làm nhiều phần mềm. Xem các vị trí đang mở bên dưới.', all: 'Tất cả', filter_label: 'Bộ phận', apply: 'Ứng tuyển vị trí này', back: 'Quay lại danh sách', no_results: 'Không có vị trí nào phù hợp.', share: 'Chia sẻ', posted: 'Đăng', salary: 'Lương', type: 'Loại', level: 'Cấp độ', loc: 'Địa điểm', cta_t: 'Không thấy vị trí phù hợp?', cta_d: 'Gửi hồ sơ chung cho chúng tôi. Nếu ấn tượng, chúng tôi sẽ tạo vị trí cho bạn.', cta_b: 'Gửi CV chung' },
+    en: { hero_eyebrow: 'Careers', hero_title: 'Build with us.', hero_lead: "We're hiring people who want to make good software — not lots of software. Open roles below.", all: 'All', filter_label: 'Department', apply: 'Apply for this role', back: 'Back to all roles', no_results: 'No roles match that filter.', share: 'Share', posted: 'Posted', salary: 'Salary', type: 'Type', level: 'Level', loc: 'Location', cta_t: "Don't see a role that fits?", cta_d: 'Send us a general application. If you impress us, we open the role.', cta_b: 'Send a general CV' }
+  }[lang];
+
+  const titleOf = j => lang === 'vi' ? j.title_vi : j.title_en;
+  const sumOf = j => lang === 'vi' ? j.summary_vi : j.summary_en;
+  const typeOf = j => lang === 'vi' ? j.type_vi : j.type_en;
+  const postedOf = j => lang === 'vi' ? j.posted_vi : j.posted_en;
+
+  if (slug) {
+    const job = jobs.find(j => j.slug === slug);
+    if (!job) { app.innerHTML = `<div class="container detail-wrap"><p class="empty-state">Not found.</p></div>`; return; }
+    const body = lang === 'vi' ? job.body_vi : job.body_en;
+    app.innerHTML = `
+      <section class="subpage-hero">
+        <div class="container subpage-hero-inner">
+          <div class="crumb">
+            <a href="Nexora Website.html#home">Nexora</a><span class="crumb-sep">/</span>
+            <a href="Careers.html">${STR.hero_eyebrow}</a><span class="crumb-sep">/</span>
+            <span>${job.dept}</span>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
+            <span class="tag-pill" style="background: var(--bg-elev)">${job.dept}</span>
+            <span class="tag-pill" style="background: var(--bg-elev)">${job.level}</span>
+            <span class="tag-pill" style="background: var(--bg-elev)">${typeOf(job)}</span>
+          </div>
+          <h1 class="subpage-title" style="max-width:24ch;">${titleOf(job)}</h1>
+          <p class="subpage-lead">${sumOf(job)}</p>
+          <div style="margin-top:32px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="Nexora Website.html#contact" class="btn btn-accent">${STR.apply}
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="Careers.html" class="btn btn-ghost">← ${STR.back}</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
+        <div class="detail-wrap">
+          <div class="case-facts" style="margin:0 0 40px;">
+            <div class="case-fact"><div class="case-fact-l">${STR.loc}</div><div class="case-fact-v">${job.location}</div></div>
+            <div class="case-fact"><div class="case-fact-l">${STR.salary}</div><div class="case-fact-v">${job.salary} USD</div></div>
+            <div class="case-fact"><div class="case-fact-l">${STR.level}</div><div class="case-fact-v">${job.level}</div></div>
+            <div class="case-fact"><div class="case-fact-l">${STR.posted}</div><div class="case-fact-v">${postedOf(job)}</div></div>
+          </div>
+          <div class="detail-body">
+            ${body.map(s => `
+              <h2>${s.h}</h2>
+              ${s.p ? `<p>${s.p}</p>` : ''}
+              ${s.list ? `<ul>${s.list.map(x=>`<li>${x}</li>`).join('')}</ul>` : ''}
+            `).join('')}
+            <div class="tag-row" style="margin-top:40px;">
+              ${job.tags.map(t=>`<span class="tag-pill">${t}</span>`).join('')}
+            </div>
+          </div>
+          <div class="detail-cta">
+            <div><h3>${STR.apply}</h3><p>${sumOf(job)}</p></div>
+            <a href="Nexora Website.html#contact" class="btn btn-accent">${STR.apply}
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // Listing
+  const depts = Array.from(new Set(jobs.map(j => j.dept)));
+  let activeFilter = 'all';
+
+  const render = () => {
+    const filtered = activeFilter === 'all' ? jobs : jobs.filter(j => j.dept === activeFilter);
+    app.innerHTML = `
+      <section class="subpage-hero">
+        <div class="container subpage-hero-inner">
+          <div class="crumb">
+            <a href="Nexora Website.html#home">Nexora</a><span class="crumb-sep">/</span><span>${STR.hero_eyebrow}</span>
+          </div>
+          <span class="eyebrow">${STR.hero_eyebrow}</span>
+          <h1 class="subpage-title" style="margin-top:20px;">${STR.hero_title}</h1>
+          <p class="subpage-lead">${STR.hero_lead}</p>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top:64px;">
+        <div class="container">
+          <div class="listing-filters" id="f">
+            <button data-f="all" class="${activeFilter==='all'?'active':''}">${STR.all}</button>
+            ${depts.map(d => `<button data-f="${d}" class="${activeFilter===d?'active':''}">${d}</button>`).join('')}
+          </div>
+          <div class="careers-grid">
+            ${filtered.length ? filtered.map(j => `
+              <a class="career-card" href="Careers.html?slug=${j.slug}">
+                <div>
+                  <div class="c-dept">${j.dept} · ${j.level}</div>
+                  <h3>${titleOf(j)}</h3>
+                  <p class="c-sum">${sumOf(j)}</p>
+                  <div class="tag-row">${j.tags.map(t=>`<span class="tag-pill">${t}</span>`).join('')}</div>
+                </div>
+                <div class="career-meta">
+                  <span class="career-meta-row"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${j.location}</span>
+                  <span class="career-meta-row"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${typeOf(j)}</span>
+                  <span class="career-meta-row"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>${j.salary} USD</span>
+                </div>
+                <span class="career-arrow"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+              </a>
+            `).join('') : `<div class="empty-state">${STR.no_results}</div>`}
+          </div>
+
+          <div class="detail-cta" style="margin-top:80px;">
+            <div><h3>${STR.cta_t}</h3><p>${STR.cta_d}</p></div>
+            <a href="Nexora Website.html#contact" class="btn btn-accent">${STR.cta_b}</a>
+          </div>
+        </div>
+      </section>
+    `;
+    document.querySelectorAll('#f button').forEach(b => {
+      b.addEventListener('click', () => { activeFilter = b.dataset.f; render(); });
+    });
+  };
+  render();
+})();
+</script>
+</body>
+</html>

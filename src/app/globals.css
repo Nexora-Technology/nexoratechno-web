@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Nexora Design Tokens — CSS custom properties on :root
+   ============================================================ */
+:root {
+  /* Colors — light palette */
+  --color-bg: #FAFAF7;
+  --color-bg-soft: #F3F2EC;
+  --color-bg-elev: #FFFFFF;
+  --color-ink: #0A0A14;
+  --color-ink-soft: #3A3A48;
+  --color-ink-mute: #6B6B7A;
+  --color-line: rgba(10, 10, 20, 0.08);
+  --color-line-strong: rgba(10, 10, 20, 0.14);
+
+  /* Brand */
+  --color-accent: #DAB660;
+  --color-accent-soft: #EBD7A5;
+  --color-accent-ink: #7A5E1C;
+  --color-indigo: #4F46E5;
+  --color-cyan: #06B6D4;
+  --color-grad-start: #4F46E5;
+  --color-grad-mid: #7C3AED;
+  --color-grad-end: #06B6D4;
+
+  /* Semantic */
+  --color-ok: #16A34A;
+  --color-warn: #F59E0B;
+  --color-danger: #DC2626;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(10, 10, 20, 0.05);
+  --shadow-md: 0 8px 24px rgba(10, 10, 20, 0.08), 0 2px 6px rgba(10, 10, 20, 0.04);
+  --shadow-lg: 0 24px 60px rgba(10, 10, 20, 0.12), 0 6px 18px rgba(10, 10, 20, 0.06);
+
+  /* Typography */
+  --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ── Dark theme tokens ── */
+[data-theme="dark"] {
+  --color-bg: #0A0A12;
+  --color-bg-soft: #12121C;
+  --color-bg-elev: #16162A;
+  --color-ink: #F5F5F0;
+  --color-ink-soft: #C8C8D4;
+  --color-ink-mute: #8A8A9A;
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+  --color-accent-ink: #F6E3A8;
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5), 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Utility helpers ── */
+.serif { font-family: var(--font-display); }
+.mono  { font-family: var(--font-mono); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: 0; background: transparent; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ── Layout helpers ── */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+@media (max-width: 640px) {
+  .container { padding: 0 20px; }
+}
+
+section { position: relative; }
+
+.section { padding: 120px 0; }
+@media (max-width: 768px) {
+  .section { padding: 80px 0; }
+}
+
+/* ── Gradient text ── */
+.text-grad {
+  background: linear-gradient(100deg, var(--color-accent) 0%, var(--color-grad-start) 45%, var(--color-grad-end) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Eyebrow label ── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--color-ink-mute);
+}
+
+/* ── Section typography ── */
+.section-title {
+  font-size: clamp(32px, 4.2vw, 56px);
+  line-height: 1.05;
+  margin-top: 20px;
+  max-width: 22ch;
+}
+.section-sub {
+  font-size: 18px;
+  color: var(--color-ink-soft);
+  max-width: 60ch;
+  margin-top: 18px;
+}
+.section-head {
+  margin-bottom: 64px;
+}
+
+/* ── Buttons — global ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+}
+.btn-primary {
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(10,10,20,0.18);
+}
+.btn-accent {
+  background: var(--color-accent);
+  color: #1A1508;
+  box-shadow: 0 6px 14px rgba(218,182,96,0.35);
+}
+.btn-accent:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(218,182,96,0.5);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-line-strong);
+}
+.btn-ghost:hover { background: var(--color-bg-soft); }
+.btn-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+}
+.btn:hover .btn-arrow { transform: translateX(3px); }

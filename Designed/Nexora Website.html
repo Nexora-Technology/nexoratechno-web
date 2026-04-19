@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora Technology — Custom software, crafted in Saigon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav-wrap" id="nav">
+  <div class="container">
+    <nav class="nav">
+      <a href="#home" class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nexora<span style="color: var(--accent);">.</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home" data-i18n="nav_home" data-nav="home">Trang chủ</a></li>
+        <li><a href="#services" data-i18n="nav_services" data-nav="services">Dịch vụ</a></li>
+        <li><a href="#models" data-i18n="nav_models" data-nav="models">Mô hình</a></li>
+        <li><a href="#about" data-i18n="nav_about" data-nav="about">Về chúng tôi</a></li>
+        <li><a href="Case Studies.html">Case Studies</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+        <li><a href="Careers.html">Careers</a></li>
+        <li><a href="#contact" data-i18n="nav_contact" data-nav="contact">Liên hệ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle" role="tablist" aria-label="Language">
+          <button data-lang="vi" class="active">VI</button>
+          <button data-lang="en">EN</button>
+        </div>
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <a href="#contact" class="btn btn-primary desktop-cta" data-i18n="nav_cta">Bắt đầu dự án</a>
+        <button class="icon-btn mobile-burger" id="burger" aria-label="Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <canvas id="hero-canvas"></canvas>
+  <div class="container hero-inner">
+    <span class="hero-badge">
+      <span class="hero-badge-dot" aria-hidden="true"></span>
+      <span data-i18n="hero_badge">Software Studio · TP. Hồ Chí Minh</span>
+    </span>
+    <h1 class="hero-title">
+      <span data-i18n="hero_title_1">Kiến tạo phần mềm</span><br/>
+      <span data-i18n="hero_title_2">cho doanh nghiệp</span><br/>
+      <span class="grad" data-i18n="hero_title_3">thế hệ tiếp theo.</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero_sub">Nexora Technology là đối tác phát triển phần mềm theo yêu cầu — từ web, mobile đến IoT và chuyển đổi hệ thống cũ. Chúng tôi xây dựng sản phẩm vững chắc, mở rộng được, và đẹp.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-accent">
+        <span data-i18n="hero_cta_primary">Liên hệ tư vấn</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#services" class="btn btn-ghost">
+        <span data-i18n="hero_cta_secondary">Xem dịch vụ</span>
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-label" data-i18n="hero_stat_1">Thành lập</div>
+        <div class="hero-stat-value">2025</div>
+      </div>
+      <div>
+        <div class="hero-stat-label" data-i18n="hero_stat_2">Trụ sở</div>
+        <div class="hero-stat-value">TP.HCM</div>
+      </div>
+      <div>
+        <div class="hero-stat-label" data-i18n="hero_stat_3">Dự án hoàn thành</div>
+        <div class="hero-stat-value">40+</div>
+      </div>
+      <div>
+        <div class="hero-stat-label" data-i18n="hero_stat_4">Tỉ lệ đúng hạn</div>
+        <div class="hero-stat-value">98%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee">
+  <div class="marquee-label" data-i18n="marquee_label">Chúng tôi làm việc với</div>
+  <div class="marquee-track">
+    <span class="marquee-item">React <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Next.js <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Node.js <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Python <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Go <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Swift <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Kotlin <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Flutter <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">AWS <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">GCP <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Kubernetes <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">PostgreSQL <span class="marquee-item-dot"></span></span>
+    <!-- Duplicate for seamless scroll -->
+    <span class="marquee-item">React <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Next.js <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Node.js <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Python <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Go <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Swift <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Kotlin <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Flutter <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">AWS <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">GCP <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">Kubernetes <span class="marquee-item-dot"></span></span>
+    <span class="marquee-item">PostgreSQL <span class="marquee-item-dot"></span></span>
+  </div>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="services_eyebrow">Dịch vụ</span>
+      <h2 class="section-title" data-i18n="services_title">Sáu năng lực cốt lõi, một đội ngũ chuyên gia.</h2>
+      <p class="section-sub" data-i18n="services_sub">Từ MVP đầu tiên đến hệ thống doanh nghiệp quy mô lớn — Nexora đồng hành ở mọi giai đoạn.</p>
+    </div>
+
+    <div class="services-grid reveal">
+      <!-- Service 1 -->
+      <div class="service-card" tabindex="0">
+        <span class="service-num">01 / 06</span>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M7 4v4"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="svc1_title">Phát triển Website</h3>
+        <p class="service-desc" data-i18n="svc1_desc">Xây dựng các trang web responsive, hiệu suất cao với UX hiện đại, tối ưu SEO và bảo mật.</p>
+        <ul class="service-features">
+          <li data-i18n="svc1_f1">Responsive mọi thiết bị</li>
+          <li data-i18n="svc1_f2">Hiệu suất & tốc độ tải</li>
+          <li data-i18n="svc1_f3">UI/UX hiện đại, trực quan</li>
+          <li data-i18n="svc1_f4">SEO-friendly</li>
+          <li data-i18n="svc1_f5">Bảo mật & khả năng mở rộng</li>
+        </ul>
+        <span class="service-learn">
+          <span data-i18n="svc_learn">Tìm hiểu thêm</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-card" tabindex="0">
+        <span class="service-num">02 / 06</span>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="svc2_title">Mobile Development</h3>
+        <p class="service-desc" data-i18n="svc2_desc">Ứng dụng di động native và cross-platform cho iOS & Android, tối ưu cho trải nghiệm & tăng trưởng.</p>
+        <ul class="service-features">
+          <li data-i18n="svc2_f1">iOS — Swift, SwiftUI</li>
+          <li data-i18n="svc2_f2">Android — Kotlin</li>
+          <li data-i18n="svc2_f3">React Native</li>
+          <li data-i18n="svc2_f4">Flutter</li>
+          <li data-i18n="svc2_f5">Cross-platform solutions</li>
+        </ul>
+        <span class="service-learn">
+          <span data-i18n="svc_learn">Tìm hiểu thêm</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card" tabindex="0">
+        <span class="service-num">03 / 06</span>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2 3 7l9 5 9-5-9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="svc3_title">Application Development</h3>
+        <p class="service-desc" data-i18n="svc3_desc">Ứng dụng tùy chỉnh với chức năng mạnh mẽ, tối ưu hiệu suất và phù hợp chiến lược kinh doanh.</p>
+        <ul class="service-features">
+          <li data-i18n="svc3_f1">Enterprise applications</li>
+          <li data-i18n="svc3_f2">SaaS platforms</li>
+          <li data-i18n="svc3_f3">Custom CRM / ERP</li>
+          <li data-i18n="svc3_f4">E-commerce solutions</li>
+          <li data-i18n="svc3_f5">Workflow automation</li>
+        </ul>
+        <span class="service-learn">
+          <span data-i18n="svc_learn">Tìm hiểu thêm</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-card" tabindex="0">
+        <span class="service-num">04 / 06</span>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .4 1.9l.1.1a2 2 0 1 1-2.9 2.9l-.1-.1a1.7 1.7 0 0 0-1.9-.4 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.6 1.7 1.7 0 0 0-1.9.4l-.1.1a2 2 0 1 1-2.9-2.9l.1-.1a1.7 1.7 0 0 0 .4-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1.1 1.7 1.7 0 0 0-.4-1.9l-.1-.1a2 2 0 1 1 2.9-2.9l.1.1a1.7 1.7 0 0 0 1.9.4h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.4l.1-.1a2 2 0 1 1 2.9 2.9l-.1.1a1.7 1.7 0 0 0-.4 1.9v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="svc4_title">Software Maintenance</h3>
+        <p class="service-desc" data-i18n="svc4_desc">Cập nhật liên tục, sửa lỗi và tối ưu hiệu suất — đảm bảo phần mềm luôn tin cậy và an toàn.</p>
+        <ul class="service-features">
+          <li data-i18n="svc4_f1">Bug fixes & patches</li>
+          <li data-i18n="svc4_f2">Performance optimization</li>
+          <li data-i18n="svc4_f3">Security updates</li>
+          <li data-i18n="svc4_f4">Feature enhancements</li>
+          <li data-i18n="svc4_f5">Hỗ trợ 24/7</li>
+        </ul>
+        <span class="service-learn">
+          <span data-i18n="svc_learn">Tìm hiểu thêm</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="service-card" tabindex="0">
+        <span class="service-num">05 / 06</span>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M5 12a7 7 0 0 1 14 0M2 12a10 10 0 0 1 20 0M8.5 12a3.5 3.5 0 0 1 7 0"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="svc5_title">IoT Solutions</h3>
+        <p class="service-desc" data-i18n="svc5_desc">Tích hợp thiết bị thông minh, tinh gọn vận hành và khai thác dữ liệu để đổi mới.</p>
+        <ul class="service-features">
+          <li data-i18n="svc5_f1">Smart Home</li>
+          <li data-i18n="svc5_f2">Industrial IoT (IIoT)</li>
+          <li data-i18n="svc5_f3">Connected devices</li>
+          <li data-i18n="svc5_f4">Data analytics</li>
+          <li data-i18n="svc5_f5">Real-time visualization</li>
+        </ul>
+        <span class="service-learn">
+          <span data-i18n="svc_learn">Tìm hiểu thêm</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="service-card" tabindex="0">
+        <span class="service-num">06 / 06</span>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 14h6v6h-6z"/><path d="M10 7h4M14 7a4 4 0 0 1 0 8h-4"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="svc6_title">Legacy Migration</h3>
+        <p class="service-desc" data-i18n="svc6_desc">Hiện đại hóa hệ thống lỗi thời — chuyển đổi liền mạch sang nền tảng tiên tiến, an toàn cho tương lai.</p>
+        <ul class="service-features">
+          <li data-i18n="svc6_f1">Đánh giá hệ thống hiện tại</li>
+          <li data-i18n="svc6_f2">Lập kế hoạch chuyển đổi</li>
+          <li data-i18n="svc6_f3">Migration & testing</li>
+          <li data-i18n="svc6_f4">Training & support</li>
+          <li data-i18n="svc6_f5">Zero-downtime deploy</li>
+        </ul>
+        <span class="service-learn">
+          <span data-i18n="svc_learn">Tìm hiểu thêm</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="process_eyebrow">Quy trình</span>
+      <h2 class="section-title" data-i18n="process_title">Cách Nexora đưa sản phẩm ra thị trường.</h2>
+      <p class="section-sub" data-i18n="process_sub">Một quy trình chặt chẽ, minh bạch và lặp lại — được điều chỉnh theo từng mô hình hợp tác.</p>
+    </div>
+    <div class="process-timeline reveal">
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <h3 data-i18n="proc1_t">Khám phá</h3>
+        <p data-i18n="proc1_d">Hiểu vấn đề, người dùng và mục tiêu kinh doanh.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <h3 data-i18n="proc2_t">Thiết kế</h3>
+        <p data-i18n="proc2_d">Kiến trúc, UI/UX hi-fi, prototype tương tác.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <h3 data-i18n="proc3_t">Phát triển</h3>
+        <p data-i18n="proc3_d">Sprint 2 tuần, CI/CD, review code chặt chẽ.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <h3 data-i18n="proc4_t">QA & Bảo mật</h3>
+        <p data-i18n="proc4_d">Automated testing, penetration test, performance audit.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">05</div>
+        <h3 data-i18n="proc5_t">Ra mắt</h3>
+        <p data-i18n="proc5_d">Deploy zero-downtime, monitoring 24/7.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">06</div>
+        <h3 data-i18n="proc6_t">Phát triển tiếp</h3>
+        <p data-i18n="proc6_d">Bảo trì, cải tiến, mở rộng tính năng.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODELS ============ -->
+<section class="section" id="models" style="background: var(--bg-soft); padding-top: 120px;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="models_eyebrow">Mô hình hợp tác</span>
+      <h2 class="section-title" data-i18n="models_title">Chọn mô hình phù hợp với cách bạn làm việc.</h2>
+      <p class="section-sub" data-i18n="models_sub">Ba mô hình hợp tác IT Outsource — mỗi mô hình giải một bài toán khác nhau.</p>
+    </div>
+
+    <div class="models-grid reveal">
+      <div class="model-tabs" role="tablist">
+        <button class="model-tab active" data-model="1">
+          <div class="mt-num">01</div>
+          <div class="mt-name" data-i18n="m1_name">Dedicated Team</div>
+          <div class="mt-tag" data-i18n="m1_tag">Staffing Augmentation</div>
+        </button>
+        <button class="model-tab" data-model="2">
+          <div class="mt-num">02</div>
+          <div class="mt-name" data-i18n="m2_name">Fixed Price</div>
+          <div class="mt-tag" data-i18n="m2_tag">Dự án trọn gói</div>
+        </button>
+        <button class="model-tab" data-model="3">
+          <div class="mt-num">03</div>
+          <div class="mt-name" data-i18n="m3_name">Time & Material</div>
+          <div class="mt-tag" data-i18n="m3_tag">T&M — Linh hoạt</div>
+        </button>
+      </div>
+
+      <!-- Panel 1 -->
+      <div class="model-panel" data-model-panel="1">
+        <h3><span data-i18n="m1_name">Dedicated Team</span> <span style="color: var(--ink-mute); font-weight: 500;" class="mono" data-i18n="m1_tag">— Staffing Augmentation</span></h3>
+        <p class="model-panel-desc" data-i18n="m1_desc">Đội ngũ chuyên gia được quản lý và chỉ làm việc độc quyền cho dự án của doanh nghiệp bạn.</p>
+        <div class="model-specs">
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_desc">Mô tả</div><div class="model-spec-value" data-i18n="m1_desc_v">Khách hàng thuê đội ngũ phát triển toàn thời gian như nhân viên nội bộ.</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_cost">Chi phí</div><div class="model-spec-value" data-i18n="m1_cost_v">Theo tháng / quý</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_flex">Linh hoạt</div><div class="model-spec-value" data-i18n="m1_flex_v">Rất linh hoạt — nhiệm vụ có thể thay đổi bất cứ lúc nào</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_pm">Quản lý dự án</div><div class="model-spec-value" data-i18n="m1_pm_v">Khách hàng quản lý trực tiếp (Nexora hỗ trợ PM nếu cần)</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_pros">Ưu điểm</div><div class="model-spec-value" data-i18n="m1_pros_v">Phù hợp dự án dài hạn · Đội ngũ chuyên dụng, có thể mở rộng</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_cons">Nhược điểm</div><div class="model-spec-value" data-i18n="m1_cons_v">Chi phí cố định hàng tháng · Đòi hỏi quản lý nội bộ rõ ràng</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_fit">Phù hợp cho</div><div class="model-spec-value" data-i18n="m1_fit_v">Startups / Công ty xây dựng sản phẩm dài hạn</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_min">Cam kết tối thiểu</div><div class="model-spec-value" data-i18n="m1_min_v">2–3 tháng</div></div>
+        </div>
+      </div>
+
+      <!-- Panel 2 -->
+      <div class="model-panel" data-model-panel="2" hidden>
+        <h3><span data-i18n="m2_name">Fixed Price</span> <span style="color: var(--ink-mute); font-weight: 500;" class="mono" data-i18n="m2_tag">— Dự án trọn gói</span></h3>
+        <p class="model-panel-desc" data-i18n="m2_desc">Chi phí rõ ràng, có thể dự đoán cho các dự án được xác định rõ phạm vi từ đầu.</p>
+        <div class="model-specs">
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_desc">Mô tả</div><div class="model-spec-value" data-i18n="m2_desc_v">Giá cố định một lần cho toàn bộ dự án với phạm vi được xác định rõ.</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_cost">Chi phí</div><div class="model-spec-value" data-i18n="m2_cost_v">Cố định cho toàn bộ dự án</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_flex">Linh hoạt</div><div class="model-spec-value" data-i18n="m2_flex_v">Không linh hoạt — thay đổi có thể phát sinh chi phí thêm</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_pm">Quản lý dự án</div><div class="model-spec-value" data-i18n="m2_pm_v">Nexora quản lý toàn bộ dự án</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_pros">Ưu điểm</div><div class="model-spec-value" data-i18n="m2_pros_v">Ngân sách rõ ràng · Không có chi phí bất ngờ</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_cons">Nhược điểm</div><div class="model-spec-value" data-i18n="m2_cons_v">Rủi ro nếu yêu cầu chưa rõ · Ít linh hoạt hơn</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_fit">Phù hợp cho</div><div class="model-spec-value" data-i18n="m2_fit_v">Dự án ngắn hạn với thông số kỹ thuật rõ ràng</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_min">Cam kết tối thiểu</div><div class="model-spec-value" data-i18n="m2_min_v">Theo hợp đồng dự án</div></div>
+        </div>
+      </div>
+
+      <!-- Panel 3 -->
+      <div class="model-panel" data-model-panel="3" hidden>
+        <h3><span data-i18n="m3_name">Time & Material</span> <span style="color: var(--ink-mute); font-weight: 500;" class="mono" data-i18n="m3_tag">— T&M — Linh hoạt</span></h3>
+        <p class="model-panel-desc" data-i18n="m3_desc">Thanh toán linh hoạt theo giờ làm việc thực tế và tài nguyên sử dụng.</p>
+        <div class="model-specs">
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_desc">Mô tả</div><div class="model-spec-value" data-i18n="m3_desc_v">Tính phí dựa trên giờ làm việc thực tế và sử dụng tài nguyên.</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_cost">Chi phí</div><div class="model-spec-value" data-i18n="m3_cost_v">Linh hoạt, theo giờ làm việc thực tế</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_flex">Linh hoạt</div><div class="model-spec-value" data-i18n="m3_flex_v">Rất linh hoạt — dễ dàng thích ứng với nhu cầu thay đổi</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_pm">Quản lý dự án</div><div class="model-spec-value" data-i18n="m3_pm_v">Đồng quản lý giữa khách hàng và Nexora</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_pros">Ưu điểm</div><div class="model-spec-value" data-i18n="m3_pros_v">Bắt đầu nhanh · Phù hợp phạm vi đang phát triển</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_cons">Nhược điểm</div><div class="model-spec-value" data-i18n="m3_cons_v">Ngân sách có thể tăng nếu không theo dõi đúng</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_fit">Phù hợp cho</div><div class="model-spec-value" data-i18n="m3_fit_v">R&D, PoC, khách hàng có yêu cầu thay đổi</div></div>
+          <div class="model-spec"><div class="model-spec-label" data-i18n="m_min">Cam kết tối thiểu</div><div class="model-spec-value" data-i18n="m3_min_v">Không cần cam kết dài hạn</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compare table -->
+    <div style="margin-top: 96px;">
+      <div class="compare-head reveal">
+        <div>
+          <h3 style="font-size: 28px; letter-spacing: -0.02em;" data-i18n="compare_title">So sánh trực tiếp</h3>
+          <p style="color: var(--ink-soft); margin-top: 8px; font-size: 15px;" data-i18n="compare_sub">Nhấn vào cột để highlight mô hình. Sắp xếp theo tiêu chí bên trái.</p>
+        </div>
+        <div class="compare-filter" role="tablist">
+          <span style="font-family: var(--font-mono); font-size: 11px; padding: 8px 8px 8px 12px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.1em;" data-i18n="compare_highlight">Highlight:</span>
+          <button data-highlight="all" class="active" data-i18n="compare_all">Tất cả</button>
+          <button data-highlight="1" data-i18n="m1_name">Dedicated</button>
+          <button data-highlight="2" data-i18n="m2_name">Fixed</button>
+          <button data-highlight="3" data-i18n="m3_name">T&M</button>
+        </div>
+      </div>
+
+      <div class="compare-wrap reveal">
+        <table class="compare-table" id="compare-table">
+          <thead>
+            <tr>
+              <th style="width: 210px;"></th>
+              <th data-col="1"><span data-i18n="m1_name">Dedicated Team</span></th>
+              <th data-col="2"><span data-i18n="m2_name">Fixed Price</span></th>
+              <th data-col="3"><span data-i18n="m3_name">T&M</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-row="desc"><th class="row-label" data-i18n="m_desc">Mô tả</th><td data-i18n="m1_desc_v"></td><td data-i18n="m2_desc_v"></td><td data-i18n="m3_desc_v"></td></tr>
+            <tr data-row="cost"><th class="row-label" data-i18n="m_cost">Chi phí</th><td data-i18n="m1_cost_v"></td><td data-i18n="m2_cost_v"></td><td data-i18n="m3_cost_v"></td></tr>
+            <tr data-row="flex"><th class="row-label" data-i18n="m_flex">Linh hoạt</th><td data-i18n="m1_flex_v"></td><td data-i18n="m2_flex_v"></td><td data-i18n="m3_flex_v"></td></tr>
+            <tr data-row="pm"><th class="row-label" data-i18n="m_pm">Quản lý</th><td data-i18n="m1_pm_v"></td><td data-i18n="m2_pm_v"></td><td data-i18n="m3_pm_v"></td></tr>
+            <tr data-row="pros"><th class="row-label" data-i18n="m_pros">Ưu điểm</th><td data-i18n="m1_pros_v"></td><td data-i18n="m2_pros_v"></td><td data-i18n="m3_pros_v"></td></tr>
+            <tr data-row="cons"><th class="row-label" data-i18n="m_cons">Nhược điểm</th><td data-i18n="m1_cons_v"></td><td data-i18n="m2_cons_v"></td><td data-i18n="m3_cons_v"></td></tr>
+            <tr data-row="fit"><th class="row-label" data-i18n="m_fit">Phù hợp</th><td data-i18n="m1_fit_v"></td><td data-i18n="m2_fit_v"></td><td data-i18n="m3_fit_v"></td></tr>
+            <tr data-row="min"><th class="row-label" data-i18n="m_min">Cam kết tối thiểu</th><td data-i18n="m1_min_v"></td><td data-i18n="m2_min_v"></td><td data-i18n="m3_min_v"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECH STACK ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="tech_eyebrow">Tech stack</span>
+      <h2 class="section-title" data-i18n="tech_title">Công nghệ chúng tôi tin dùng.</h2>
+      <p class="section-sub" data-i18n="tech_sub">Stack trưởng thành, được chọn theo bài toán — không theo trend.</p>
+    </div>
+    <div class="tech-grid reveal">
+      <div class="tech-card">
+        <h4 data-i18n="tech_frontend">Frontend</h4>
+        <div class="tech-pills">
+          <span class="tech-pill">React</span><span class="tech-pill">Next.js</span><span class="tech-pill">Vue</span><span class="tech-pill">Nuxt</span><span class="tech-pill">TypeScript</span><span class="tech-pill">Tailwind</span>
+        </div>
+      </div>
+      <div class="tech-card">
+        <h4 data-i18n="tech_backend">Backend</h4>
+        <div class="tech-pills">
+          <span class="tech-pill">Node.js</span><span class="tech-pill">Python</span><span class="tech-pill">Go</span><span class="tech-pill">Java</span><span class="tech-pill">.NET</span><span class="tech-pill">GraphQL</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">MongoDB</span>
+        </div>
+      </div>
+      <div class="tech-card">
+        <h4 data-i18n="tech_mobile">Mobile</h4>
+        <div class="tech-pills">
+          <span class="tech-pill">Swift</span><span class="tech-pill">SwiftUI</span><span class="tech-pill">Kotlin</span><span class="tech-pill">React Native</span><span class="tech-pill">Flutter</span>
+        </div>
+      </div>
+      <div class="tech-card">
+        <h4 data-i18n="tech_cloud">Cloud & DevOps</h4>
+        <div class="tech-pills">
+          <span class="tech-pill">AWS</span><span class="tech-pill">GCP</span><span class="tech-pill">Azure</span><span class="tech-pill">Kubernetes</span><span class="tech-pill">Docker</span><span class="tech-pill">Terraform</span><span class="tech-pill">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="tech-card">
+        <h4 data-i18n="tech_data">Data & AI</h4>
+        <div class="tech-pills">
+          <span class="tech-pill">Python</span><span class="tech-pill">TensorFlow</span><span class="tech-pill">PyTorch</span><span class="tech-pill">LangChain</span><span class="tech-pill">Snowflake</span><span class="tech-pill">dbt</span>
+        </div>
+      </div>
+      <div class="tech-card">
+        <h4 data-i18n="tech_iot">IoT</h4>
+        <div class="tech-pills">
+          <span class="tech-pill">MQTT</span><span class="tech-pill">ESP32</span><span class="tech-pill">Raspberry Pi</span><span class="tech-pill">AWS IoT Core</span><span class="tech-pill">Zigbee</span><span class="tech-pill">LoRaWAN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="stats-band reveal">
+      <h2 data-i18n="stats_title">Con số nói lên tất cả</h2>
+      <div class="stats-grid">
+        <div class="stat-cell">
+          <div class="stat-value">2025</div>
+          <div class="stat-label" data-i18n="stat1_l">Năm thành lập</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value" data-i18n="stat2_v">TP.HCM</div>
+          <div class="stat-label" data-i18n="stat2_l">Trụ sở</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value">45+</div>
+          <div class="stat-label" data-i18n="stat3_l">Kỹ sư full-time</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value">40+</div>
+          <div class="stat-label" data-i18n="stat4_l">Dự án bàn giao</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value">28</div>
+          <div class="stat-label" data-i18n="stat5_l">Khách hàng doanh nghiệp</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value">92%</div>
+          <div class="stat-label" data-i18n="stat6_l">Tỉ lệ khách hàng quay lại</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLIENTS ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-head reveal" style="text-align: center; margin: 0 auto 48px;">
+      <h3 style="font-size: 20px; font-weight: 500; color: var(--ink-mute); letter-spacing: -0.01em;" data-i18n="clients_title">Được tin dùng bởi các doanh nghiệp tiên phong</h3>
+    </div>
+    <div class="clients-row reveal">
+      <div class="client-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+        Kerova
+      </div>
+      <div class="client-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L22 20 L2 20 Z"/></svg>
+        Altair
+      </div>
+      <div class="client-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18"/></svg>
+        Monolith
+      </div>
+      <div class="client-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12 L12 4 L20 12 L12 20 Z"/></svg>
+        Orbit&nbsp;Co
+      </div>
+      <div class="client-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L16 10 L24 12 L16 14 L12 22 L8 14 L0 12 L8 10 Z"/></svg>
+        Nova
+      </div>
+      <div class="client-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+        Lumen
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="testi_eyebrow">Khách hàng nói gì</span>
+      <h2 class="section-title" data-i18n="testi_title">Kết quả thực tế, từ người thật.</h2>
+    </div>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <p class="testi-quote" data-i18n="testi1_q">"Nexora giao sản phẩm đúng tiến độ, chất lượng vượt mong đợi."</p>
+        <div class="testi-meta">
+          <div class="testi-avatar">NA</div>
+          <div>
+            <div class="testi-name" data-i18n="testi1_n">Nguyễn Minh Anh</div>
+            <div class="testi-role" data-i18n="testi1_r">CTO, FinStart Vietnam</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote" data-i18n="testi2_q">"Quy trình minh bạch, kỹ sư có chuyên môn cao."</p>
+        <div class="testi-meta">
+          <div class="testi-avatar" style="background: linear-gradient(135deg, var(--indigo), var(--cyan));">QB</div>
+          <div>
+            <div class="testi-name" data-i18n="testi2_n">Trần Quốc Bảo</div>
+            <div class="testi-role" data-i18n="testi2_r">Head of IT, Saigon Logistics</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote" data-i18n="testi3_q">"Họ không chỉ viết code — họ hiểu bài toán kinh doanh."</p>
+        <div class="testi-meta">
+          <div class="testi-avatar" style="background: linear-gradient(135deg, var(--cyan), var(--accent));">TV</div>
+          <div>
+            <div class="testi-name" data-i18n="testi3_n">Lê Thảo Vy</div>
+            <div class="testi-role" data-i18n="testi3_r">Founder, Orbit Commerce</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-copy">
+        <span class="eyebrow" data-i18n="about_eyebrow">Về Nexora</span>
+        <h2 class="section-title" style="max-width: 18ch;" data-i18n="about_title">Studio phần mềm sinh năm 2025, tại Sài Gòn.</h2>
+        <p data-i18n="about_p1">Nexora Technology được thành lập với niềm tin rằng phần mềm tốt không đến từ khuôn mẫu có sẵn — mà đến từ việc hiểu sâu bài toán, chọn đúng công cụ, và thực thi kỷ luật.</p>
+        <p data-i18n="about_p2">Chúng tôi là đội ngũ kỹ sư, thiết kế và quản lý sản phẩm cùng chung triết lý: làm ít hơn, làm tốt hơn.</p>
+      </div>
+      <div class="about-values">
+        <div class="about-value">
+          <div class="about-value-mark">01</div>
+          <div>
+            <h4 data-i18n="about_v1_t">Chất lượng trên hết</h4>
+            <p data-i18n="about_v1_d">Mỗi dòng code đều được review. Mỗi release đều được kiểm thử.</p>
+          </div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-mark">02</div>
+          <div>
+            <h4 data-i18n="about_v2_t">Minh bạch tuyệt đối</h4>
+            <p data-i18n="about_v2_d">Bạn biết mọi thứ chúng tôi đang làm, mọi lúc.</p>
+          </div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-mark">03</div>
+          <div>
+            <h4 data-i18n="about_v3_t">Đối tác dài hạn</h4>
+            <p data-i18n="about_v3_d">Sản phẩm sống rất lâu sau khi ra mắt. Chúng tôi ở đó cùng bạn.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="contact_eyebrow">Liên hệ</span>
+      <h2 class="section-title" data-i18n="contact_title">Hãy kể cho chúng tôi về dự án của bạn.</h2>
+      <p class="section-sub" data-i18n="contact_sub">Phản hồi trong vòng 24 giờ làm việc. Không spam, không telemarketing.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="contact-info-label" data-i18n="f_addr">Địa chỉ văn phòng</div>
+            <div class="contact-info-value">17/5 Tân Thuận Tây, Khu phố 34<br/>Phường Tân Thuận, TP. Hồ Chí Minh<br/>Việt Nam</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+          <div>
+            <div class="contact-info-label" data-i18n="f_email_l">Email</div>
+            <div class="contact-info-value"><a href="mailto:email@nexoratechno.com">email@nexoratechno.com</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div>
+            <div class="contact-info-label" data-i18n="f_phone">Điện thoại</div>
+            <div class="contact-info-value"><a href="tel:+84969536234">+84 969 536 234</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div>
+            <div class="contact-info-label" data-i18n="f_hours">Giờ làm việc</div>
+            <div class="contact-info-value" data-i18n="f_hours_v">Thứ 2 – Thứ 6, 9:00 – 18:00 (GMT+7)</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contact-form" novalidate>
+        <div id="form-body">
+          <div class="field-row">
+            <div class="field">
+              <label for="f-name" data-i18n="f_name">Họ và tên</label>
+              <input id="f-name" name="name" type="text" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="f-email" data-i18n="f_email">Email công việc</label>
+              <input id="f-email" name="email" type="email" required autocomplete="email" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-company" data-i18n="f_company">Công ty</label>
+            <input id="f-company" name="company" type="text" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label data-i18n="f_service">Dịch vụ quan tâm</label>
+            <div class="chips" id="service-chips">
+              <button type="button" class="chip" data-val="web" data-i18n="svc1_title">Website</button>
+              <button type="button" class="chip" data-val="mobile" data-i18n="svc2_title">Mobile</button>
+              <button type="button" class="chip" data-val="app" data-i18n="svc3_title">Application</button>
+              <button type="button" class="chip" data-val="maintenance" data-i18n="svc4_title">Maintenance</button>
+              <button type="button" class="chip" data-val="iot" data-i18n="svc5_title">IoT</button>
+              <button type="button" class="chip" data-val="legacy" data-i18n="svc6_title">Legacy</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-budget" data-i18n="f_budget">Ngân sách dự kiến</label>
+            <select id="f-budget" name="budget">
+              <option data-i18n-opt="0">Dưới 10.000 USD</option>
+              <option data-i18n-opt="1">10.000 – 50.000 USD</option>
+              <option data-i18n-opt="2">50.000 – 200.000 USD</option>
+              <option data-i18n-opt="3">Trên 200.000 USD</option>
+              <option data-i18n-opt="4">Chưa xác định</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-message" data-i18n="f_message">Mô tả ngắn về dự án</label>
+            <textarea id="f-message" name="message" rows="4"></textarea>
+          </div>
+          <div class="form-submit">
+            <small class="form-note mono">Secured · TLS 1.3</small>
+            <button type="submit" class="btn btn-accent" id="submit-btn">
+              <span data-i18n="f_submit">Gửi yêu cầu</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-success" id="form-success" hidden>
+          <div class="form-success-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3 data-i18n="f_success_t">Cảm ơn bạn!</h3>
+          <p data-i18n="f_success_d">Yêu cầu đã được gửi. Đội ngũ Nexora sẽ liên hệ lại trong 24 giờ.</p>
+          <button type="button" class="btn btn-ghost" id="form-reset" data-i18n="f_success_new">Gửi yêu cầu khác</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand" style="color: var(--bg);">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Nexora<span style="color: var(--accent);">.</span></span>
+        </a>
+        <p class="footer-tag" data-i18n="foot_tag">Software · Mobile · IoT · Cloud</p>
+        <p class="footer-tag" style="margin-top: 18px;">17/5 Tân Thuận Tây, Phường Tân Thuận<br/>TP. Hồ Chí Minh, Việt Nam</p>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="foot_services">Dịch vụ</h5>
+        <ul>
+          <li><a href="#services" data-i18n="svc1_title">Website</a></li>
+          <li><a href="#services" data-i18n="svc2_title">Mobile</a></li>
+          <li><a href="#services" data-i18n="svc3_title">Application</a></li>
+          <li><a href="#services" data-i18n="svc5_title">IoT</a></li>
+          <li><a href="#services" data-i18n="svc6_title">Legacy Migration</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="foot_company">Công ty</h5>
+        <ul>
+          <li><a href="#about" data-i18n="foot_l_about">Về chúng tôi</a></li>
+          <li><a href="#" data-i18n="foot_l_careers">Tuyển dụng</a></li>
+          <li><a href="#" data-i18n="foot_l_blog">Blog</a></li>
+          <li><a href="#contact" data-i18n="foot_l_contact">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="foot_legal">Pháp lý</h5>
+        <ul>
+          <li><a href="#" data-i18n="foot_l_privacy">Chính sách bảo mật</a></li>
+          <li><a href="#" data-i18n="foot_l_terms">Điều khoản dịch vụ</a></li>
+          <li><a href="#" data-i18n="foot_l_cookies">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <div data-i18n="foot_copy">© 2026 Nexora Technology. Đã đăng ký bản quyền.</div>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 6.84 9.5c.5.08.66-.22.66-.48v-1.7c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.64.71 1.03 1.61 1.03 2.71 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.16.57.67.48A10 10 0 0 0 22 12 10 10 0 0 0 12 2z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753c0-.249 1.51-2.772 1.818-4.013z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ TWEAKS ============ -->
+<aside class="tweaks" id="tweaks">
+  <div class="tweaks-head">
+    <span>Tweaks</span>
+    <span class="mono">nexora</span>
+  </div>
+  <div class="tweaks-section">
+    <div class="tweaks-label">Theme</div>
+    <div class="tweaks-theme-row">
+      <button data-tweak-theme="light">Light</button>
+      <button data-tweak-theme="dark">Dark</button>
+    </div>
+  </div>
+  <div class="tweaks-section">
+    <div class="tweaks-label">Accent</div>
+    <div class="tweaks-accent-row" id="accent-swatches"></div>
+  </div>
+</aside>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "theme": "light",
+    "accent": "#DAB660"
+  }/*EDITMODE-END*/;
+</script>
+
+<script src="i18n.js"></script>
+<script src="hero-canvas.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

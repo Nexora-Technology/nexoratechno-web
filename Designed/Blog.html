@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog — Nexora Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="subpages.css" />
+</head>
+<body>
+
+<header class="nav-wrap" id="nav">
+  <div class="container">
+    <nav class="nav">
+      <a href="Nexora Website.html#home" class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Nexora<span style="color: var(--accent);">.</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="Nexora Website.html#home" data-i18n="nav_home">Trang chủ</a></li>
+        <li><a href="Nexora Website.html#services" data-i18n="nav_services">Dịch vụ</a></li>
+        <li><a href="Case Studies.html">Case Studies</a></li>
+        <li><a href="Blog.html" class="active">Blog</a></li>
+        <li><a href="Careers.html">Careers</a></li>
+        <li><a href="Nexora Website.html#contact" data-i18n="nav_contact">Liên hệ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle"><button data-lang="vi">VI</button><button data-lang="en">EN</button></div>
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <a href="Nexora Website.html#contact" class="btn btn-primary desktop-cta" data-i18n="nav_cta">Bắt đầu dự án</a>
+        <button class="icon-btn mobile-burger" id="burger" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div id="app"></div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bot" style="border: 0; padding: 24px 0;">
+      <div>© 2026 Nexora Technology.</div>
+      <div>17/5 Tân Thuận Tây, TP.HCM · email@nexoratechno.com</div>
+    </div>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="data.js"></script>
+<script src="subpages.js"></script>
+<script>
+(function(){
+  NX.initSharedChrome();
+  const lang = NX.getLang();
+  const slug = NX.getSlug();
+  const app = document.getElementById('app');
+  const posts = window.NEXORA_DATA.blog;
+
+  const palettes = [
+    ['#4F46E5','#06B6D4'], ['#DAB660','#A7734A'], ['#7C3AED','#EC4899'],
+    ['#16A34A','#06B6D4'], ['#F59E0B','#DAB660'], ['#0EA5E9','#4F46E5']
+  ];
+
+  const STR = {
+    vi: { eyebrow:'Blog', title:'Ý tưởng, kỹ thuật và câu chuyện từ Nexora.', lead:'Những bài viết về cách chúng tôi nghĩ, làm việc và xây dựng phần mềm.', all:'Tất cả', back:'← Quay lại Blog', featured:'Bài nổi bật', cta_t:'Đăng ký nhận bài mới', cta_d:'Mỗi tháng một bài — không spam, không quảng cáo.', cta_b:'Đăng ký', written:'Bởi', read:'phút đọc' },
+    en: { eyebrow:'Blog', title:'Ideas, engineering and stories from Nexora.', lead:'Essays on how we think, work, and build software.', all:'All', back:'← Back to Blog', featured:'Featured', cta_t:'Get new posts by email', cta_d:'One post per month — no spam, no ads.', cta_b:'Subscribe', written:'By', read:'min read' }
+  }[lang];
+
+  const titleOf = p => lang==='vi'?p.title_vi:p.title_en;
+  const sumOf = p => lang==='vi'?p.summary_vi:p.summary_en;
+  const catOf = p => lang==='vi'?p.category_vi:p.category_en;
+  const dateOf = p => lang==='vi'?p.date_vi:p.date_en;
+  const readOf = p => lang==='vi'?p.read_vi:p.read_en;
+  const roleOf = p => lang==='vi'?p.author_role_vi:p.author_role_en;
+
+  if (slug) {
+    const post = posts.find(p => p.slug === slug);
+    if (!post) { app.innerHTML = `<div class="container detail-wrap"><p class="empty-state">Not found.</p></div>`; return; }
+    const body = lang==='vi'?post.body_vi:post.body_en;
+    const initials = post.author.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    const idx = posts.indexOf(post);
+    const [c1, c2] = palettes[idx % palettes.length];
+    const related = posts.filter(p => p.slug !== slug).slice(0, 3);
+
+    app.innerHTML = `
+      <section class="subpage-hero" style="padding-bottom:32px;">
+        <div class="container subpage-hero-inner">
+          <div class="crumb">
+            <a href="Nexora Website.html#home">Nexora</a><span class="crumb-sep">/</span>
+            <a href="Blog.html">${STR.eyebrow}</a><span class="crumb-sep">/</span><span>${catOf(post)}</span>
+          </div>
+          <span class="eyebrow">${catOf(post)}</span>
+          <h1 class="subpage-title" style="max-width:24ch;">${titleOf(post)}</h1>
+          <p class="subpage-lead">${sumOf(post)}</p>
+          <div class="detail-author" style="margin-top:28px; border:0; padding:16px 0 0;">
+            <div class="testi-avatar">${initials}</div>
+            <div>
+              <div class="detail-author-name">${post.author}</div>
+              <div class="detail-author-role">${roleOf(post)} · ${dateOf(post)} · ${readOf(post)}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
+        <div style="max-width:1080px; margin:40px auto 0; height:340px; border-radius:var(--r-xl); background:linear-gradient(135deg, ${c1} 0%, ${c2} 100%); position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px); background-size:40px 40px;"></div>
+        </div>
+
+        <div class="detail-wrap">
+          <div class="detail-body">
+            ${body.map(s => `
+              <h2>${s.h}</h2>
+              ${s.p ? `<p>${s.p}</p>` : ''}
+              ${s.list ? `<ul>${s.list.map(x=>`<li>${x}</li>`).join('')}</ul>` : ''}
+            `).join('')}
+          </div>
+
+          <div style="margin-top:40px;"><a href="Blog.html" class="btn btn-ghost">${STR.back}</a></div>
+        </div>
+
+        <div style="max-width:1080px; margin:0 auto; padding:60px 0 40px; border-top:1px solid var(--line);">
+          <h3 style="font-size:22px; letter-spacing:-0.02em; margin-bottom:24px;">${lang==='vi'?'Bài viết khác':'More reading'}</h3>
+          <div class="blog-grid">
+            ${related.map((p, i) => {
+              const [ca, cb] = palettes[(posts.indexOf(p)) % palettes.length];
+              return `<a class="blog-card" href="Blog.html?slug=${p.slug}" style="--c1:${ca}; --c2:${cb};">
+                <div class="blog-card-visual"></div>
+                <div class="blog-card-body">
+                  <div class="b-cat">${catOf(p)}</div>
+                  <h3>${titleOf(p)}</h3>
+                  <p class="b-sum">${sumOf(p)}</p>
+                  <div class="blog-card-foot"><span>${dateOf(p)}</span><span>${readOf(p)}</span></div>
+                </div>
+              </a>`;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // Listing
+  const cats = Array.from(new Set(posts.map(p => catOf(p))));
+  let activeFilter = 'all';
+
+  const render = () => {
+    const filtered = activeFilter==='all' ? posts : posts.filter(p => catOf(p) === activeFilter);
+    const [featured, ...rest] = filtered;
+    const fIdx = featured ? posts.indexOf(featured) : 0;
+
+    app.innerHTML = `
+      <section class="subpage-hero">
+        <div class="container subpage-hero-inner">
+          <div class="crumb">
+            <a href="Nexora Website.html#home">Nexora</a><span class="crumb-sep">/</span><span>${STR.eyebrow}</span>
+          </div>
+          <span class="eyebrow">${STR.eyebrow}</span>
+          <h1 class="subpage-title" style="margin-top:20px;">${STR.title}</h1>
+          <p class="subpage-lead">${STR.lead}</p>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top:64px;">
+        <div class="container">
+          <div class="listing-filters" id="f">
+            <button data-f="all" class="${activeFilter==='all'?'active':''}">${STR.all}</button>
+            ${cats.map(c => `<button data-f="${c}" class="${activeFilter===c?'active':''}">${c}</button>`).join('')}
+          </div>
+
+          ${featured ? `
+          <a class="blog-featured" href="Blog.html?slug=${featured.slug}">
+            <div class="blog-featured-visual">
+              <div class="blog-featured-label">${STR.featured}</div>
+            </div>
+            <div class="blog-featured-body">
+              <div class="b-cat">${catOf(featured)}</div>
+              <h2>${titleOf(featured)}</h2>
+              <p>${sumOf(featured)}</p>
+              <div style="font-size:13px; color:var(--ink-mute); font-family:var(--font-mono); letter-spacing:0.08em; text-transform:uppercase;">${post_author(featured)} · ${dateOf(featured)} · ${readOf(featured)}</div>
+            </div>
+          </a>` : ''}
+
+          <div class="blog-grid">
+            ${rest.map(p => {
+              const i = posts.indexOf(p);
+              const [ca, cb] = palettes[i % palettes.length];
+              return `<a class="blog-card" href="Blog.html?slug=${p.slug}" style="--c1:${ca}; --c2:${cb};">
+                <div class="blog-card-visual"></div>
+                <div class="blog-card-body">
+                  <div class="b-cat">${catOf(p)}</div>
+                  <h3>${titleOf(p)}</h3>
+                  <p class="b-sum">${sumOf(p)}</p>
+                  <div class="blog-card-foot"><span>${dateOf(p)}</span><span>${readOf(p)}</span></div>
+                </div>
+              </a>`;
+            }).join('')}
+          </div>
+
+          <div class="detail-cta" style="margin-top:80px;">
+            <div><h3>${STR.cta_t}</h3><p>${STR.cta_d}</p></div>
+            <a href="Nexora Website.html#contact" class="btn btn-accent">${STR.cta_b}</a>
+          </div>
+        </div>
+      </section>
+    `;
+    document.querySelectorAll('#f button').forEach(b => {
+      b.addEventListener('click', () => { activeFilter = b.dataset.f; render(); });
+    });
+  };
+
+  function post_author(p){ return p.author; }
+
+  render();
+})();
+</script>
+</body>
+</html>

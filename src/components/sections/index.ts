@@ -1,0 +1,11 @@
+export { default as Hero } from './hero';
+export { default as Marquee } from './marquee';
+export { default as Services } from './services';
+export { default as Process } from './process';
+export { default as Models } from './models';
+export { default as TechStack } from './tech-stack';
+export { default as Stats } from './stats';
+export { default as Clients } from './clients';
+export { default as Testimonials } from './testimonials';
+export { default as About } from './about';
+export { default as Contact } from './contact';

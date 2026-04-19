@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Providers } from '@/components/providers/providers';
+import Navbar from '@/components/layout/navbar';
+import Footer from '@/components/layout/footer';
 import '@/app/globals.css';
 
 interface LocaleLayoutProps {
@@ -44,7 +46,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html lang={locale} suppressHydrationWarning>
       <body>
         <Providers locale={locale} messages={messages}>
-          {children}
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>

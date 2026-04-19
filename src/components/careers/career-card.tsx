@@ -29,14 +29,10 @@ export default function CareerCard({ career, locale }: Props) {
     <Link href={`/${locale}/careers/${career.slug}`} className="career-card">
       {/* Col 1: info */}
       <div>
-        <span className="c-dept">{career.dept}</span>
-        <h3 className="text-xl font-display font-semibold tracking-tight text-[var(--color-ink)] mt-2">
-          {career.title}
-        </h3>
-        <p className="text-sm text-[var(--color-ink-soft)] leading-relaxed mt-3 max-w-[58ch]">
-          {career.summary}
-        </p>
-        <div className="tag-row mt-4">
+        <div className="c-dept">{career.dept} · {career.level}</div>
+        <h3 className="c-title">{career.title}</h3>
+        <p className="c-sum">{career.summary}</p>
+        <div className="tag-row">
           {career.tags.map((tag) => (
             <span key={tag} className="tag-pill">{tag}</span>
           ))}
@@ -47,7 +43,7 @@ export default function CareerCard({ career, locale }: Props) {
       <div className="career-meta">
         <div className="career-meta-row"><MapPinIcon />{career.location}</div>
         <div className="career-meta-row"><BriefcaseIcon />{career.type}</div>
-        <div className="career-meta-row"><ClockIcon />{career.level}</div>
+        <div className="career-meta-row"><ClockIcon />{career.salary} USD</div>
       </div>
 
       {/* Col 3: arrow */}
@@ -83,6 +79,20 @@ export default function CareerCard({ career, locale }: Props) {
           letter-spacing: 0.12em;
           text-transform: uppercase;
           color: var(--color-accent-ink);
+        }
+        .c-title {
+          font-size: 22px;
+          margin-top: 8px;
+          letter-spacing: -0.015em;
+          color: var(--color-ink);
+          line-height: 1.3;
+        }
+        .c-sum {
+          margin-top: 8px;
+          color: var(--color-ink-soft);
+          font-size: 14px;
+          line-height: 1.55;
+          max-width: 58ch;
         }
         .career-meta {
           display: flex;
@@ -121,7 +131,7 @@ export default function CareerCard({ career, locale }: Props) {
           border-radius: 9999px;
           color: var(--color-ink-soft);
         }
-        .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
       `}</style>
     </Link>
   );

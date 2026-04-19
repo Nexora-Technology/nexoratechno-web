@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import type { CaseStudy } from '@/lib/static-content';
 
@@ -23,19 +25,10 @@ export default function CaseCard({ item, locale }: Props) {
 
       {/* Body */}
       <div className="case-body">
-        <h3 className="text-xl font-display font-semibold tracking-tight text-[var(--color-ink)] leading-snug">
-          {item.title}
-        </h3>
-        <p className="text-sm text-[var(--color-ink-soft)] leading-relaxed line-clamp-2">
-          {item.summary}
-        </p>
-        <div className="flex flex-wrap gap-1.5 mt-3">
-          {item.services.map((svc) => (
-            <span key={svc} className="tag-pill">{svc}</span>
-          ))}
-        </div>
+        <h3>{item.title}</h3>
+        <p>{item.summary}</p>
         <div className="case-foot">
-          <span><strong>{item.team}</strong></span>
+          <span>{item.services.slice(0, 2).join(' · ')}</span>
           <span>{item.duration}</span>
         </div>
       </div>
@@ -122,7 +115,7 @@ export default function CaseCard({ item, locale }: Props) {
           gap: 16px;
           flex: 1;
         }
-        .case-body h3 { font-size: 22px; letter-spacing: -0.015em; line-height: 1.25; }
+        .case-body h3 { font-size: 22px; letter-spacing: -0.015em; line-height: 1.25; color: var(--color-ink); }
         .case-body p { font-size: 14.5px; color: var(--color-ink-soft); line-height: 1.55; }
         .case-foot {
           display: flex;
@@ -134,8 +127,6 @@ export default function CaseCard({ item, locale }: Props) {
           font-size: 13px;
           color: var(--color-ink-soft);
         }
-        .case-foot strong { color: var(--color-ink); font-weight: 600; }
-        .tag-pill { display:inline-block; padding:4px 10px; font-size:12px; font-weight:500; background:var(--color-bg-soft); border:1px solid var(--color-line); border-radius:9999px; color:var(--color-ink-soft); }
       `}</style>
     </Link>
   );

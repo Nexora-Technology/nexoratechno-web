@@ -45,6 +45,15 @@ export default function Navbar() {
     router.replace(pathname, { locale: lang });
   }
 
+  function handleAnchorNav(e: React.MouseEvent, anchor: string) {
+    const isHome = pathname === '/';
+    if (!isHome) {
+      e.preventDefault();
+      router.push('/' + anchor);
+    }
+    if (mobileOpen) setMobileOpen(false);
+  }
+
   return (
     <header className={`nav-wrap${scrolled ? ' scrolled' : ''}`} role="banner">
       <div className="container">
@@ -58,12 +67,12 @@ export default function Navbar() {
           {/* Desktop Links */}
           <ul className="nav-links" role="list">
             {NAV_ANCHORS.map(({ anchor, key }) => (
-              <li key={key}><a href={anchor}>{t(key)}</a></li>
+              <li key={key}><a href={anchor} onClick={(e) => handleAnchorNav(e, anchor)}>{t(key)}</a></li>
             ))}
-            <li><Link href="/case-studies">Case Studies</Link></li>
-            <li><Link href="/blog">Blog</Link></li>
-            <li><Link href="/careers">Careers</Link></li>
-            <li><a href="#contact">{t('nav_contact')}</a></li>
+            <li><Link href={`/${locale}/case-studies`}>Case Studies</Link></li>
+            <li><Link href={`/${locale}/blog`}>Blog</Link></li>
+            <li><Link href={`/${locale}/careers`}>Careers</Link></li>
+            <li><a href="#contact" onClick={(e) => handleAnchorNav(e, '#contact')}>{t('nav_contact')}</a></li>
           </ul>
 
           {/* Actions */}
@@ -109,12 +118,12 @@ export default function Navbar() {
         {mobileOpen && (
           <div className="mobile-menu">
             {NAV_ANCHORS.map(({ anchor, key }) => (
-              <a key={key} href={anchor} onClick={() => setMobileOpen(false)}>{t(key)}</a>
+              <a key={key} href={anchor} onClick={(e) => handleAnchorNav(e, anchor)}>{t(key)}</a>
             ))}
-            <Link href="/case-studies" onClick={() => setMobileOpen(false)}>Case Studies</Link>
-            <Link href="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
-            <Link href="/careers" onClick={() => setMobileOpen(false)}>Careers</Link>
-            <a href="#contact" onClick={() => setMobileOpen(false)}>{t('nav_contact')}</a>
+            <Link href={`/${locale}/case-studies`} onClick={() => setMobileOpen(false)}>Case Studies</Link>
+            <Link href={`/${locale}/blog`} onClick={() => setMobileOpen(false)}>Blog</Link>
+            <Link href={`/${locale}/careers`} onClick={() => setMobileOpen(false)}>Careers</Link>
+            <a href="#contact" onClick={(e) => handleAnchorNav(e, '#contact')}>{t('nav_contact')}</a>
           </div>
         )}
       </div>

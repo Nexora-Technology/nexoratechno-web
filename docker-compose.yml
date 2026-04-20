@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: nexora/web:latest
+    image: nhatduyfirst/nexoratechno-web:latest
     container_name: nexora_web
     restart: unless-stopped
     ports:

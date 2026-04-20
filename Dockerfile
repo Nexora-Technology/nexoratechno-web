@@ -28,6 +28,9 @@ RUN addgroup --system --gid 1001 nodejs \
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Git SHA label for deploy tracking
+LABEL git_sha="${GIT_SHA:-unknown}"
+
 USER nextjs
 EXPOSE 3000
 

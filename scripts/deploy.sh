@@ -20,7 +20,7 @@ run_deploy() {
   log "=== Starting deployment ==="
 
   log "Pulling: $IMAGE:latest"
-  docker pull "$IMAGE:latest"
+  docker pull --platform linux/amd64 "$IMAGE:latest"
 
   log "Stopping and removing old web container..."
   docker compose -f "$COMPOSE_FILE" stop web 2>/dev/null || true

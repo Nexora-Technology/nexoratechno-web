@@ -60,8 +60,11 @@ export default function Navbar() {
         <nav className="nav" aria-label="Main navigation">
           {/* Brand */}
           <Link href="/" className="brand" aria-label="Nexora Technology home">
-            <div className="brand-mark" aria-hidden="true" />
-            <span>Nexora<span style={{ color: 'var(--color-accent)' }}>.</span></span>
+            <img
+              src="https://nexoratechno.com/wp-content/uploads/YOUR_LOGO_FILE.png"
+              alt="Nexora Technology"
+              className="brand-logo"
+            />
           </Link>
 
           {/* Desktop Links */}
@@ -141,20 +144,14 @@ export default function Navbar() {
           box-shadow: 0 1px 0 var(--color-line);
         }
         .nav { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+        .brand-logo {
+          height: 32px; width: auto; object-fit: contain; flex-shrink: 0;
+        }
         .brand {
           display: flex; align-items: center; gap: 10px;
           font-family: var(--font-display); font-weight: 600;
           font-size: 18px; letter-spacing: -0.01em; color: var(--color-ink);
           flex-shrink: 0;
-        }
-        .brand-mark {
-          width: 28px; height: 28px; border-radius: 7px;
-          background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-grad-start) 60%, var(--color-grad-end) 100%);
-          position: relative; box-shadow: 0 4px 10px rgba(218,182,96,0.3); flex-shrink: 0;
-        }
-        .brand-mark::after {
-          content: ""; position: absolute; inset: 6px; border-radius: 3px;
-          background: var(--color-bg); clip-path: polygon(0 100%, 0 0, 100% 100%, 100% 35%);
         }
         .nav-links {
           display: flex; gap: 4px; list-style: none; padding: 0; margin: 0; flex: 1; justify-content: center;

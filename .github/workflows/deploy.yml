@@ -22,13 +22,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Extract version from commit
-        id: version
-        run: |
-          TAG_NAME=$(echo "${{ github.sha }}" | cut -c1-8)
-          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
-          echo "git_sha=${{ github.sha }}" >> $GITHUB_OUTPUT
-
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
@@ -38,7 +31,6 @@ jobs:
             GIT_SHA=${{ github.sha }}
           tags: |
             nhatduyfirst/nexoratechno-web:latest
-            nhatduyfirst/nexoratechno-web:${{ steps.version.outputs.tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -50,4 +42,4 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT || '22' }}
           script: |
-            /opt/nexora/deploy.sh run
+            /home/ubuntu/Website_server/nexoratechno.com/deploy.sh run

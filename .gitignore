@@ -23,6 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Docker data (created on server)
+data/
+
 # Local env files
 .env*.local
 .env

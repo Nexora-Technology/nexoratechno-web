@@ -1,135 +1,185 @@
-# WordPress + WPGraphQL Setup Guide
+# Docker Stack — Next.js + WordPress + MySQL
 
-## Quick Start
+One `docker compose up -d` brings up the entire stack:
 
-### 1. Start Docker containers
+| Service     | Container           | Host port (default) | Internal |
+|-------------|--------------------|---------------------|---------|
+| `web`       | `nexora_web`       | `3000`              | Next.js 16 production build |
+| `wordpress` | `nexora_wordpress` | `8080`              | WordPress 6.7 + Apache |
+| `mysql`     | `nexora_mysql`     | — (internal only)   | MySQL 8.4 |
+
+Next.js talks to WordPress inside the Docker network via `http://wordpress/graphql`, so the WP port does not need to be public when everything runs on the same host.
+
+---
+
+## 1. First-time setup
+
 ```bash
+# 1. Copy env template (populates ports, DB passwords, SMTP)
+cp .env.local.example .env
+
+# 2. Edit .env — set strong DB passwords and real SMTP credentials
+#    For production, also set WP_PUBLIC_URL=https://your-domain.com/wp
+
+# 3. Build + start everything
+docker compose up -d --build
+
+# 4. Tail logs until WordPress is ready
+docker compose logs -f wordpress
+```
+
+Then open WordPress admin at `http://localhost:${WP_PORT}/wp-admin` and complete the install wizard (see plugin list below).
+
+## 2. Required WordPress plugins
+
+Install + activate from **Plugins → Add New**:
+
+- **WPGraphQL** — exposes the GraphQL API used by Next.js
+- **WPGraphQL IDE** — GraphQL explorer (admin only, optional)
+- **Custom Post Type UI** — creates `career` and `case_study` post types
+- **Advanced Custom Fields (ACF)** — ACF field groups for career/case meta
+- **WPGraphQL for Advanced Custom Fields** — exposes ACF fields to GraphQL
+
+Post type + ACF field spec: see “Custom post types” section at the bottom.
+
+---
+
+## 3. Updating the Next.js image
+
+Code changes to the Next.js app require a rebuild:
+
+```bash
+docker compose up -d --build web
+```
+
+WordPress and MySQL keep running — only the web container is rebuilt and restarted.
+
+---
+
+## 4. Deploying behind the server's Nginx
+
+The server already runs Nginx as the public TLS terminator. Docker only exposes the two app ports on `127.0.0.1` — Nginx proxies everything else.
+
+### Example Nginx config (same domain, WP at `/wp`)
+
+```nginx
+server {
+  listen 443 ssl http2;
+  server_name nexoratechno.com;
+
+  ssl_certificate     /etc/letsencrypt/live/nexoratechno.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/nexoratechno.com/privkey.pem;
+
+  # WordPress admin + GraphQL live under /wp
+  location /wp/ {
+    proxy_pass         http://127.0.0.1:8080/;
+    proxy_set_header   Host              $host;
+    proxy_set_header   X-Real-IP         $remote_addr;
+    proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
+    proxy_read_timeout 60s;
+  }
+
+  # Everything else → Next.js
+  location / {
+    proxy_pass         http://127.0.0.1:3000;
+    proxy_set_header   Host              $host;
+    proxy_set_header   X-Real-IP         $remote_addr;
+    proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+    proxy_set_header   Upgrade           $http_upgrade;
+    proxy_set_header   Connection        "upgrade";
+  }
+}
+```
+
+### Matching `.env` on the production server
+
+```bash
+WEB_PORT=3000
+WP_PORT=8080
+WP_PUBLIC_URL=https://nexoratechno.com/wp
+```
+
+Then:
+
+```bash
+docker compose up -d --build
+```
+
+The `WP_PUBLIC_URL` value is baked into `WP_HOME` / `WP_SITEURL`, so WordPress generates correct links even though it is hidden behind Nginx.
+
+If you change `WP_PUBLIC_URL` after install, either wipe `wordpress_data` or run:
+
+```bash
+docker exec nexora_wordpress wp option update home     "$WP_PUBLIC_URL" --allow-root
+docker exec nexora_wordpress wp option update siteurl  "$WP_PUBLIC_URL" --allow-root
+docker exec nexora_wordpress wp rewrite flush         --allow-root
+```
+
+---
+
+## 5. Useful commands
+
+```bash
+# Start / stop / restart everything
 docker compose up -d
-```
+docker compose down
+docker compose restart web
 
-### 2. Access WordPress Admin
-Open your browser and navigate to: **http://localhost:8080/wp-admin**
+# Logs
+docker compose logs -f web
+docker compose logs -f wordpress
 
-### 3. Complete WordPress Setup Wizard
-Fill in the required information:
-- **Site Title:** Nexora Techno
-- **Username:** (choose a secure admin username)
-- **Password:** (use the generated strong password)
-- **Email:** admin@nexoratechno.com
+# Shell into a container
+docker exec -it nexora_wordpress bash
+docker exec -it nexora_mysql     mysql -u root -p
 
-### 4. Install Required Plugins
-After WordPress setup:
-
-1. Go to **Plugins → Add New**
-2. Search and install:
-   - **WPGraphQL** — GraphQL API for WordPress
-   - **WPGraphQL IDE** — Interactive GraphQL explorer
-   - **Custom Post Type UI** — For creating Careers & Case Studies post types
-3. Activate each plugin after installation
-
-### 5. Create Custom Post Types
-
-Using **Custom Post Type UI** plugin:
-
-#### Careers
-- **Post Type Slug:** `career`
-- **Label:** `Careers`
-- **Supports:** title, editor, excerpt
-- Add ACF field group for:
-  - `department` (text)
-  - `location` (text)
-  - `salary` (text)
-  - `jobType` (select: Full-time, Part-time, Contract)
-  - `level` (select: Junior, Mid, Senior, Lead)
-
-#### Case Studies
-- **Post Type Slug:** `case_study`
-- **Label:** `Case Studies`
-- **Supports:** title, editor, excerpt, thumbnail
-- Add ACF field group for:
-  - `client` (text)
-  - `industry` (text)
-  - `year` (text)
-  - `duration` (text)
-  - `team` (text)
-  - `color` (text, hex color)
-
-### 6. Register Custom Post Types in WPGraphQL
-
-Add to your theme's `functions.php` or a custom plugin:
-
-```php
-add_action('init', function() {
-  add_filter('cpt_post_types', function($types) {
-    $types['career'] = ['show_in_graphql' => true, 'graphql_single_name' => 'career', 'graphql_plural_name' => 'careers'];
-    $types['case_study'] = ['show_in_graphql' => true, 'graphql_single_name' => 'caseStudy', 'graphql_plural_name' => 'caseStudies'];
-    return $types;
-  });
-});
-```
-
-Or install **WPGraphQL for Custom Post Types** add-on.
-
-### 7. WPGraphQL Endpoint
-
-The GraphQL endpoint is available at:
-**http://localhost:8080/graphql**
-
-Test queries in the WPGraphQL IDE at:
-**http://localhost:8080/wp-admin/graphql-ide**
-
----
-
-## Useful WP-CLI Commands
-
-```bash
-# Activate plugin
-docker exec nexora_wordpress wp plugin activate wp-graphql
-
-# Flush rewrite rules
-docker exec nexora_wordpress wp rewrite flush
-
-# Import sample content
-docker exec nexora_wordpress wp import /path/to/sample-content.xml --authors=create
-
-# Update permalink structure
-docker exec nexora_wordpress wp rewrite structure '/%postname%/'
+# Wipe + start fresh (DELETES WP content + DB)
+docker compose down -v && docker compose up -d --build
 ```
 
 ---
 
-## Environment Variables (Next.js)
+## 6. Custom post types
 
-Copy `.env.local.example` to `.env.local` and configure:
+### Careers  (`career` / `careers`)
+Supports: `title`, `editor`, `excerpt`.
+ACF field group `careerMeta`:
+- `department` (text)
+- `location` (text)
+- `salary` (text)
+- `jobType` (select: Full-time / Part-time / Contract)
+- `level` (select: Junior / Mid / Senior / Lead)
 
-```bash
-cp .env.local.example .env.local
-```
+### Case Studies  (`case_study` / `caseStudy`)
+Supports: `title`, `editor`, `excerpt`, `thumbnail`.
+ACF field group `caseMeta`:
+- `client` (text)
+- `industry` (text)
+- `year` (text)
+- `duration` (text)
+- `team` (text)
+- `color` (text, hex)
 
-Update these variables:
-- `WPGRAPHQL_URL` — WordPress GraphQL endpoint
-- `SMTP_*` — Email settings for contact form
+Both CPTs must have `show_in_graphql: true` with the exact `graphql_single_name` / `graphql_plural_name` shown above — the Next.js queries expect these names.
 
 ---
 
-## Troubleshooting
+## 7. Troubleshooting
 
-### WordPress container not starting
-Check Docker logs: `docker compose logs wordpress`
-
-### Database connection issues
+**Web container exits immediately** — check the build logs:
 ```bash
-docker compose exec mysql mysql -u nexora_wp -pnexora_wp_pass
+docker compose logs web
+```
+Most common cause: `npm run build` failure. Run `npm run build` locally first.
+
+**`wordpress/graphql` returns 404** — WPGraphQL not installed/activated yet, or permalinks not flushed:
+```bash
+docker exec nexora_wordpress wp rewrite flush --allow-root
 ```
 
-### Clear all data and start fresh
-```bash
-docker compose down -v   # Remove volumes
-docker compose up -d     # Fresh start
-```
+**GraphQL queries return empty** — custom post types not registered in GraphQL. Verify CPT UI settings have `show_in_graphql: true`.
 
-### Restart services
-```bash
-docker compose restart wordpress
-docker compose restart mysql
-```
+**Database connection errors** — MySQL still starting. `healthcheck` should gate this automatically; if not, restart the WP container.

@@ -1,21 +1,64 @@
-version: '3.9'
-
 services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nexora/web:latest
+    container_name: nexora_web
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      # Internal GraphQL endpoint — Next.js SSR talks to WP over Docker network
+      WPGRAPHQL_URL: http://wordpress/graphql
+      # Base URL of WP container on the Docker network (used by rewrites for /wp-admin etc.)
+      WP_INTERNAL_URL: http://wordpress
+      # Public-facing site URL (also used as WP_HOME / WP_SITEURL)
+      WP_PUBLIC_URL: ${WP_PUBLIC_URL:-http://localhost:3000}
+      # Contact form SMTP
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    networks:
+      - nexora_network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --server-response http://127.0.0.1:3000/ 2>&1 | awk 'NR==1{exit ($2<200||$2>=400)}'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
   wordpress:
     image: wordpress:6.7-php8.3-apache
     container_name: nexora_wordpress
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "${WP_PORT:-8080}:80"
     environment:
       WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_NAME: nexora_wp
-      WORDPRESS_DB_USER: nexora_wp
-      WORDPRESS_DB_PASSWORD: nexora_wp_pass
+      WORDPRESS_DB_NAME: ${WP_DB_NAME:-nexora_wp}
+      WORDPRESS_DB_USER: ${WP_DB_USER:-nexora_wp}
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD:-nexora_wp_pass}
       WORDPRESS_TABLE_PREFIX: wp_
+      # WP_HOME / WP_SITEURL match the public URL — admin served via Next.js rewrites
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', '${WP_PUBLIC_URL:-http://localhost:3000}');
+        define('WP_SITEURL', '${WP_PUBLIC_URL:-http://localhost:3000}');
+        if (!empty($$_SERVER['HTTP_X_FORWARDED_PROTO']) && $$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') { $$_SERVER['HTTPS'] = 'on'; }
+        // Force Apache redirects to use WP_HOME host instead of internal Docker hostname
+        $$wp_home_parts = parse_url(WP_HOME);
+        $$_SERVER['HTTP_HOST']   = $$wp_home_parts['host'] . (isset($$wp_home_parts['port']) ? ':' . $$wp_home_parts['port'] : '');
+        $$_SERVER['SERVER_NAME'] = $$wp_home_parts['host'];
     volumes:
       - wordpress_data:/var/www/html
       - ./docker/wordpress/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+      - ./docker/wordpress/mu-plugins:/var/www/html/wp-content/mu-plugins:ro
     depends_on:
       mysql:
         condition: service_healthy
@@ -32,10 +75,10 @@ services:
     container_name: nexora_mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: nexora_wp
-      MYSQL_USER: nexora_wp
-      MYSQL_PASSWORD: nexora_wp_pass
-      MYSQL_ROOT_PASSWORD: nexora_root_pass
+      MYSQL_DATABASE: ${WP_DB_NAME:-nexora_wp}
+      MYSQL_USER: ${WP_DB_USER:-nexora_wp}
+      MYSQL_PASSWORD: ${WP_DB_PASSWORD:-nexora_wp_pass}
+      MYSQL_ROOT_PASSWORD: ${WP_DB_ROOT_PASSWORD:-nexora_root_pass}
     volumes:
       - mysql_data:/var/lib/mysql
     networks:

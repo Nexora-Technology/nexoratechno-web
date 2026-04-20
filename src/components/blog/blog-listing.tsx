@@ -27,7 +27,7 @@ export default function BlogListing({ staticPosts, locale }: Props) {
         if (Array.isArray(data) && data.length > 0) {
           const mapped: BlogPost[] = data.map((p: Record<string, unknown>) => {
             const cats = p.categories as Record<string, unknown> | null;
-            const catNode = (cats && typeof cats === 'object') ? (cats as {nodes?: Array<{node:{name:string}}>}).nodes?.[0]?.node?.name : 'General';
+            const catNode = (cats && typeof cats === 'object') ? (cats as {nodes?: Array<{name:string}>}).nodes?.[0]?.name : 'General';
             const auth = p.author as Record<string, unknown> | null;
             const authName = (auth && typeof auth === 'object') ? (auth as {node:{name:string}}).node?.name : '';
             return {

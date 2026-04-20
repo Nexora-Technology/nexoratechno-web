@@ -15,7 +15,8 @@ export interface WPMedia {
 }
 
 export interface WPCategory {
-  node: { name: string; slug: string };
+  name: string;
+  slug: string;
 }
 
 // ─── ACF Meta Types ────────────────────────────────────────────────────────────
@@ -88,7 +89,7 @@ export const POST_BASE_FIELDS = gql`
     author {
       node { name slug }
     }
-    categories { nodes { node { name slug } } }
+    categories { nodes { name slug } }
     featuredImage { node { sourceUrl altText } }
   }
 `;

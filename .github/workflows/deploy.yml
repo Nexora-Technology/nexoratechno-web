@@ -32,7 +32,7 @@ jobs:
             GIT_SHA=${{ github.sha }}
           tags: |
             nhatduyfirst/nexoratechno-web:latest
-          cache-from: type=gha
+          cache-from: type=gha,mode=max
           cache-to: type=gha,mode=max
 
       - name: Deploy to server via SSH

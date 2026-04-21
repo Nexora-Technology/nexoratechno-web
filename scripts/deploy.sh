@@ -19,19 +19,22 @@ log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"; }
 run_deploy() {
   log "=== Starting deployment ==="
 
+  # Pull new image first — minimizes downtime window
   log "Pulling: $IMAGE:latest"
   docker pull --platform linux/amd64 "$IMAGE:latest"
 
+  # Stop and remove old container (old image becomes dangling after pull above)
   log "Stopping and removing old web container..."
   docker compose -f "$COMPOSE_FILE" stop web 2>/dev/null || true
   docker compose -f "$COMPOSE_FILE" rm -f web 2>/dev/null || true
 
-  log "Pruning unused images..."
-  docker image prune -f --filter "until=168h" 2>/dev/null || true
+  # Prune dangling images now that old container is gone
+  log "Pruning dangling images..."
+  docker image prune -f 2>/dev/null || true
 
+  # Start new container using the already-pulled image
   log "Starting new web container..."
   cd "$COMPOSE_DIR"
-  docker compose pull web
   docker compose up -d --no-deps web
 
   log "=== Deployment complete ==="

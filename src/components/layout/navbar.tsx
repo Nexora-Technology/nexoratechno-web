@@ -61,7 +61,7 @@ export default function Navbar() {
           {/* Brand */}
           <Link href="/" className="brand" aria-label="Nexora Technology home">
             <img
-              src="https://nexoratechno.com/wp-content/uploads/YOUR_LOGO_FILE.png"
+              src="https://nexoratechno.com/wp-content/uploads/2026/04/logo_nex.png"
               alt="Nexora Technology"
               className="brand-logo"
             />

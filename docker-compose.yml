@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: nhatduyfirst/nexoratechno-web:latest
+    platform: linux/arm64
     container_name: nexora_web
     restart: unless-stopped
     ports:

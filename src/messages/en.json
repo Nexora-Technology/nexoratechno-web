@@ -106,7 +106,7 @@
   "m_min": "Min commitment",
 
   "m1_desc_v": "You hire a full-time development team as if they were internal staff.",
-  "m1_cost_v": "Monthly / quarterly",
+  "m1_cost_v": "Monthly",
   "m1_flex_v": "Very flexible — tasks can shift anytime",
   "m1_pm_v": "Client-led (Nexora can provide a PM on request)",
   "m1_pros_v": "Great for long-term · Dedicated, scalable team",
@@ -130,7 +130,7 @@
   "m3_pros_v": "Start fast · Fits evolving scope",
   "m3_cons_v": "Budget can grow if not tracked",
   "m3_fit_v": "R&D, PoC, evolving requirements",
-  "m3_min_v": "No long-term commitment",
+  "m3_min_v": "Commitment of at least 1 month",
 
   "compare_title": "Head-to-head comparison",
   "compare_sub": "Click a column to highlight. Sort by any criterion on the left.",
@@ -160,7 +160,7 @@
   "clients_sub": "From startups to enterprises — Nexora is the tech partner behind.",
 
   "testi_eyebrow": "What clients say",
-  "testi_title": "Real results, from real people.",
+  "testi_title": "Reviews from clients",
   "testi1_q": "Nexora delivered on time, with quality above expectations. We treat them as part of our internal team.",
   "testi1_n": "Nguyen Minh Anh",
   "testi1_r": "CTO, FinStart Vietnam",

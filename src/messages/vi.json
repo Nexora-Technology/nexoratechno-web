@@ -106,7 +106,7 @@
   "m_min": "Cam kết tối thiểu",
 
   "m1_desc_v": "Khách hàng thuê đội ngũ phát triển toàn thời gian như nhân viên nội bộ.",
-  "m1_cost_v": "Theo tháng / quý",
+  "m1_cost_v": "Theo tháng",
   "m1_flex_v": "Rất linh hoạt — nhiệm vụ có thể thay đổi bất cứ lúc nào",
   "m1_pm_v": "Khách hàng quản lý trực tiếp (Nexora hỗ trợ PM nếu cần)",
   "m1_pros_v": "Phù hợp dự án dài hạn · Đội ngũ chuyên dụng, có thể mở rộng",
@@ -130,7 +130,7 @@
   "m3_pros_v": "Bắt đầu nhanh · Phù hợp phạm vi đang phát triển",
   "m3_cons_v": "Ngân sách có thể tăng nếu không theo dõi đúng",
   "m3_fit_v": "R&D, PoC, khách hàng có yêu cầu thay đổi",
-  "m3_min_v": "Không cần cam kết dài hạn",
+  "m3_min_v": "Cam kết tối thiểu 1 tháng",
 
   "compare_title": "So sánh trực tiếp",
   "compare_sub": "Nhấn vào cột để highlight mô hình bạn quan tâm. Sắp xếp theo tiêu chí bên trái.",
@@ -138,7 +138,7 @@
   "compare_all": "Tất cả",
 
   "tech_eyebrow": "Tech stack",
-  "tech_title": "Công nghệ chúng tôi tin dùng.",
+  "tech_title": "Công nghệ chúng tôi sử dụng",
   "tech_sub": "Stack trưởng thành, được chọn theo bài toán — không theo trend.",
   "tech_frontend": "Frontend",
   "tech_backend": "Backend",
@@ -160,7 +160,7 @@
   "clients_sub": "Từ startup đến tập đoàn — Nexora là đối tác công nghệ đằng sau.",
 
   "testi_eyebrow": "Khách hàng nói gì",
-  "testi_title": "Kết quả thực tế, từ người thật.",
+  "testi_title": "Review từ khách hàng",
   "testi1_q": "Nexora giao sản phẩm đúng tiến độ, chất lượng vượt mong đợi. Chúng tôi coi họ như một phần của đội ngũ nội bộ.",
   "testi1_n": "Nguyễn Minh Anh",
   "testi1_r": "CTO, FinStart Vietnam",

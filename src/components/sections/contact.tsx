@@ -24,6 +24,7 @@ export default function Contact() {
   const [selected, setSelected] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const headRef = useRef<HTMLDivElement>(null);
   useReveal(headRef);
 
@@ -36,14 +37,42 @@ export default function Contact() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
-    await new Promise(res => setTimeout(res, 900));
-    setSubmitting(false);
-    setSubmitted(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          email: data.get('email'),
+          company: data.get('company') || undefined,
+          budget: data.get('budget') || undefined,
+          message: data.get('message'),
+          subject: selected.length > 0 ? selected.join(', ') : undefined,
+        }),
+      });
+
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json?.error || 'Gửi thất bại, vui lòng thử lại.');
+      } else {
+        setSubmitted(true);
+      }
+    } catch {
+      setError('Không thể kết nối máy chủ, vui lòng thử lại.');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   function handleReset() {
     setSubmitted(false);
     setSelected([]);
+    setError(null);
   }
 
   return (
@@ -191,7 +220,10 @@ export default function Contact() {
 
                 {/* Submit */}
                 <div className="form-submit">
-                  <span className="form-note mono">Secured · TLS 1.3</span>
+                  {error && (
+                    <span className="form-error">{error}</span>
+                  )}
+                  {!error && <span className="form-note mono">Secured · TLS 1.3</span>}
                   <button type="submit" disabled={submitting} className="btn btn-accent">
                     {submitting ? t('f_submitting') : t('f_submit')}
                     {!submitting && (
@@ -342,6 +374,11 @@ export default function Contact() {
           justify-content: space-between;
           gap: 16px;
           margin-top: 8px;
+        }
+        .form-error {
+          font-size: 13px;
+          color: var(--color-danger);
+          max-width: 30ch;
         }
         .form-note {
           font-size: 12px;

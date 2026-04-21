@@ -24,7 +24,7 @@ export async function generateMetadata({
   const titles: Record<string, string> = { vi: 'Nexora Technology', en: 'Nexora Technology' };
   return {
     title: titles[locale] ?? 'Nexora Technology',
-    description: 'Software studio in Saigon — web, mobile, IoT, and legacy migration.',
+    description: 'Software company in Saigon — web, mobile, IoT, and legacy migration.',
   };
 }
 

@@ -19,6 +19,7 @@ export interface BlogPost {
   body: ContentBlock[];
   tags: string[];
   featured?: boolean;
+  wpContent?: string;
 }
 
 export const STATIC_BLOG_POSTS: BlogPost[] = [
@@ -136,6 +137,7 @@ export interface Career {
   summary: string;
   posted: string;
   body: ContentBlock[];
+  wpContent?: string;
 }
 
 export const STATIC_CAREERS: Career[] = [
@@ -261,6 +263,7 @@ export interface CaseStudy {
   color: string;
   metrics: CaseMetric[];
   body: ContentBlock[];
+  wpContent?: string;
 }
 
 export const STATIC_CASES: CaseStudy[] = [

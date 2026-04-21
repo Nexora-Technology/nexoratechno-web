@@ -3,8 +3,6 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/static-content';
-import { STATIC_BLOG_POSTS } from '@/lib/static-content';
-import BlogCard from './blog-card';
 
 const GRADIENT_PAIRS = [
   ['#4F46E5', '#06B6D4'],
@@ -21,13 +19,7 @@ interface Props {
 export default function BlogDetailView({ post, locale }: Props) {
   const t = useTranslations();
 
-  const allPosts = STATIC_BLOG_POSTS;
-  const postIndex = allPosts.findIndex((p) => p.slug === post.slug);
-  const [c1, c2] = GRADIENT_PAIRS[(postIndex >= 0 ? postIndex : 0) % GRADIENT_PAIRS.length];
-
-  const related = allPosts
-    .filter((p) => p.slug !== post.slug)
-    .slice(0, 3);
+  const [c1, c2] = GRADIENT_PAIRS[0];
 
   const initials = post.author
     .split(' ')
@@ -75,19 +67,23 @@ export default function BlogDetailView({ post, locale }: Props) {
         {/* Body */}
         <div className="detail-wrap">
           <div className="detail-body">
-            {post.body.map((block, i) => (
-              <div key={i}>
-                <h2>{block.h}</h2>
-                {block.p && <p>{block.p}</p>}
-                {block.list && (
-                  <ul>
-                    {block.list.map((item, j) => (
-                      <li key={j}>{item}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
+            {post.wpContent ? (
+              <div dangerouslySetInnerHTML={{ __html: post.wpContent }} />
+            ) : (
+              post.body.map((block, i) => (
+                <div key={i}>
+                  <h2>{block.h}</h2>
+                  {block.p && <p>{block.p}</p>}
+                  {block.list && (
+                    <ul>
+                      {block.list.map((item, j) => (
+                        <li key={j}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))
+            )}
           </div>
 
           {/* Tags */}
@@ -106,23 +102,6 @@ export default function BlogDetailView({ post, locale }: Props) {
             </Link>
           </div>
         </div>
-
-        {/* Related */}
-        {related.length > 0 && (
-          <div style={{ maxWidth: 1080, margin: '0 auto', padding: '60px 0 40px', borderTop: '1px solid var(--color-line)' }}>
-            <h3 style={{ fontSize: 22, letterSpacing: '-0.02em', marginBottom: 24, color: 'var(--color-ink)' }}>
-              {t('blog_related')}
-            </h3>
-            <div className="blog-grid">
-              {related.map((p, i) => {
-                const ri = allPosts.findIndex((ap) => ap.slug === p.slug);
-                return (
-                  <BlogCard key={p.slug} post={p} locale={locale} index={ri >= 0 ? ri : i} />
-                );
-              })}
-            </div>
-          </div>
-        )}
 
         {/* CTA */}
         <div className="detail-cta" style={{ marginTop: 40 }}>

@@ -1,21 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import type { Career } from '@/lib/static-content';
 import CareerCard from './career-card';
 
 interface Props {
-  staticCareers: Career[];
   locale: string;
 }
 
 const DEPARTMENTS = ['Engineering', 'Mobile', 'Design', 'Infrastructure', 'Quality', 'Product'];
 
-export default function CareersListing({ staticCareers, locale }: Props) {
+export default function CareersListing({ locale }: Props) {
   const t = useTranslations();
-  const [careers] = useState<Career[]>(staticCareers);
+  const [careers, setCareers] = useState<Career[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeDept, setActiveDept] = useState('all');
+
+  useEffect(() => {
+    fetch('/api/wordpress/careers')
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const mapped: Career[] = data.map((p: Record<string, unknown>) => {
+            const meta = p.careerMeta as Record<string, string> | null;
+            return {
+              slug: String(p.slug),
+              title: String(p.title || '').replace(/<[^>]*>/g, ''),
+              dept: meta?.department ?? '',
+              location: meta?.location ?? '',
+              type: meta?.jobType ?? '',
+              level: meta?.level ?? '',
+              salary: meta?.salary ?? '',
+              tags: [],
+              summary: String(p.excerpt || '').replace(/<[^>]*>/g, ''),
+              posted: new Date(String(p.date)).toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' }),
+              body: [],
+            };
+          });
+          setCareers(mapped);
+        }
+      })
+      .catch(() => { /* show empty state */ })
+      .finally(() => setLoading(false));
+  }, []);
 
   const filtered = activeDept === 'all' ? careers : careers.filter((c) => c.dept === activeDept);
 
@@ -61,7 +89,9 @@ export default function CareersListing({ staticCareers, locale }: Props) {
 
           {/* Job list */}
           <div className="careers-grid">
-            {filtered.length === 0 ? (
+            {loading ? (
+              <div className="empty-state">...</div>
+            ) : filtered.length === 0 ? (
               <div className="empty-state">{t('career_empty')}</div>
             ) : (
               filtered.map((career) => (

@@ -1,25 +1,68 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { STATIC_BLOG_POSTS } from '@/lib/static-content';
+import type { BlogPost } from '@/lib/static-content';
 import BlogDetailView from '@/components/blog/blog-detail-view';
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+
 export async function generateStaticParams() {
-  return STATIC_BLOG_POSTS.map((post) => ({ slug: post.slug }));
+  try {
+    const res = await fetch(`${BASE_URL}/api/wordpress/blog`);
+    if (!res.ok) return [];
+    const posts = await res.json();
+    if (!Array.isArray(posts)) return [];
+    return posts.map((p: { slug: string }) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = STATIC_BLOG_POSTS.find((p) => p.slug === slug);
-  return { title: post?.title ?? 'Blog' };
+  try {
+    const res = await fetch(`${BASE_URL}/api/wordpress/blog/${slug}`);
+    if (!res.ok) return { title: 'Blog' };
+    const post = await res.json();
+    return { title: String(post?.title || 'Blog').replace(/<[^>]*>/g, '') };
+  } catch {
+    return { title: 'Blog' };
+  }
 }
 
 export default async function BlogDetailPage({ params }: Props) {
   const { locale, slug } = await params;
-  const post = STATIC_BLOG_POSTS.find((p) => p.slug === slug);
-  if (!post) notFound();
-  return <BlogDetailView post={post} locale={locale} />;
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/wordpress/blog/${slug}`);
+    if (!res.ok) notFound();
+    const p = await res.json();
+    if (!p || p.error) notFound();
+
+    const cats = p.categories as { nodes?: Array<{ name: string }> } | null;
+    const catName = cats?.nodes?.[0]?.name ?? 'General';
+    const auth = p.author as { node: { name: string } } | null;
+    const authName = auth?.node?.name ?? '';
+
+    const post: BlogPost = {
+      slug: String(p.slug),
+      title: String(p.title || '').replace(/<[^>]*>/g, ''),
+      category: catName,
+      author: authName,
+      authorRole: '',
+      date: new Date(String(p.date)).toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' }),
+      readTime: '5 phút đọc',
+      summary: String(p.excerpt || '').replace(/<[^>]*>/g, ''),
+      body: [],
+      tags: [],
+      wpContent: String(p.content || ''),
+    };
+
+    return <BlogDetailView post={post} locale={locale} />;
+  } catch {
+    notFound();
+  }
 }

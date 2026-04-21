@@ -121,6 +121,7 @@ export const CASE_STUDY_BASE_FIELDS = gql`
     date
     modified
     featuredImage { node { sourceUrl altText } }
+    categories { nodes { name slug } }
     caseMeta {
       client
       industry

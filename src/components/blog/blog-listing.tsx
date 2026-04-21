@@ -9,22 +9,21 @@ import BlogFilter from './blog-filter';
 import BlogCard from './blog-card';
 
 interface Props {
-  staticPosts: BlogPost[];
   locale: string;
 }
 
 const CATEGORIES = ['Kỹ thuật', 'Mobile', 'Design', 'Văn hóa công ty', 'Security'];
 
-export default function BlogListing({ staticPosts, locale }: Props) {
+export default function BlogListing({ locale }: Props) {
   const t = useTranslations();
-  const [posts, setPosts] = useState<BlogPost[]>(staticPosts);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/wordpress/blog')
       .then((r) => r.json())
       .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data)) {
           const mapped: BlogPost[] = data.map((p: Record<string, unknown>) => {
             const cats = p.categories as Record<string, unknown> | null;
             const catNode = (cats && typeof cats === 'object') ? (cats as {nodes?: Array<{name:string}>}).nodes?.[0]?.name : 'General';
@@ -43,12 +42,12 @@ export default function BlogListing({ staticPosts, locale }: Props) {
               tags: [],
             };
           });
-          setPosts(mapped.length > 0 ? mapped : staticPosts);
+          setPosts(mapped);
         }
       })
-      .catch(() => { /* fall through to static */ })
+      .catch(() => { /* show empty state */ })
       .finally(() => setLoading(false));
-  }, [staticPosts]);
+  }, []);
 
   const [activeFilter, setActiveFilter] = useState('all');
 

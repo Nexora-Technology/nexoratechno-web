@@ -1,19 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import type { CaseStudy } from '@/lib/static-content';
 import CaseCard from './case-card';
 
 interface Props {
-  staticCases: CaseStudy[];
   locale: string;
 }
 
-export default function CaseStudiesListing({ staticCases, locale }: Props) {
+export default function CaseStudiesListing({ locale }: Props) {
   const t = useTranslations();
-  const [cases] = useState<CaseStudy[]>(staticCases);
+  const [cases, setCases] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeService, setActiveService] = useState('all');
+
+  useEffect(() => {
+    fetch('/api/wordpress/case-studies')
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const mapped: CaseStudy[] = data.map((p: Record<string, unknown>) => {
+            const meta = p.caseMeta as Record<string, string> | null;
+            const cats = p.categories as { nodes?: { name: string }[] } | null;
+            return {
+              slug: String(p.slug),
+              client: meta?.client ?? '',
+              industry: meta?.industry ?? '',
+              title: String(p.title || '').replace(/<[^>]*>/g, ''),
+              summary: String(p.excerpt || '').replace(/<[^>]*>/g, ''),
+              services: cats?.nodes?.map((n) => n.name) ?? [],
+              year: parseInt(meta?.year ?? '0') || new Date(String(p.date)).getFullYear(),
+              duration: meta?.duration ?? '',
+              team: meta?.team ?? '',
+              color: meta?.color ?? '#6B46C1',
+              metrics: [],
+              body: [],
+            };
+          });
+          setCases(mapped);
+        }
+      })
+      .catch(() => { /* show empty state */ })
+      .finally(() => setLoading(false));
+  }, []);
 
   const allServices = Array.from(new Set(cases.flatMap((c) => c.services)));
   const filtered =
@@ -67,7 +97,9 @@ export default function CaseStudiesListing({ staticCases, locale }: Props) {
           </div>
 
           <div className="cases-grid">
-            {filtered.length === 0 ? (
+            {loading ? (
+              <div className="empty-state">...</div>
+            ) : filtered.length === 0 ? (
               <div className="empty-state">{t('cs_empty')}</div>
             ) : (
               filtered.map((c) => (

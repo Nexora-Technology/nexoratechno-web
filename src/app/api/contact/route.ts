@@ -30,6 +30,15 @@ function validateBody(body: Partial<ContactBody>): string | null {
 }
 
 export async function POST(req: NextRequest) {
+  // Log env vars on each request to verify they are loaded (mask password)
+  console.log('[Contact API] ENV check:', {
+    SMTP_HOST: process.env.SMTP_HOST || '(not set)',
+    SMTP_PORT: process.env.SMTP_PORT || '(not set)',
+    SMTP_USER: process.env.SMTP_USER || '(not set)',
+    SMTP_PASS: process.env.SMTP_PASS ? '***' : '(not set)',
+    SMTP_FROM: process.env.SMTP_FROM || '(not set)',
+    CONTACT_TO: process.env.CONTACT_TO || '(not set, fallback to SMTP_USER)',
+  });
   try {
     const body: ContactBody = await req.json();
     const validationError = validateBody(body);

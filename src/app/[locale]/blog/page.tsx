@@ -7,7 +7,11 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { title: 'Blog' };
+  return {
+    title: 'Blog',
+    description: 'Insights on software development, technology trends, and engineering best practices from Nexora Technology.',
+    openGraph: { type: 'website', title: 'Blog — Nexora Technology' },
+  };
 }
 
 export default async function BlogPage({

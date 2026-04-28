@@ -22,12 +22,20 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   try {
     const res = await fetch(`${BASE_URL}/api/wordpress/case-studies/${slug}`);
     if (!res.ok) return { title: 'Case Study' };
     const item = await res.json();
-    return { title: String(item?.title || 'Case Study').replace(/<[^>]*>/g, '') };
+    const title = String(item?.title || 'Case Study').replace(/<[^>]*>/g, '');
+    const description = String(item?.excerpt || '').replace(/<[^>]*>/g, '').slice(0, 160);
+    const prefix = locale === 'vi' ? '' : `/${locale}`;
+    return {
+      title,
+      description: description || `How Nexora delivered ${title}.`,
+      openGraph: { type: 'article', title, description },
+      alternates: { canonical: `https://nexoratechno.com${prefix}/case-studies/${slug}` },
+    };
   } catch {
     return { title: 'Case Study' };
   }

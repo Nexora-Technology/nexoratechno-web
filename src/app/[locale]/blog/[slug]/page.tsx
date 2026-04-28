@@ -22,12 +22,20 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   try {
     const res = await fetch(`${BASE_URL}/api/wordpress/blog/${slug}`);
     if (!res.ok) return { title: 'Blog' };
     const post = await res.json();
-    return { title: String(post?.title || 'Blog').replace(/<[^>]*>/g, '') };
+    const title = String(post?.title || 'Blog').replace(/<[^>]*>/g, '');
+    const description = String(post?.excerpt || '').replace(/<[^>]*>/g, '').slice(0, 160);
+    const prefix = locale === 'vi' ? '' : `/${locale}`;
+    return {
+      title,
+      description: description || `Read "${title}" on Nexora Technology Blog.`,
+      openGraph: { type: 'article', title, description },
+      alternates: { canonical: `https://nexoratechno.com${prefix}/blog/${slug}` },
+    };
   } catch {
     return { title: 'Blog' };
   }

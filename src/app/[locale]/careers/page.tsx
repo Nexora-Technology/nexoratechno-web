@@ -7,7 +7,11 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { title: 'Careers' };
+  return {
+    title: 'Careers',
+    description: 'Join Nexora Technology — explore open positions in software engineering, mobile development, IoT, and more in Ho Chi Minh City.',
+    openGraph: { type: 'website', title: 'Careers — Nexora Technology' },
+  };
 }
 
 export default async function CareersPage({

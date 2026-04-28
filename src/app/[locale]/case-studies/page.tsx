@@ -7,7 +7,11 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { title: 'Case Studies' };
+  return {
+    title: 'Case Studies',
+    description: 'Real-world projects delivered by Nexora Technology — web platforms, mobile apps, IoT systems, and legacy migrations.',
+    openGraph: { type: 'website', title: 'Case Studies — Nexora Technology' },
+  };
 }
 
 export default async function CaseStudiesPage({

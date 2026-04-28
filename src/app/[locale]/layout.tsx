@@ -21,10 +21,27 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const titles: Record<string, string> = { vi: 'Nexora Technology', en: 'Nexora Technology' };
+  const isVi = locale === 'vi';
+  const pathPrefix = isVi ? '' : `/${locale}`;
+
   return {
-    title: titles[locale] ?? 'Nexora Technology',
-    description: 'Software company in Saigon — web, mobile, IoT, and legacy migration.',
+    title: isVi ? 'Nexora Technology | Công ty Phát triển Phần mềm' : 'Nexora Technology | Software Development Company',
+    description: isVi
+      ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
+      : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.',
+    alternates: {
+      canonical: `https://nexoratechno.com${pathPrefix}`,
+      languages: {
+        vi: 'https://nexoratechno.com',
+        en: 'https://nexoratechno.com/en',
+      },
+    },
+    openGraph: {
+      locale: isVi ? 'vi_VN' : 'en_US',
+      url: `https://nexoratechno.com${pathPrefix}`,
+      siteName: 'Nexora Technology',
+      type: 'website',
+    },
   };
 }
 
@@ -42,8 +59,36 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     notFound();
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Nexora Technology Co., Ltd.',
+    url: 'https://nexoratechno.com',
+    logo: 'https://nexoratechno.com/logo.png',
+    description: locale === 'vi'
+      ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
+      : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Ho Chi Minh City',
+      addressCountry: 'VN',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'web@nexoratechno.com',
+      contactType: 'customer service',
+    },
+    sameAs: [],
+  };
+
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         <Providers locale={locale} messages={messages}>
           <Navbar />

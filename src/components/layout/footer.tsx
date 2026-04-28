@@ -14,8 +14,11 @@ export default function Footer() {
           {/* Brand column */}
           <div className="footer-brand">
             <Link href={`/${locale}`} className="brand" aria-label="Nexora home">
-              <div className="brand-mark" aria-hidden="true" />
-              <span>Nexora<span style={{ color: 'var(--color-accent)' }}>.</span></span>
+              <img
+                src="https://nexoratechno.com/wp-content/uploads/2026/04/logo_nex.png"
+                alt="Nexora Technology"
+                className="brand-logo"
+              />
             </Link>
             <p className="footer-tag">{t('foot_tag')}</p>
             <p className="footer-tag" style={{ marginTop: '18px' }}>
@@ -109,28 +112,13 @@ export default function Footer() {
           display: flex;
           align-items: center;
           gap: 10px;
-          font-family: var(--font-display);
-          font-weight: 600;
-          font-size: 22px;
-          letter-spacing: -0.01em;
-          color: var(--color-bg);
           margin-bottom: 14px;
         }
-        .footer-brand .brand-mark {
-          width: 28px;
-          height: 28px;
-          border-radius: 7px;
-          background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-grad-start) 60%, var(--color-grad-end) 100%);
-          position: relative;
+        .footer-brand .brand-logo {
+          height: 32px;
+          width: auto;
+          object-fit: contain;
           flex-shrink: 0;
-        }
-        .footer-brand .brand-mark::after {
-          content: "";
-          position: absolute;
-          inset: 6px;
-          border-radius: 3px;
-          background: var(--color-bg);
-          clip-path: polygon(0 100%, 0 0, 100% 100%, 100% 35%);
         }
         .footer-tag {
           margin-top: 14px;

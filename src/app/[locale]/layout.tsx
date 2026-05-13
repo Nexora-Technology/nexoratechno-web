@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { Providers } from '@/components/providers/providers';
 import Navbar from '@/components/layout/navbar';
@@ -51,6 +52,8 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
+
+  setRequestLocale(locale);
 
   let messages: Record<string, unknown>;
   try {

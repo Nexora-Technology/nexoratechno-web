@@ -49,3 +49,6 @@ next-env.d.ts
 
 # Plans & reports (local dev artifacts)
 plans/
+
+# Source content (not for repo)
+*.pdf

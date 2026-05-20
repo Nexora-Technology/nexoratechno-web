@@ -112,6 +112,8 @@ export const CAREER_BASE_FIELDS = gql`
   }
 `;
 
+// caseMeta is embedded as a JSON comment block inside `content` (see extractCaseMeta).
+// This avoids dependency on ACF + WPGraphQL-for-ACF plugins.
 export const CASE_STUDY_BASE_FIELDS = gql`
   fragment CaseStudyBaseFields on CaseStudy {
     id
@@ -121,14 +123,30 @@ export const CASE_STUDY_BASE_FIELDS = gql`
     date
     modified
     featuredImage { node { sourceUrl altText } }
-    categories { nodes { name slug } }
-    caseMeta {
-      client
-      industry
-      year
-      duration
-      team
-      color
-    }
   }
 `;
+
+// ─── Meta extraction (embedded JSON in content) ────────────────────────────────
+
+export interface ExtractedCaseMeta extends CaseMeta {
+  services?: string[];
+  metrics?: { label: string; value: string }[];
+}
+
+/**
+ * Parse `<!-- case-meta:{...} -->` JSON block from post content.
+ * Returns parsed meta + content with the comment stripped.
+ */
+export function extractCaseMeta(html: string): {
+  caseMeta: ExtractedCaseMeta | null;
+  cleanContent: string;
+} {
+  const m = html.match(/<!--\s*case-meta:(\{[\s\S]*?\})\s*-->/);
+  if (!m) return { caseMeta: null, cleanContent: html };
+  try {
+    const caseMeta = JSON.parse(m[1]) as ExtractedCaseMeta;
+    return { caseMeta, cleanContent: html.replace(m[0], '').trim() };
+  } catch {
+    return { caseMeta: null, cleanContent: html };
+  }
+}

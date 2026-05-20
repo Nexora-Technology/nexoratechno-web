@@ -45,11 +45,12 @@ export default function CaseStudiesListing({ locale }: Props) {
       .finally(() => setLoading(false));
   }, []);
 
-  const allServices = Array.from(new Set(cases.flatMap((c) => c.services)));
+  // Filter by industry (domain) — skills/tech are shown per card, not as filters.
+  const allIndustries = Array.from(new Set(cases.map((c) => c.industry).filter(Boolean)));
   const filtered =
     activeService === 'all'
       ? cases
-      : cases.filter((c) => c.services.includes(activeService));
+      : cases.filter((c) => c.industry === activeService);
 
   return (
     <>
@@ -85,13 +86,13 @@ export default function CaseStudiesListing({ locale }: Props) {
             >
               {t('sub_all')}
             </button>
-            {allServices.map((svc) => (
+            {allIndustries.map((ind) => (
               <button
-                key={svc}
-                className={activeService === svc ? 'active' : ''}
-                onClick={() => setActiveService(svc)}
+                key={ind}
+                className={activeService === ind ? 'active' : ''}
+                onClick={() => setActiveService(ind)}
               >
-                {svc}
+                {ind}
               </button>
             ))}
           </div>

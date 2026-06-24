@@ -33,7 +33,7 @@ export const STATIC_BLOG_POSTS: BlogPost[] = [
     readTime: '6 phút đọc',
     summary: 'Làm ít hơn, làm tốt hơn. Đây là lý do chúng tôi không nhận mọi dự án — và lợi ích ngược lại mang đến cho khách hàng.',
     body: [
-      { h: 'Điểm then chốt', p: 'Một studio phần mềm giỏi không phải là studio nhận nhiều dự án. Là studio chọn đúng dự án. Ở Nexora, chúng tôi từ chối khoảng 70% các cuộc trò chuyện ban đầu. Nghe thì lạ, nhưng có lý do rõ ràng.' },
+      { h: 'Điểm then chốt', p: 'Một công ty phần mềm giỏi không phải là công ty nhận nhiều dự án. Là công ty chọn đúng dự án. Ở Nexora, chúng tôi từ chối khoảng 70% các cuộc trò chuyện ban đầu. Nghe thì lạ, nhưng có lý do rõ ràng.' },
       { h: 'Tại sao chọn lọc?', list: ['Chúng tôi tin chất lượng đến từ sự tập trung', 'Khi nhận quá nhiều, team bị căng và ngừng học hỏi', 'Khách hàng tốt xứng đáng có đội ngũ tốt nhất của chúng tôi', 'Nói \'không\' sớm giúp cả hai bên tiết kiệm thời gian'] },
       { h: 'Chúng tôi thường từ chối khi nào?', p: 'Khi phạm vi quá mơ hồ và khách hàng không sẵn sàng đầu tư thời gian để làm rõ. Khi ngân sách không phù hợp với kỳ vọng chất lượng. Khi đối tác không coi chúng tôi là đối tác mà là một xưởng gia công.' },
       { h: 'Lợi ích cho khách hàng chúng tôi nhận', p: 'Họ có sự chú ý không bị pha loãng. Khi bạn là 1 trong 30 dự án, bạn chỉ có 1/30 sự quan tâm. Khi bạn là 1 trong 10 dự án chúng tôi nhận, bạn có 10%.' },

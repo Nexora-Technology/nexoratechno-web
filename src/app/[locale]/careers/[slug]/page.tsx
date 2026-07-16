@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { Career } from '@/lib/static-content';
+import { buildAlternates, OG_IMAGES } from '@/lib/seo';
 import CareerDetailView from '@/components/careers/career-detail-view';
 
 interface Props {
@@ -29,12 +30,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const career = await res.json();
     const title = String(career?.title || 'Careers').replace(/<[^>]*>/g, '');
     const description = String(career?.excerpt || '').replace(/<[^>]*>/g, '').slice(0, 160);
-    const prefix = locale === 'vi' ? '' : `/${locale}`;
     return {
       title,
       description: description || `Job opening: ${title} at Nexora Technology.`,
-      openGraph: { type: 'article', title, description },
-      alternates: { canonical: `https://nexoratechno.com${prefix}/careers/${slug}` },
+      openGraph: { type: 'article', title, description, images: OG_IMAGES },
+      twitter: { card: 'summary_large_image', title, description, images: OG_IMAGES },
+      alternates: buildAlternates(locale, `/careers/${slug}`),
     };
   } catch {
     return { title: 'Careers' };

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { CaseStudy } from '@/lib/static-content';
+import { buildAlternates, OG_IMAGES } from '@/lib/seo';
 import CaseDetailView from '@/components/case-studies/case-detail-view';
 
 interface Props {
@@ -51,12 +52,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const item = await res.json();
     const title = String(item?.title || 'Case Study').replace(/<[^>]*>/g, '');
     const description = String(item?.excerpt || '').replace(/<[^>]*>/g, '').slice(0, 160);
-    const prefix = locale === 'vi' ? '' : `/${locale}`;
     return {
       title,
       description: description || `How Nexora delivered ${title}.`,
-      openGraph: { type: 'article', title, description },
-      alternates: { canonical: `https://nexoratechno.com${prefix}/case-studies/${slug}` },
+      openGraph: { type: 'article', title, description, images: OG_IMAGES },
+      twitter: { card: 'summary_large_image', title, description, images: OG_IMAGES },
+      alternates: buildAlternates(locale, `/case-studies/${slug}`),
     };
   } catch {
     return { title: 'Case Study' };

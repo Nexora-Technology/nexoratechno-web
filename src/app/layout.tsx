@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_IMAGES } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: {
@@ -16,15 +17,20 @@ export const metadata: Metadata = {
     title: 'Nexora Technology | Software Development Company',
     description:
       'Web development, mobile apps, IoT solutions, and legacy system migration from Ho Chi Minh City.',
-    url: 'https://nexoratechno.com',
+    url: 'https://nexoratechno.com/vi',
+    images: OG_IMAGES,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nexora Technology | Software Development Company',
+    description:
+      'Web development, mobile apps, IoT solutions, and legacy system migration from Ho Chi Minh City.',
+    images: OG_IMAGES,
   },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
-  },
-  alternates: {
-    canonical: 'https://nexoratechno.com',
   },
 };
 

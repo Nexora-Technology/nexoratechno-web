@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { BlogPost } from '@/lib/static-content';
+import { buildAlternates, OG_IMAGES } from '@/lib/seo';
 import BlogDetailView from '@/components/blog/blog-detail-view';
 
 interface Props {
@@ -29,12 +30,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const post = await res.json();
     const title = String(post?.title || 'Blog').replace(/<[^>]*>/g, '');
     const description = String(post?.excerpt || '').replace(/<[^>]*>/g, '').slice(0, 160);
-    const prefix = locale === 'vi' ? '' : `/${locale}`;
     return {
       title,
       description: description || `Read "${title}" on Nexora Technology Blog.`,
-      openGraph: { type: 'article', title, description },
-      alternates: { canonical: `https://nexoratechno.com${prefix}/blog/${slug}` },
+      openGraph: { type: 'article', title, description, images: OG_IMAGES },
+      twitter: { card: 'summary_large_image', title, description, images: OG_IMAGES },
+      alternates: buildAlternates(locale, `/blog/${slug}`),
     };
   } catch {
     return { title: 'Blog' };

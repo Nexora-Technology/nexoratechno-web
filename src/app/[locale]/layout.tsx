@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import { Providers } from '@/components/providers/providers';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
+import { buildAlternates, OG_IMAGES, OG_IMAGE } from '@/lib/seo';
 import '@/app/globals.css';
 
 interface LocaleLayoutProps {
@@ -23,25 +24,36 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const isVi = locale === 'vi';
-  const pathPrefix = isVi ? '' : `/${locale}`;
+
+  const title = isVi
+    ? 'Nexora Technology | Công ty Phát triển Phần mềm'
+    : 'Nexora Technology | Software Development Company';
+  const description = isVi
+    ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
+    : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.';
 
   return {
-    title: isVi ? 'Nexora Technology | Công ty Phát triển Phần mềm' : 'Nexora Technology | Software Development Company',
-    description: isVi
-      ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
-      : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.',
-    alternates: {
-      canonical: `https://nexoratechno.com${pathPrefix}`,
-      languages: {
-        vi: 'https://nexoratechno.com',
-        en: 'https://nexoratechno.com/en',
-      },
-    },
+    // `absolute` sets the home title verbatim and ignores the root layout's
+    // template (the string already contains the brand — avoids duplicating it).
+    // `template` is re-declared so child pages (Blog, Careers…) still get the
+    // "| Nexora Technology" suffix on their short titles.
+    title: { absolute: title, template: '%s | Nexora Technology' },
+    description,
+    alternates: buildAlternates(locale, ''),
     openGraph: {
       locale: isVi ? 'vi_VN' : 'en_US',
-      url: `https://nexoratechno.com${pathPrefix}`,
+      url: `https://nexoratechno.com/${locale}`,
       siteName: 'Nexora Technology',
+      title,
+      description,
       type: 'website',
+      images: OG_IMAGES,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: OG_IMAGES,
     },
   };
 }
@@ -67,7 +79,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     '@type': 'Organization',
     name: 'Nexora Technology Co., Ltd.',
     url: 'https://nexoratechno.com',
-    logo: 'https://nexoratechno.com/logo.png',
+    logo: OG_IMAGE,
     description: locale === 'vi'
       ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
       : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.',
@@ -81,6 +93,8 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       email: 'web@nexoratechno.com',
       contactType: 'customer service',
     },
+    // TODO: add real social profile URLs (LinkedIn, Facebook, GitHub) to strengthen
+    // the entity's knowledge-graph signal once the accounts are live.
     sameAs: [],
   };
 

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import type { Career } from '@/lib/static-content';
 import { useInView } from '@/components/motion';
 import CareerCard from './career-card';
+import { localeHref } from '@/lib/seo';
 
 interface Props {
   locale: string;
@@ -62,7 +63,7 @@ export default function CareersListing({ locale }: Props) {
         <div className="container">
           <div className="subpage-hero-inner">
             <div className="crumb">
-              <a href={`/${locale}`}>{t('sub_home')}</a>
+              <a href={localeHref(locale)}>{t('sub_home')}</a>
               <span className="crumb-sep">/</span>
               <span>{t('career_breadcrumb')}</span>
             </div>

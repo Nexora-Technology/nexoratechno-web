@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import type { CaseStudy } from '@/lib/static-content';
+import { localeHref } from '@/lib/seo';
 
 interface Props { item: CaseStudy; locale: string; index?: number; }
 
 export default function CaseCard({ item, locale, index = 0 }: Props) {
   return (
     <Link
-      href={`/${locale}/case-studies/${item.slug}`}
+      href={localeHref(locale, `/case-studies/${item.slug}`)}
       className="case-card group"
       style={{ '--case-color': item.color, '--i': Math.min(index, 9) } as React.CSSProperties}
     >

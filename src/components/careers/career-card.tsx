@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Career } from '@/lib/static-content';
+import { localeHref } from '@/lib/seo';
 
 interface Props { career: Career; locale: string; index?: number; }
 
@@ -27,7 +28,7 @@ const ArrowIcon = () => (
 export default function CareerCard({ career, locale, index = 0 }: Props) {
   return (
     <Link
-      href={`/${locale}/careers/${career.slug}`}
+      href={localeHref(locale, `/careers/${career.slug}`)}
       className="career-card"
       style={{ '--i': Math.min(index, 9) } as React.CSSProperties}
     >

@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/static-content';
 import { useInView } from '@/components/motion';
+import { localeHref } from '@/lib/seo';
 
 const GRADIENT_PAIRS = [
   ['#4F46E5', '#06B6D4'],
@@ -36,9 +37,9 @@ export default function BlogDetailView({ post, locale }: Props) {
       <section className="subpage-hero" style={{ paddingBottom: 32 }}>
         <div ref={heroRef} className="container subpage-hero-inner reveal">
           <div className="crumb">
-            <Link href={`/${locale}`}>{t('sub_home')}</Link>
+            <Link href={localeHref(locale)}>{t('sub_home')}</Link>
             <span className="crumb-sep">/</span>
-            <Link href={`/${locale}/blog`}>{t('blog_eyebrow')}</Link>
+            <Link href={localeHref(locale, '/blog')}>{t('blog_eyebrow')}</Link>
             <span className="crumb-sep">/</span>
             <span>{post.category}</span>
           </div>
@@ -99,7 +100,7 @@ export default function BlogDetailView({ post, locale }: Props) {
 
           {/* Back */}
           <div style={{ marginTop: 40 }}>
-            <Link href={`/${locale}/blog`} className="btn-ghost">
+            <Link href={localeHref(locale, '/blog')} className="btn-ghost">
               {t('blog_back')}
             </Link>
           </div>
@@ -111,7 +112,7 @@ export default function BlogDetailView({ post, locale }: Props) {
             <h3>{t('sub_cta_title')}</h3>
             <p>{t('sub_cta_desc')}</p>
           </div>
-          <Link href={`/${locale}/#contact`} className="btn-accent">
+          <Link href={localeHref(locale, '/#contact')} className="btn-accent">
             {t('sub_cta_btn')}
           </Link>
         </div>

@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://nexoratechno.com'),
   openGraph: {
     type: 'website',
-    locale: 'vi_VN',
-    alternateLocale: 'en_US',
+    locale: 'en_US',
+    alternateLocale: 'vi_VN',
     siteName: 'Nexora Technology',
     title: 'Nexora Technology | Software Development Company',
     description:
       'Web development, mobile apps, IoT solutions, and legacy system migration from Ho Chi Minh City.',
-    url: 'https://nexoratechno.com/vi',
+    url: 'https://nexoratechno.com',
     images: OG_IMAGES,
   },
   twitter: {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations, useLocale } from 'next-intl';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 export default function Footer() {
   const t = useTranslations();
@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="footer-grid">
           {/* Brand column */}
           <div className="footer-brand">
-            <Link href={`/${locale}`} className="brand" aria-label="Nexora home">
+            <Link href="/" className="brand" aria-label="Nexora home">
               <img
                 src="/images/logo-nex.png"
                 alt="Nexora Technology"
@@ -44,8 +44,8 @@ export default function Footer() {
             <h5>{t('foot_company')}</h5>
             <ul>
               <li><a href="#about">{t('foot_l_about')}</a></li>
-              <li><Link href={`/${locale}/careers`}>{t('foot_l_careers')}</Link></li>
-              <li><Link href={`/${locale}/blog`}>{t('foot_l_blog')}</Link></li>
+              <li><Link href="/careers">{t('foot_l_careers')}</Link></li>
+              <li><Link href="/blog">{t('foot_l_blog')}</Link></li>
               <li><a href="#contact">{t('foot_l_contact')}</a></li>
             </ul>
           </div>

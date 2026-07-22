@@ -6,7 +6,7 @@ import { routing } from '@/i18n/routing';
 import { Providers } from '@/components/providers/providers';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
-import { buildAlternates, OG_IMAGES, LOGO_URL } from '@/lib/seo';
+import { buildAlternates, localePath, OG_IMAGES, LOGO_URL } from '@/lib/seo';
 import '@/app/globals.css';
 
 interface LocaleLayoutProps {
@@ -26,12 +26,11 @@ export async function generateMetadata({
   const { locale } = await params;
   const isVi = locale === 'vi';
 
-  // Title is intentionally English for both locales (brand decision, 7/2026);
-  // descriptions stay localized so Vietnamese search snippets keep native copy.
+  // Title AND description are intentionally English for both locales
+  // (brand decision, 7/2026) — the site presents in English by default.
   const title = 'Nexora Technology | Software Development Company';
-  const description = isVi
-    ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
-    : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.';
+  const description =
+    'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.';
 
   return {
     // `absolute` sets the home title verbatim and ignores the root layout's
@@ -43,7 +42,7 @@ export async function generateMetadata({
     alternates: buildAlternates(locale, ''),
     openGraph: {
       locale: isVi ? 'vi_VN' : 'en_US',
-      url: `https://nexoratechno.com/${locale}`,
+      url: localePath(locale, ''),
       siteName: 'Nexora Technology',
       title,
       description,
@@ -81,9 +80,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     name: 'Nexora Technology Co., Ltd.',
     url: 'https://nexoratechno.com',
     logo: LOGO_URL,
-    description: locale === 'vi'
-      ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
-      : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.',
+    description: 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Ho Chi Minh City',

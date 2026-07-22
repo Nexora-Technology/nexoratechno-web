@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { Career } from '@/lib/static-content';
+import { localeHref } from '@/lib/seo';
 
 interface Props { career: Career; locale: string; }
 
@@ -14,9 +15,9 @@ export default function CareerDetailView({ career, locale }: Props) {
         <div className="container">
           <div className="subpage-hero-inner">
             <div className="crumb">
-              <a href={`/${locale}`}>{t('sub_home')}</a>
+              <a href={localeHref(locale)}>{t('sub_home')}</a>
               <span className="crumb-sep">/</span>
-              <a href={`/${locale}/careers`}>{t('career_breadcrumb')}</a>
+              <a href={localeHref(locale, '/careers')}>{t('career_breadcrumb')}</a>
               <span className="crumb-sep">/</span>
               <span>{career.dept}</span>
             </div>
@@ -37,7 +38,7 @@ export default function CareerDetailView({ career, locale }: Props) {
                 {t('career_detail_apply')}
                 <svg className="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
               </a>
-              <Link href={`/${locale}/careers`} className="btn-ghost">
+              <Link href={localeHref(locale, '/careers')} className="btn-ghost">
                 {t('career_detail_back')}
               </Link>
             </div>

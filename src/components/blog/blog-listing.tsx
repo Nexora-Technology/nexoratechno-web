@@ -8,6 +8,7 @@ import { useInView } from '@/components/motion';
 import BlogFeaturedCard from './blog-featured-card';
 import BlogFilter from './blog-filter';
 import BlogCard from './blog-card';
+import { localeHref } from '@/lib/seo';
 
 interface Props {
   locale: string;
@@ -70,7 +71,7 @@ export default function BlogListing({ locale }: Props) {
         <div className="container">
           <div className="subpage-hero-inner">
             <div className="crumb">
-              <Link href={`/${locale}`}>{t('sub_home')}</Link>
+              <Link href={localeHref(locale)}>{t('sub_home')}</Link>
               <span className="crumb-sep">/</span>
               <span>{t('blog_breadcrumb')}</span>
             </div>
@@ -118,7 +119,7 @@ export default function BlogListing({ locale }: Props) {
               <h3>{t('blog_cta_title')}</h3>
               <p>{t('blog_cta_desc')}</p>
             </div>
-            <Link href={`/${locale}/#contact`} className="btn-accent">
+            <Link href={localeHref(locale, '/#contact')} className="btn-accent">
               {t('blog_cta_btn')}
             </Link>
           </div>

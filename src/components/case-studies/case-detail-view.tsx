@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { CaseStudy } from '@/lib/static-content';
 import { useInView } from '@/components/motion';
+import { localeHref } from '@/lib/seo';
 
 interface Props { item: CaseStudy; locale: string; }
 
@@ -18,9 +19,9 @@ export default function CaseDetailView({ item, locale }: Props) {
         <div className="container">
           <div ref={heroRef} className="subpage-hero-inner reveal">
             <div className="crumb">
-              <a href={`/${locale}`}>{t('sub_home')}</a>
+              <a href={localeHref(locale)}>{t('sub_home')}</a>
               <span className="crumb-sep">/</span>
-              <a href={`/${locale}/case-studies`}>{t('cs_breadcrumb')}</a>
+              <a href={localeHref(locale, '/case-studies')}>{t('cs_breadcrumb')}</a>
               <span className="crumb-sep">/</span>
               <span>{item.client}</span>
             </div>
@@ -100,7 +101,7 @@ export default function CaseDetailView({ item, locale }: Props) {
           </div>
         </div>
         <div style={{ marginTop: '40px' }}>
-          <Link href={`/${locale}/case-studies`} className="btn btn-ghost">
+          <Link href={localeHref(locale, '/case-studies')} className="btn btn-ghost">
             {t('cs_back')}
           </Link>
         </div>
@@ -114,7 +115,7 @@ export default function CaseDetailView({ item, locale }: Props) {
               <h3>{t('cs_cta_title')}</h3>
               <p>{t('cs_cta_desc')}</p>
             </div>
-            <a href={`/${locale}/#contact`} className="btn btn-accent">
+            <a href={localeHref(locale, '/#contact')} className="btn btn-accent">
               {t('cs_cta_btn')}
               <svg
                 className="btn-arrow"

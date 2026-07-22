@@ -1,8 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { useRouter, usePathname } from '@/i18n/routing';
-import Link from 'next/link';
+import { Link, useRouter, usePathname } from '@/i18n/routing';
 
 const NAV_ANCHORS = [
   { anchor: '#home',     key: 'nav_home' },
@@ -72,9 +71,9 @@ export default function Navbar() {
             {NAV_ANCHORS.map(({ anchor, key }) => (
               <li key={key}><a href={anchor} onClick={(e) => handleAnchorNav(e, anchor)}>{t(key)}</a></li>
             ))}
-            <li><Link href={`/${locale}/case-studies`}>Case Studies</Link></li>
-            <li><Link href={`/${locale}/blog`}>Blog</Link></li>
-            <li><Link href={`/${locale}/careers`}>Careers</Link></li>
+            <li><Link href="/case-studies">Case Studies</Link></li>
+            <li><Link href="/blog">Blog</Link></li>
+            <li><Link href="/careers">Careers</Link></li>
             <li><a href="#contact" onClick={(e) => handleAnchorNav(e, '#contact')}>{t('nav_contact')}</a></li>
           </ul>
 
@@ -123,9 +122,9 @@ export default function Navbar() {
             {NAV_ANCHORS.map(({ anchor, key }) => (
               <a key={key} href={anchor} onClick={(e) => handleAnchorNav(e, anchor)}>{t(key)}</a>
             ))}
-            <Link href={`/${locale}/case-studies`} onClick={() => setMobileOpen(false)}>Case Studies</Link>
-            <Link href={`/${locale}/blog`} onClick={() => setMobileOpen(false)}>Blog</Link>
-            <Link href={`/${locale}/careers`} onClick={() => setMobileOpen(false)}>Careers</Link>
+            <Link href="/case-studies" onClick={() => setMobileOpen(false)}>Case Studies</Link>
+            <Link href="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
+            <Link href="/careers" onClick={() => setMobileOpen(false)}>Careers</Link>
             <a href="#contact" onClick={(e) => handleAnchorNav(e, '#contact')}>{t('nav_contact')}</a>
           </div>
         )}

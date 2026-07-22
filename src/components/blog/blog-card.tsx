@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/static-content';
+import { localeHref } from '@/lib/seo';
 
 const GRADIENT_PAIRS = [
   ['#4F46E5', '#06B6D4'],
@@ -19,7 +20,7 @@ export default function BlogCard({ post, locale, index = 0 }: Props) {
 
   return (
     <Link
-      href={`/${locale}/blog/${post.slug}`}
+      href={localeHref(locale, `/blog/${post.slug}`)}
       className="blog-card"
       style={{ '--c1': c1, '--c2': c2, '--i': Math.min(index, 9) } as React.CSSProperties}
     >

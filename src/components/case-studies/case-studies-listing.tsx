@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import type { CaseStudy } from '@/lib/static-content';
 import { useInView } from '@/components/motion';
 import CaseCard from './case-card';
+import { localeHref } from '@/lib/seo';
 
 interface Props {
   locale: string;
@@ -67,7 +68,7 @@ export default function CaseStudiesListing({ locale }: Props) {
         <div className="container">
           <div className="subpage-hero-inner">
             <div className="crumb">
-              <a href={`/${locale}`}>{t('sub_home')}</a>
+              <a href={localeHref(locale)}>{t('sub_home')}</a>
               <span className="crumb-sep">/</span>
               <span>{t('cs_breadcrumb')}</span>
             </div>
@@ -133,7 +134,7 @@ export default function CaseStudiesListing({ locale }: Props) {
               <h3>{t('cs_cta_title')}</h3>
               <p>{t('cs_cta_desc')}</p>
             </div>
-            <a href={`/${locale}/#contact`} className="btn btn-accent">
+            <a href={localeHref(locale, '/#contact')} className="btn btn-accent">
               {t('cs_cta_btn')}
               <svg
                 className="btn-arrow"

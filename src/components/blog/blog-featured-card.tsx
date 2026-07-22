@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/static-content';
+import { localeHref } from '@/lib/seo';
 
 interface Props { post: BlogPost; locale: string; }
 
 export default function BlogFeaturedCard({ post, locale }: Props) {
   return (
     <Link
-      href={`/${locale}/blog/${post.slug}`}
+      href={localeHref(locale, `/blog/${post.slug}`)}
       className="blog-featured"
     >
       {/* Left: gradient visual */}

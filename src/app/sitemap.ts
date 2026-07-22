@@ -33,13 +33,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/vi${page}`,
       lastModified: now,
       changeFrequency: 'weekly' as const,
-      priority: page === '' ? 1 : 0.8,
+      priority: page === '' ? 0.9 : 0.7,
     },
     {
-      url: `${SITE_URL}/en${page}`,
+      url: `${SITE_URL}${page || '/'}`,
       lastModified: now,
       changeFrequency: 'weekly' as const,
-      priority: page === '' ? 0.9 : 0.7,
+      priority: page === '' ? 1 : 0.8,
     },
   ]);
 
@@ -48,13 +48,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/vi/blog/${slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
-      priority: 0.6,
+      priority: 0.5,
     },
     {
-      url: `${SITE_URL}/en/blog/${slug}`,
+      url: `${SITE_URL}/blog/${slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
-      priority: 0.5,
+      priority: 0.6,
     },
   ]);
 
@@ -63,13 +63,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/vi/careers/${slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
-      priority: 0.6,
+      priority: 0.5,
     },
     {
-      url: `${SITE_URL}/en/careers/${slug}`,
+      url: `${SITE_URL}/careers/${slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
-      priority: 0.5,
+      priority: 0.6,
     },
   ]);
 
@@ -78,13 +78,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/vi/case-studies/${slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
-      priority: 0.6,
+      priority: 0.5,
     },
     {
-      url: `${SITE_URL}/en/case-studies/${slug}`,
+      url: `${SITE_URL}/case-studies/${slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
-      priority: 0.5,
+      priority: 0.6,
     },
   ]);
 

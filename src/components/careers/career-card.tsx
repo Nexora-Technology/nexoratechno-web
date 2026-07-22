@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Career } from '@/lib/static-content';
 
-interface Props { career: Career; locale: string; }
+interface Props { career: Career; locale: string; index?: number; }
 
 const MapPinIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -24,9 +24,13 @@ const ArrowIcon = () => (
   </svg>
 );
 
-export default function CareerCard({ career, locale }: Props) {
+export default function CareerCard({ career, locale, index = 0 }: Props) {
   return (
-    <Link href={`/${locale}/careers/${career.slug}`} className="career-card">
+    <Link
+      href={`/${locale}/careers/${career.slug}`}
+      className="career-card"
+      style={{ '--i': Math.min(index, 9) } as React.CSSProperties}
+    >
       {/* Col 1: info */}
       <div>
         <div className="c-dept">{career.dept} · {career.level}</div>
@@ -61,7 +65,9 @@ export default function CareerCard({ career, locale }: Props) {
           border: 1px solid var(--color-line);
           border-radius: var(--radius-lg);
           padding: 26px 28px;
-          transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+          transition: border-color var(--dur-base) var(--ease-exp),
+            transform var(--dur-base) var(--ease-exp),
+            box-shadow var(--dur-base) var(--ease-exp);
           cursor: pointer;
         }
         .career-card:hover {
@@ -115,12 +121,14 @@ export default function CareerCard({ career, locale }: Props) {
           align-items: center;
           justify-content: center;
           color: var(--color-ink);
-          transition: background 0.2s, transform 0.2s, color 0.2s;
+          transition: background var(--dur-fast) var(--ease-exp),
+            transform var(--dur-fast) var(--ease-exp),
+            color var(--dur-fast) var(--ease-exp);
         }
         .career-card:hover .career-arrow {
           background: var(--color-ink);
           color: var(--color-bg);
-          transform: translateX(4px);
+          transform: translateX(3px);
         }
         .tag-pill {
           padding: 4px 10px;

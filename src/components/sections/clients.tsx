@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/components/motion';
 
 const CLIENTS = [
   {
@@ -55,23 +55,10 @@ const CLIENTS = [
   },
 ];
 
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
-}
-
 export default function Clients() {
   const t = useTranslations();
-  const wrapRef = useRef<HTMLDivElement>(null);
-  useReveal(wrapRef);
+  const wrapRef = useInView<HTMLDivElement>();
+  const rowRef = useInView<HTMLDivElement>();
 
   return (
     <section className="section" style={{ paddingTop: 0 }}>
@@ -88,9 +75,9 @@ export default function Clients() {
           </h3>
         </div>
 
-        <div className="clients-row">
-          {CLIENTS.map(({ name, icon }) => (
-            <div key={name} className="client-logo">
+        <div ref={rowRef} className="clients-row">
+          {CLIENTS.map(({ name, icon }, i) => (
+            <div key={name} className="client-logo" style={{ '--i': i } as React.CSSProperties}>
               {icon}
               <span>{name}</span>
             </div>
@@ -123,11 +110,25 @@ export default function Clients() {
           letter-spacing: -0.01em;
           color: var(--color-ink-mute);
           opacity: 0.75;
-          transition: opacity 0.2s, color 0.2s;
+          transition: opacity var(--dur-fast) var(--ease-exp), color var(--dur-fast) var(--ease-exp);
           gap: 8px;
           cursor: default;
         }
         .client-logo:hover { opacity: 1; color: var(--color-ink); }
+        /* Staggered entrance — animation keeps the hover transition delay-free.
+           Base opacity is 0.75, so the rise animates toward that, not 1. */
+        .js .clients-row:not(.in) .client-logo { opacity: 0; }
+        .js .clients-row.in .client-logo {
+          animation: client-logo-rise 400ms var(--ease-exp) backwards;
+          animation-delay: calc(var(--i) * 50ms);
+        }
+        @keyframes client-logo-rise {
+          from { opacity: 0; transform: translateY(14px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .js .clients-row:not(.in) .client-logo { opacity: 0.75; }
+          .js .clients-row.in .client-logo { animation: none; }
+        }
         .client-logo:nth-child(6n) { border-right: none; }
         @media (max-width: 900px) {
           .client-logo:nth-child(3n) { border-right: none; }

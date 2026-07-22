@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import type { CaseStudy } from '@/lib/static-content';
+import { useInView } from '@/components/motion';
 import CaseCard from './case-card';
 
 interface Props {
@@ -14,6 +15,13 @@ export default function CaseStudiesListing({ locale }: Props) {
   const [cases, setCases] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeService, setActiveService] = useState('all');
+  const [hasFiltered, setHasFiltered] = useState(false);
+  const staggerRef = useInView<HTMLDivElement>();
+
+  const selectService = (service: string) => {
+    setActiveService(service);
+    setHasFiltered(true);
+  };
 
   useEffect(() => {
     fetch('/api/wordpress/case-studies')
@@ -82,7 +90,7 @@ export default function CaseStudiesListing({ locale }: Props) {
           <div className="listing-filters">
             <button
               className={activeService === 'all' ? 'active' : ''}
-              onClick={() => setActiveService('all')}
+              onClick={() => selectService('all')}
             >
               {t('sub_all')}
             </button>
@@ -90,23 +98,29 @@ export default function CaseStudiesListing({ locale }: Props) {
               <button
                 key={ind}
                 className={activeService === ind ? 'active' : ''}
-                onClick={() => setActiveService(ind)}
+                onClick={() => selectService(ind)}
               >
                 {ind}
               </button>
             ))}
           </div>
 
-          <div className="cases-grid">
-            {loading ? (
-              <div className="empty-state">...</div>
-            ) : filtered.length === 0 ? (
-              <div className="empty-state">{t('cs_empty')}</div>
-            ) : (
-              filtered.map((c) => (
-                <CaseCard key={c.slug} item={c} locale={locale} />
-              ))
-            )}
+          <div
+            ref={staggerRef}
+            className="stagger-wrap"
+            style={hasFiltered ? ({ '--stag-step': '30ms', '--stag-dur': '250ms' } as React.CSSProperties) : undefined}
+          >
+            <div className="cases-grid" key={activeService}>
+              {loading ? (
+                <div className="empty-state">...</div>
+              ) : filtered.length === 0 ? (
+                <div className="empty-state">{t('cs_empty')}</div>
+              ) : (
+                filtered.map((c, i) => (
+                  <CaseCard key={c.slug} item={c} locale={locale} index={i} />
+                ))
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -145,13 +159,30 @@ export default function CaseStudiesListing({ locale }: Props) {
         .subpage-title { font-size:clamp(40px,5.5vw,80px); letter-spacing:-0.035em; line-height:1.02; max-width:18ch; font-family:var(--font-display); }
         .subpage-lead { margin-top:20px; font-size:clamp(17px,1.6vw,20px); color:var(--color-ink-soft); max-width:60ch; line-height:1.55; }
         .crumb { display:inline-flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-ink-mute); margin-bottom:28px; }
-        .crumb a { color:var(--color-ink-mute); transition:color .2s; }
+        .crumb a { color:var(--color-ink-mute); transition:color var(--dur-fast) var(--ease-exp); }
         .crumb a:hover { color:var(--color-ink); }
         .crumb-sep { color:var(--color-ink-mute); opacity:.5; }
         .cases-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
         @media (max-width: 820px) { .cases-grid { grid-template-columns:1fr; } }
+
+        /* Sibling stagger: items rise once the wrap scrolls into view; a filter
+           change remounts the grid (key) and replays a quicker snap-in.
+           Hidden state gated behind html.js — SSR/no-JS stays visible. */
+        .js .stagger-wrap:not(.in) .cases-grid > * { opacity: 0; }
+        .js .stagger-wrap.in .cases-grid > * {
+          animation: grid-rise var(--stag-dur, 400ms) var(--ease-exp) backwards;
+          animation-delay: calc(var(--i, 0) * var(--stag-step, 50ms));
+        }
+        @keyframes grid-rise {
+          from { opacity: 0; transform: translateY(14px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .js .stagger-wrap:not(.in) .cases-grid > *,
+          .js .stagger-wrap.in .cases-grid > * { opacity: 1; animation: none; }
+        }
+
         .listing-filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px; padding:6px; background:var(--color-bg-elev); border:1px solid var(--color-line); border-radius:9999px; width:fit-content; max-width:100%; overflow-x:auto; }
-        .listing-filters button { padding:9px 16px; font-size:13px; font-weight:500; border-radius:9999px; color:var(--color-ink-soft); transition:background .2s, color .2s; white-space:nowrap; background:transparent; border:none; cursor:pointer; }
+        .listing-filters button { padding:9px 16px; font-size:13px; font-weight:500; border-radius:9999px; color:var(--color-ink-soft); transition:background var(--dur-fast) var(--ease-exp), color var(--dur-fast) var(--ease-exp); white-space:nowrap; background:transparent; border:none; cursor:pointer; }
         .listing-filters button:hover { color:var(--color-ink); }
         .listing-filters button.active { background:var(--color-ink); color:var(--color-bg); }
         .empty-state { text-align:center; padding:60px 20px; color:var(--color-ink-mute); font-size:15px; }
@@ -162,7 +193,7 @@ export default function CaseStudiesListing({ locale }: Props) {
         .detail-cta p { color:rgba(255,255,255,0.7); font-size:15px; margin-top:8px; max-width:50ch; }
         [data-theme="dark"] .detail-cta p { color:var(--color-ink-soft); }
         @media (max-width: 680px) { .detail-cta { grid-template-columns:1fr; padding:32px 28px; } }
-        .btn-arrow { width:18px; height:18px; transition:transform .2s; }
+        .btn-arrow { width:18px; height:18px; transition:transform var(--dur-fast) var(--ease-exp); }
         .btn:hover .btn-arrow { transform:translateX(3px); }
       `}</style>
     </>

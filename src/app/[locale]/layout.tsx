@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
@@ -25,9 +26,9 @@ export async function generateMetadata({
   const { locale } = await params;
   const isVi = locale === 'vi';
 
-  const title = isVi
-    ? 'Nexora Technology | Công ty Phát triển Phần mềm'
-    : 'Nexora Technology | Software Development Company';
+  // Title is intentionally English for both locales (brand decision, 7/2026);
+  // descriptions stay localized so Vietnamese search snippets keep native copy.
+  const title = 'Nexora Technology | Software Development Company';
   const description = isVi
     ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
     : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.';
@@ -101,6 +102,13 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        {/* Motion gate: hidden initial states in CSS only apply under html.js,
+            so content stays visible for crawlers and users without JS.
+            next/script beforeInteractive runs before hydration and is injected
+            outside React's client render (no "script tag in component" warning). */}
+        <Script id="motion-js-gate" strategy="beforeInteractive">
+          {"document.documentElement.classList.add('js')"}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

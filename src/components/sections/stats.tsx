@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useCountUp, useInView } from '@/components/motion';
 
 const STATS = [
   { value: '2025', labelKey: 'stat1_l' },
@@ -12,37 +12,32 @@ const STATS = [
   { value: '92%', labelKey: 'stat6_l' },
 ];
 
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
+function StatValue({ value }: { value: string }) {
+  const ref = useCountUp<HTMLDivElement>(value);
+  return (
+    <div ref={ref} className="stat-value">
+      {value}
+    </div>
+  );
 }
 
 export default function Stats() {
   const t = useTranslations();
-  const wrapRef = useRef<HTMLDivElement>(null);
-  useReveal(wrapRef);
+  const wrapRef = useInView<HTMLDivElement>();
 
   return (
     <section className="section" style={{ paddingTop: 0 }}>
       <div className="container">
         <div
           ref={wrapRef}
-          className="stats-band reveal"
+          className="stats-band"
         >
           <h2 className="stats-title">{t('stats_title')}</h2>
 
           <div className="stats-grid">
             {STATS.map(({ value, labelKey }) => (
               <div key={labelKey} className="stat-cell">
-                <div className="stat-value">{value}</div>
+                <StatValue value={value} />
                 <div className="stat-label">{t(labelKey)}</div>
               </div>
             ))}
@@ -95,13 +90,29 @@ export default function Stats() {
         }
         @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 520px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+        /* Entrance: the 1px top rule draws across each cell, labels fade in.
+           (Rule is a ::before instead of border-top so it can scaleX; padding
+           absorbs the removed border so content position stays identical.) */
         .stat-cell {
-          border-top: 1px solid rgba(255,255,255,0.2);
-          padding-top: 20px;
+          position: relative;
+          padding-top: 21px;
         }
-        [data-theme="dark"] .stat-cell { border-top-color: var(--color-line); }
+        .stat-cell::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: rgba(255,255,255,0.2);
+          transform-origin: left;
+          transition: transform var(--dur-enter) var(--ease-exp);
+        }
+        [data-theme="dark"] .stat-cell::before { background: var(--color-line); }
+        .js .stats-band:not(.in) .stat-cell::before { transform: scaleX(0); }
         .stat-value {
           font-family: var(--font-display);
+          font-variant-numeric: tabular-nums;
           font-size: clamp(32px, 3.6vw, 48px);
           font-weight: 600;
           letter-spacing: -0.03em;
@@ -124,8 +135,10 @@ export default function Stats() {
           letter-spacing: 0.12em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.55);
+          transition: opacity 400ms var(--ease-exp);
         }
         [data-theme="dark"] .stat-label { color: var(--color-ink-mute); }
+        .js .stats-band:not(.in) .stat-label { opacity: 0; }
       `}</style>
     </section>
   );

@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/components/motion';
 
 const ICONS = [
   // 01 — Website
@@ -40,23 +40,10 @@ const SERVICES = [
   { num: '06', key: 'svc6', f: ['svc6_f1', 'svc6_f2', 'svc6_f3', 'svc6_f4', 'svc6_f5'] },
 ];
 
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
-}
-
 export default function Services() {
   const t = useTranslations();
-  const headRef = useRef<HTMLDivElement>(null);
-  useReveal(headRef);
+  const headRef = useInView<HTMLDivElement>();
+  const gridRef = useInView<HTMLDivElement>();
 
   return (
     <section className="section" id="services">
@@ -67,9 +54,9 @@ export default function Services() {
           <p className="section-sub">{t('services_sub')}</p>
         </div>
 
-        <div className="services-grid">
+        <div ref={gridRef} className="services-grid">
           {SERVICES.map(({ num, key, f }, i) => (
-            <div key={key} className="service-card">
+            <div key={key} className="service-card" style={{ '--i': i } as React.CSSProperties}>
               <span className="service-num">{num} / 06</span>
               <div className="service-icon">
                 {ICONS[i]}
@@ -124,6 +111,26 @@ export default function Services() {
           cursor: default;
         }
         .service-card:hover { background: var(--color-bg); }
+        /* Entrance: accent edge draws inside the card top (grid hairlines stay
+           intact) while the content fades in, staggered per card via --i. */
+        .service-card::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: var(--color-accent);
+          transform-origin: left;
+          transition: transform var(--dur-enter) var(--ease-exp);
+          transition-delay: calc(var(--i, 0) * 60ms);
+        }
+        .service-card > * {
+          transition: opacity 400ms var(--ease-exp);
+          transition-delay: calc(var(--i, 0) * 60ms);
+        }
+        .js .services-grid:not(.in) .service-card::before { transform: scaleX(0); }
+        .js .services-grid:not(.in) .service-card > * { opacity: 0; }
         .service-num {
           font-family: var(--font-mono);
           font-size: 11px;
@@ -143,7 +150,7 @@ export default function Services() {
             color-mix(in oklab, var(--color-accent) 22%, var(--color-bg-elev)) 0%,
             color-mix(in oklab, var(--color-indigo) 18%, var(--color-bg-elev)) 100%);
           border: 1px solid var(--color-line-strong);
-          transition: transform 0.35s;
+          transition: transform var(--dur-base) var(--ease-exp);
           color: var(--color-ink);
         }
         .service-card:hover .service-icon { transform: scale(1.05) rotate(-4deg); }
@@ -211,7 +218,7 @@ export default function Services() {
         .service-learn svg {
           width: 14px;
           height: 14px;
-          transition: transform 0.2s;
+          transition: transform var(--dur-fast) var(--ease-exp);
         }
         .service-card:hover .service-learn svg { transform: translateX(4px); }
       `}</style>

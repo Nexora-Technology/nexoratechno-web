@@ -1,23 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/components/motion';
 
 const SERVICE_KEYS = ['web', 'mobile', 'app', 'maintenance', 'iot', 'legacy'];
 const SERVICE_NUMS = ['1', '2', '3', '4', '5', '6'];
-
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
-}
 
 export default function Contact() {
   const t = useTranslations();
@@ -25,8 +13,7 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const headRef = useRef<HTMLDivElement>(null);
-  useReveal(headRef);
+  const headRef = useInView<HTMLDivElement>();
 
   function toggleChip(val: string) {
     setSelected(prev =>
@@ -332,7 +319,7 @@ export default function Contact() {
           font: inherit;
           font-size: 15px;
           color: var(--color-ink);
-          transition: border-color 0.2s, box-shadow 0.2s;
+          transition: border-color var(--dur-fast) var(--ease-exp), box-shadow var(--dur-fast) var(--ease-exp);
           font-family: var(--font-body);
           width: 100%;
         }
@@ -358,10 +345,11 @@ export default function Contact() {
           background: var(--color-bg);
           color: var(--color-ink-soft);
           cursor: pointer;
-          transition: border-color 0.2s, background 0.2s, color 0.2s;
+          transition: border-color var(--dur-fast) var(--ease-exp), background var(--dur-fast) var(--ease-exp), color var(--dur-fast) var(--ease-exp), transform var(--dur-fast) var(--ease-exp);
           font-weight: 500;
           font-family: inherit;
         }
+        .chip:active { transform: scale(0.97); }
         .chip:hover { border-color: var(--color-accent); color: var(--color-ink); }
         .chip.active {
           background: var(--color-ink);
@@ -379,6 +367,10 @@ export default function Contact() {
           font-size: 13px;
           color: var(--color-danger);
           max-width: 30ch;
+          animation: contact-msg-in var(--dur-base) var(--ease-exp);
+        }
+        @keyframes contact-msg-in {
+          from { opacity: 0; transform: translateY(4px); }
         }
         .form-note {
           font-size: 12px;
@@ -388,6 +380,7 @@ export default function Contact() {
         .form-success {
           text-align: center;
           padding: 28px 12px;
+          animation: contact-msg-in var(--dur-base) var(--ease-exp);
         }
         .form-success-icon {
           width: 56px;
@@ -431,6 +424,9 @@ export default function Contact() {
           cursor: pointer;
         }
         .btn:disabled { opacity: 0.7; cursor: wait; }
+        .btn:active { transform: scale(0.97); transition-duration: var(--dur-fast); }
+        .btn svg { transition: transform var(--dur-fast) var(--ease-exp); }
+        .btn:hover svg { transform: translateX(3px); }
         .btn-primary {
           background: var(--color-ink);
           color: var(--color-bg);

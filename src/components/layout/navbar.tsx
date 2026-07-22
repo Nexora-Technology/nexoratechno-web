@@ -55,13 +55,13 @@ export default function Navbar() {
   }
 
   return (
-    <header className={`nav-wrap${scrolled ? ' scrolled' : ''}`} role="banner">
+    <header className={`nav-wrap${scrolled ? ' scrolled' : ''}${mobileOpen ? ' menu-open' : ''}`} role="banner">
       <div className="container">
         <nav className="nav" aria-label="Main navigation">
           {/* Brand */}
           <Link href="/" className="brand" aria-label="Nexora Technology home">
             <img
-              src="https://nexoratechno.com/wp-content/uploads/2026/04/logo_nex.png"
+              src="/images/logo-nex.png"
               alt="Nexora Technology"
               className="brand-logo"
             />
@@ -135,13 +135,20 @@ export default function Navbar() {
         .nav-wrap {
           position: fixed; top: 0; left: 0; right: 0;
           z-index: 100; padding: 16px 0;
-          transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+          transition: background var(--dur-base) var(--ease-exp),
+                      backdrop-filter var(--dur-base) var(--ease-exp),
+                      box-shadow var(--dur-base) var(--ease-exp);
         }
-        .nav-wrap.scrolled {
+        .nav-wrap.scrolled,
+        .nav-wrap.menu-open {
           background: color-mix(in oklab, var(--color-bg) 80%, transparent);
           backdrop-filter: blur(16px) saturate(1.4);
           -webkit-backdrop-filter: blur(16px) saturate(1.4);
           box-shadow: 0 1px 0 var(--color-line);
+        }
+        /* open menu needs near-opaque ground so links stay readable over any hero */
+        .nav-wrap.menu-open {
+          background: color-mix(in oklab, var(--color-bg) 96%, transparent);
         }
         .nav { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
         .brand-logo {
@@ -194,11 +201,19 @@ export default function Navbar() {
           display: flex; flex-direction: column; gap: 4px;
           padding: 16px 0; border-top: 1px solid var(--color-line);
           margin-top: 8px;
+          animation: mobile-menu-in var(--dur-base) var(--ease-exp);
         }
         .mobile-menu a {
           padding: 10px 16px; font-size: 15px; font-weight: 500;
-          color: var(--color-ink-soft); border-radius: 8px;
-          transition: color 0.2s, background 0.2s;
+          color: var(--color-ink); border-radius: 8px;
+          transition: color var(--dur-fast) var(--ease-exp), background var(--dur-fast) var(--ease-exp);
+        }
+        @keyframes mobile-menu-in {
+          from { opacity: 0; transform: translateY(-6px); }
+          to   { opacity: 1; transform: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mobile-menu { animation: none; }
         }
         .mobile-menu a:hover { color: var(--color-ink); background: var(--color-bg-soft); }
       `}</style>

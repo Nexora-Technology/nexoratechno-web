@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/components/motion';
 
 const MODELS = [
   {
@@ -67,25 +68,13 @@ const ROWS = [
 
 const NUMS = ['01', '02', '03'];
 
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
-}
-
 export default function Models() {
   const t = useTranslations();
   const [active, setActive] = useState('1');
   const [highlightCol, setHighlightCol] = useState<number | null>(null);
-  const headRef = useRef<HTMLDivElement>(null);
-  useReveal(headRef);
+  const headRef = useInView<HTMLDivElement>();
+  const gridRef = useInView<HTMLDivElement>();
+  const compareRef = useInView<HTMLDivElement>();
 
   const current = MODELS.find(m => m.id === active)!;
 
@@ -99,7 +88,7 @@ export default function Models() {
         </div>
 
         {/* Tabs + Panel grid */}
-        <div className="models-grid" style={{ marginTop: '48px' }}>
+        <div ref={gridRef} className="models-grid" style={{ marginTop: '48px' }}>
           {/* Sidebar tabs */}
           <div className="model-tabs">
             {MODELS.map((m, idx) => (
@@ -107,6 +96,7 @@ export default function Models() {
                 key={m.id}
                 onClick={() => setActive(m.id)}
                 className={`model-tab${active === m.id ? ' active' : ''}`}
+                style={{ '--i': idx } as React.CSSProperties}
               >
                 <div className="mt-num">{NUMS[idx]}</div>
                 <div className="mt-name">{t(m.nameKey)}</div>
@@ -115,29 +105,31 @@ export default function Models() {
             ))}
           </div>
 
-          {/* Panel */}
+          {/* Panel — inner wrapper is keyed so switching tabs replays the swap animation */}
           <div className="model-panel">
-            <h3>
-              {t(current.nameKey)}{' '}
-              <span style={{ color: 'var(--color-ink-mute)', fontWeight: 500 }} className="mono">
-                — {t(current.tagKey)}
-              </span>
-            </h3>
-            <p className="model-panel-desc">{t(current.descKey)}</p>
+            <div key={active} className="model-panel-swap">
+              <h3>
+                {t(current.nameKey)}{' '}
+                <span style={{ color: 'var(--color-ink-mute)', fontWeight: 500 }} className="mono">
+                  — {t(current.tagKey)}
+                </span>
+              </h3>
+              <p className="model-panel-desc">{t(current.descKey)}</p>
 
-            <div className="model-specs">
-              {current.specs.map(({ labelKey, valueKey }) => (
-                <div key={labelKey} className="model-spec">
-                  <div className="model-spec-label">{t(labelKey)}</div>
-                  <div className="model-spec-value">{t(valueKey)}</div>
-                </div>
-              ))}
+              <div className="model-specs">
+                {current.specs.map(({ labelKey, valueKey }) => (
+                  <div key={labelKey} className="model-spec">
+                    <div className="model-spec-label">{t(labelKey)}</div>
+                    <div className="model-spec-value">{t(valueKey)}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Comparison Table */}
-        <div style={{ marginTop: '96px' }}>
+        <div ref={compareRef} className="reveal" style={{ marginTop: '96px' }}>
           <div className="compare-head">
             <div>
               <h3 style={{ fontSize: '28px', letterSpacing: '-0.02em' }}>{t('compare_title')}</h3>
@@ -236,9 +228,38 @@ export default function Models() {
           border-radius: var(--radius-md);
           background: transparent;
           border: 1px solid transparent;
-          transition: background 0.2s, border-color 0.2s, transform 0.2s;
+          transition: background var(--dur-fast) var(--ease-exp), border-color var(--dur-fast) var(--ease-exp), transform var(--dur-fast) var(--ease-exp);
           min-width: 0;
           cursor: pointer;
+        }
+        .model-tab:active { transform: scale(0.98); }
+        /* Staggered entrance: tabs rise in sequence, panel follows.
+           Animation (not transition) keeps hover/active transitions delay-free. */
+        .js .models-grid:not(.in) .model-tab,
+        .js .models-grid:not(.in) .model-panel { opacity: 0; }
+        .js .models-grid.in .model-tab {
+          animation: model-rise 400ms var(--ease-exp) backwards;
+          animation-delay: calc(var(--i) * 50ms);
+        }
+        .js .models-grid.in .model-panel {
+          animation: model-rise 400ms var(--ease-exp) backwards;
+          animation-delay: 150ms;
+        }
+        @keyframes model-rise {
+          from { opacity: 0; transform: translateY(14px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .js .models-grid:not(.in) .model-tab,
+          .js .models-grid:not(.in) .model-panel { opacity: 1; }
+          .js .models-grid.in .model-tab,
+          .js .models-grid.in .model-panel { animation: none; }
+        }
+        /* Tab switch: replaced panel content fades and rises in, fast. */
+        .model-panel-swap {
+          animation: model-swap var(--dur-base) var(--ease-exp);
+        }
+        @keyframes model-swap {
+          from { opacity: 0; transform: translateY(8px); }
         }
         .model-tab .mt-num {
           font-family: var(--font-mono);
@@ -328,7 +349,7 @@ export default function Models() {
           font-size: 13px;
           font-weight: 500;
           color: var(--color-ink-mute);
-          transition: background 0.2s, color 0.2s;
+          transition: background var(--dur-fast) var(--ease-exp), color var(--dur-fast) var(--ease-exp);
           cursor: pointer;
           background: transparent;
           border: none;
@@ -366,7 +387,7 @@ export default function Models() {
           cursor: pointer;
           position: relative;
           user-select: none;
-          transition: background 0.2s;
+          transition: background var(--dur-fast) var(--ease-exp);
         }
         .compare-table thead th:hover {
           background: color-mix(in oklab, var(--color-accent-soft) 50%, var(--color-bg-soft));

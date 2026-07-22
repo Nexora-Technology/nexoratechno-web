@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/static-content';
+import { useInView } from '@/components/motion';
 
 const GRADIENT_PAIRS = [
   ['#4F46E5', '#06B6D4'],
@@ -18,6 +19,7 @@ interface Props {
 
 export default function BlogDetailView({ post, locale }: Props) {
   const t = useTranslations();
+  const heroRef = useInView<HTMLDivElement>();
 
   const [c1, c2] = GRADIENT_PAIRS[0];
 
@@ -32,7 +34,7 @@ export default function BlogDetailView({ post, locale }: Props) {
     <>
       {/* Hero */}
       <section className="subpage-hero" style={{ paddingBottom: 32 }}>
-        <div className="container subpage-hero-inner">
+        <div ref={heroRef} className="container subpage-hero-inner reveal">
           <div className="crumb">
             <Link href={`/${locale}`}>{t('sub_home')}</Link>
             <span className="crumb-sep">/</span>
@@ -153,7 +155,7 @@ export default function BlogDetailView({ post, locale }: Props) {
           letter-spacing: .12em; text-transform: uppercase;
           color: var(--color-ink-mute); margin-bottom: 28px;
         }
-        .crumb a { color: var(--color-ink-mute); transition: color .2s; text-decoration: none; }
+        .crumb a { color: var(--color-ink-mute); transition: color var(--dur-fast) var(--ease-exp); text-decoration: none; }
         .crumb a:hover { color: var(--color-ink); }
         .crumb-sep { color: var(--color-ink-mute); opacity: .5; }
 
@@ -250,7 +252,7 @@ export default function BlogDetailView({ post, locale }: Props) {
           padding: 14px 28px; border-radius: 9999px;
           background: var(--color-accent); color: #1A1508;
           font-weight: 600; font-size: 15px;
-          transition: opacity .2s; text-decoration: none;
+          transition: opacity var(--dur-fast) var(--ease-exp); text-decoration: none;
         }
         .btn-accent:hover { opacity: .9; }
 
@@ -259,7 +261,7 @@ export default function BlogDetailView({ post, locale }: Props) {
           padding: 12px 24px; border-radius: 9999px;
           border: 1px solid var(--color-line);
           color: var(--color-ink); font-size: 14px; font-weight: 500;
-          transition: border-color .2s; text-decoration: none;
+          transition: border-color var(--dur-fast) var(--ease-exp); text-decoration: none;
         }
         .btn-ghost:hover { border-color: var(--color-line-strong); }
 

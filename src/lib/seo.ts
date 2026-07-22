@@ -7,7 +7,7 @@ export const SITE_URL = 'https://nexoratechno.com';
 
 /** Default social-share image. Replace with a dedicated 1200x630 banner when
  *  available — this logo is a functional stopgap so shares are not blank. */
-export const OG_IMAGE = `${SITE_URL}/wp-content/uploads/2026/04/logo_nex.png`;
+export const OG_IMAGE = `${SITE_URL}/images/logo-nex.png`;
 
 /**
  * Build self-referential canonical + hreflang alternates for a page.

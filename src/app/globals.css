@@ -45,6 +45,13 @@
   --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Motion — Precision system: fast, sharp, decisive.
+     micro 150–250ms · entrance 400–600ms · exits ~75% of enter */
+  --ease-exp: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-enter: 600ms;
 }
 
 /* ── Dark theme tokens ── */
@@ -122,15 +129,50 @@ section { position: relative; }
   color: transparent;
 }
 
-/* ── Reveal animation ── */
+/* ── Reveal animation ──
+   Hidden initial state is gated behind html.js (set by an inline script in the
+   layout) so content stays visible without JS, in crawlers, and in hidden-tab
+   loads where transitions freeze at progress 0. */
 .reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+  transition: opacity var(--dur-enter) var(--ease-exp), transform var(--dur-enter) var(--ease-exp);
 }
-.reveal.in {
-  opacity: 1;
-  transform: none;
+.js .reveal:not(.in) {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+/* ── Line mask (hero headline choreography) ──
+   Each masked line slides up from behind its own overflow-hidden wrapper. */
+.mp-mask {
+  display: block;
+  overflow: hidden;
+  /* italic descenders/ascenders of the gradient line need bleed room */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.mp-mask > span {
+  display: block;
+  transition: transform var(--dur-enter) var(--ease-exp);
+  transition-delay: var(--mp-d, 0s);
+}
+.js .mp-choreo:not(.mp-in) .mp-mask > span {
+  transform: translateY(112%);
+}
+
+/* Followers: elements that fade/rise after the masked lines. */
+.mp-follow {
+  transition: opacity var(--dur-enter) var(--ease-exp), transform var(--dur-enter) var(--ease-exp);
+  transition-delay: var(--mp-d, 0s);
+}
+.js .mp-choreo:not(.mp-in) .mp-follow {
+  opacity: 0;
+  transform: translateY(14px);
+}
+/* Settle failsafe: after the choreography window the final states apply
+   instantly (covers background-tab loads that resume mid-transition). */
+.mp-choreo.mp-settle .mp-mask > span,
+.mp-choreo.mp-settle .mp-follow {
+  transition: none;
 }
 
 /* ── Eyebrow label ── */
@@ -214,3 +256,21 @@ section { position: relative; }
   transition: transform 0.2s;
 }
 .btn:hover .btn-arrow { transform: translateX(3px); }
+.btn:active { transform: scale(0.97); transition-duration: var(--dur-fast); }
+
+/* ── Reduced motion: everything lands instantly, nothing stays hidden ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .js .reveal:not(.in),
+  .js .mp-choreo:not(.mp-in) .mp-mask > span,
+  .js .mp-choreo:not(.mp-in) .mp-follow {
+    opacity: 1;
+    transform: none;
+  }
+}

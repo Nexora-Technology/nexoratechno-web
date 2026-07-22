@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/static-content';
+import { useInView } from '@/components/motion';
 import BlogFeaturedCard from './blog-featured-card';
 import BlogFilter from './blog-filter';
 import BlogCard from './blog-card';
@@ -50,6 +51,13 @@ export default function BlogListing({ locale }: Props) {
   }, []);
 
   const [activeFilter, setActiveFilter] = useState('all');
+  const [hasFiltered, setHasFiltered] = useState(false);
+  const staggerRef = useInView<HTMLDivElement>();
+
+  const handleFilterChange = (cat: string) => {
+    setActiveFilter(cat);
+    setHasFiltered(true);
+  };
 
   const featured = posts.find((p) => p.featured) ?? posts[0];
   const grid = posts.filter((p) => p !== featured);
@@ -80,23 +88,29 @@ export default function BlogListing({ locale }: Props) {
         <div className="container">
           {featured && <BlogFeaturedCard post={featured} locale={locale} />}
 
-          <BlogFilter categories={CATEGORIES} onFilterChange={setActiveFilter} />
+          <BlogFilter categories={CATEGORIES} onFilterChange={handleFilterChange} />
 
-          {loading ? (
-            <div className="blog-grid">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="blog-card" style={{ height: 280, background: 'var(--color-bg-elev)', animation: 'pulse 1.5s infinite' }} />
-              ))}
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className="empty-state">{t('blog_empty')}</div>
-          ) : (
-            <div className="blog-grid">
-              {filtered.map((post, i) => (
-                <BlogCard key={post.slug} post={post} locale={locale} index={i} />
-              ))}
-            </div>
-          )}
+          <div
+            ref={staggerRef}
+            className="stagger-wrap"
+            style={hasFiltered ? ({ '--stag-step': '30ms', '--stag-dur': '250ms' } as React.CSSProperties) : undefined}
+          >
+            {loading ? (
+              <div className="blog-grid">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="blog-card" style={{ height: 280, background: 'var(--color-bg-elev)', animation: 'pulse 1.5s infinite' }} />
+                ))}
+              </div>
+            ) : filtered.length === 0 ? (
+              <div className="empty-state">{t('blog_empty')}</div>
+            ) : (
+              <div className="blog-grid" key={activeFilter}>
+                {filtered.map((post, i) => (
+                  <BlogCard key={post.slug} post={post} locale={locale} index={i} />
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* CTA dark band */}
           <div className="detail-cta" style={{ marginTop: 80 }}>
@@ -147,7 +161,7 @@ export default function BlogListing({ locale }: Props) {
           letter-spacing: .12em; text-transform: uppercase;
           color: var(--color-ink-mute); margin-bottom: 28px;
         }
-        .crumb a { color: var(--color-ink-mute); transition: color .2s; }
+        .crumb a { color: var(--color-ink-mute); transition: color var(--dur-fast) var(--ease-exp); }
         .crumb a:hover { color: var(--color-ink); }
         .crumb-sep { color: var(--color-ink-mute); opacity: .5; }
 
@@ -156,6 +170,22 @@ export default function BlogListing({ locale }: Props) {
         }
         @media (max-width: 900px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) { .blog-grid { grid-template-columns: 1fr; } }
+
+        /* Sibling stagger: items rise once the wrap scrolls into view; a filter
+           change remounts the grid (key) and replays a quicker snap-in.
+           Hidden state gated behind html.js — SSR/no-JS stays visible. */
+        .js .stagger-wrap:not(.in) .blog-grid > * { opacity: 0; }
+        .js .stagger-wrap.in .blog-grid > * {
+          animation: grid-rise var(--stag-dur, 400ms) var(--ease-exp) backwards;
+          animation-delay: calc(var(--i, 0) * var(--stag-step, 50ms));
+        }
+        @keyframes grid-rise {
+          from { opacity: 0; transform: translateY(14px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .js .stagger-wrap:not(.in) .blog-grid > *,
+          .js .stagger-wrap.in .blog-grid > * { opacity: 1; animation: none; }
+        }
 
         .empty-state {
           text-align: center; padding: 60px 20px;
@@ -193,7 +223,7 @@ export default function BlogListing({ locale }: Props) {
           padding: 14px 28px; border-radius: 9999px;
           background: var(--color-accent); color: #1A1508;
           font-weight: 600; font-size: 15px;
-          transition: opacity .2s; text-decoration: none;
+          transition: opacity var(--dur-fast) var(--ease-exp); text-decoration: none;
         }
         .btn-accent:hover { opacity: .9; }
 

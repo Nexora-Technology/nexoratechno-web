@@ -112,7 +112,7 @@ export default function CareerDetailView({ career, locale }: Props) {
         .subpage-hero-inner { position:relative; z-index:1; }
 
         .crumb { display:inline-flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-ink-mute); margin-bottom:28px; }
-        .crumb a { color:var(--color-ink-mute); transition:color .2s; }
+        .crumb a { color:var(--color-ink-mute); transition:color var(--dur-fast) var(--ease-exp); }
         .crumb a:hover { color:var(--color-ink); }
         .crumb-sep { color:var(--color-ink-mute); opacity:.5; }
 
@@ -150,12 +150,12 @@ export default function CareerDetailView({ career, locale }: Props) {
         [data-theme="dark"] .detail-cta p { color:var(--color-ink-soft); }
         @media(max-width:680px) { .detail-cta { grid-template-columns:1fr; padding:32px 28px; } }
 
-        .btn-accent { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:9999px; background:var(--color-accent); color:#1A1508; font-weight:600; font-size:15px; transition:opacity .2s; text-decoration:none; }
+        .btn-accent { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:9999px; background:var(--color-accent); color:#1A1508; font-weight:600; font-size:15px; transition:opacity var(--dur-fast) var(--ease-exp); text-decoration:none; }
         .btn-accent:hover { opacity:.9; }
-        .btn-arrow { width:18px; height:18px; transition:transform .2s; }
+        .btn-arrow { width:18px; height:18px; transition:transform var(--dur-fast) var(--ease-exp); }
         .btn-accent:hover .btn-arrow { transform:translateX(3px); }
 
-        .btn-ghost { display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:500; color:var(--color-ink-soft); text-decoration:none; transition:color .2s; }
+        .btn-ghost { display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:500; color:var(--color-ink-soft); text-decoration:none; transition:color var(--dur-fast) var(--ease-exp); }
         .btn-ghost:hover { color:var(--color-ink); }
       `}</style>
     </>

@@ -3,14 +3,14 @@
 import Link from 'next/link';
 import type { CaseStudy } from '@/lib/static-content';
 
-interface Props { item: CaseStudy; locale: string; }
+interface Props { item: CaseStudy; locale: string; index?: number; }
 
-export default function CaseCard({ item, locale }: Props) {
+export default function CaseCard({ item, locale, index = 0 }: Props) {
   return (
     <Link
       href={`/${locale}/case-studies/${item.slug}`}
       className="case-card group"
-      style={{ '--case-color': item.color } as React.CSSProperties}
+      style={{ '--case-color': item.color, '--i': Math.min(index, 9) } as React.CSSProperties}
     >
       {/* Visual header */}
       <div className="case-visual">
@@ -42,11 +42,13 @@ export default function CaseCard({ item, locale }: Props) {
           display: flex;
           flex-direction: column;
           cursor: pointer;
-          transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+          transition: border-color var(--dur-base) var(--ease-exp),
+            transform var(--dur-base) var(--ease-exp),
+            box-shadow var(--dur-base) var(--ease-exp);
         }
         .case-card:hover {
           border-color: var(--color-line-strong);
-          transform: translateY(-3px);
+          transform: translateY(-2px);
           box-shadow: var(--shadow-lg);
         }
         .case-visual {
@@ -65,6 +67,7 @@ export default function CaseCard({ item, locale }: Props) {
           background: radial-gradient(ellipse at top right, rgba(255,255,255,0.22), transparent 60%),
             radial-gradient(ellipse at bottom left, rgba(0,0,0,0.25), transparent 60%),
             var(--case-color, #4F46E5);
+          transition: transform 400ms var(--ease-exp);
         }
         .case-visual::after {
           content: "";
@@ -74,7 +77,10 @@ export default function CaseCard({ item, locale }: Props) {
             linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
           background-size: 32px 32px;
+          transition: transform 400ms var(--ease-exp);
         }
+        .case-card:hover .case-visual::before,
+        .case-card:hover .case-visual::after { transform: scale(1.03); }
         .case-visual-content {
           position: relative;
           z-index: 1;

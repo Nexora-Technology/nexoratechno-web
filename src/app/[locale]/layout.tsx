@@ -6,7 +6,7 @@ import { routing } from '@/i18n/routing';
 import { Providers } from '@/components/providers/providers';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
-import { buildAlternates, OG_IMAGES, OG_IMAGE } from '@/lib/seo';
+import { buildAlternates, OG_IMAGES, LOGO_URL } from '@/lib/seo';
 import '@/app/globals.css';
 
 interface LocaleLayoutProps {
@@ -80,7 +80,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     '@type': 'Organization',
     name: 'Nexora Technology Co., Ltd.',
     url: 'https://nexoratechno.com',
-    logo: OG_IMAGE,
+    logo: LOGO_URL,
     description: locale === 'vi'
       ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
       : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.',

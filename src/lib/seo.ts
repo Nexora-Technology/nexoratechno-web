@@ -5,9 +5,13 @@ import type { Metadata } from 'next';
  *  always include the locale segment to point at a 200 response, never a redirect. */
 export const SITE_URL = 'https://nexoratechno.com';
 
-/** Default social-share image. Replace with a dedicated 1200x630 banner when
- *  available — this logo is a functional stopgap so shares are not blank. */
-export const OG_IMAGE = `${SITE_URL}/images/logo-nex.png`;
+/** Default social-share image: dedicated 1200x630 brand banner (dark ink
+ *  background, gold wordmark at native aspect ratio, English tagline). */
+export const OG_IMAGE = `${SITE_URL}/images/og-banner.png`;
+
+/** Actual brand logo (wordmark) — for schema.org Organization.logo, which
+ *  expects the logo itself, not the social-share banner. */
+export const LOGO_URL = `${SITE_URL}/images/logo-nex.png`;
 
 /**
  * Build self-referential canonical + hreflang alternates for a page.

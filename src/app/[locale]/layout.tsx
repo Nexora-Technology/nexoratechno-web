@@ -26,9 +26,9 @@ export async function generateMetadata({
   const { locale } = await params;
   const isVi = locale === 'vi';
 
-  const title = isVi
-    ? 'Nexora Technology | Công ty Phát triển Phần mềm'
-    : 'Nexora Technology | Software Development Company';
+  // Title is intentionally English for both locales (brand decision, 7/2026);
+  // descriptions stay localized so Vietnamese search snippets keep native copy.
+  const title = 'Nexora Technology | Software Development Company';
   const description = isVi
     ? 'Công ty phần mềm tại TP.HCM — phát triển web, mobile, IoT và chuyển đổi hệ thống legacy.'
     : 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.';

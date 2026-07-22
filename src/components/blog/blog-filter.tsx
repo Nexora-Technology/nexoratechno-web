@@ -42,7 +42,8 @@ export default function BlogFilter({ categories, onFilterChange }: Props) {
         .listing-filters button {
           padding: 9px 16px; font-size: 13px; font-weight: 500;
           border-radius: 9999px; color: var(--color-ink-soft);
-          transition: background .2s, color .2s; white-space: nowrap;
+          transition: background var(--dur-fast) var(--ease-exp), color var(--dur-fast) var(--ease-exp);
+          white-space: nowrap;
           background: transparent; border: none; cursor: pointer;
         }
         .listing-filters button:hover { color: var(--color-ink); }

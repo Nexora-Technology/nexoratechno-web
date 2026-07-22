@@ -3,18 +3,20 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { CaseStudy } from '@/lib/static-content';
+import { useInView } from '@/components/motion';
 
 interface Props { item: CaseStudy; locale: string; }
 
 export default function CaseDetailView({ item, locale }: Props) {
   const t = useTranslations();
+  const heroRef = useInView<HTMLDivElement>();
 
   return (
     <>
       {/* Hero */}
       <section className="subpage-hero">
         <div className="container">
-          <div className="subpage-hero-inner">
+          <div ref={heroRef} className="subpage-hero-inner reveal">
             <div className="crumb">
               <a href={`/${locale}`}>{t('sub_home')}</a>
               <span className="crumb-sep">/</span>
@@ -135,7 +137,7 @@ export default function CaseDetailView({ item, locale }: Props) {
         .subpage-hero::before { content:""; position:absolute; right:-20%; top:-80%; width:70%; height:260%; background:radial-gradient(ellipse at center, color-mix(in oklab, var(--color-accent) 18%, transparent) 0%, transparent 60%); pointer-events:none; }
         .subpage-hero-inner { position:relative; z-index:1; }
         .crumb { display:inline-flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-ink-mute); margin-bottom:28px; }
-        .crumb a { color:var(--color-ink-mute); transition:color .2s; }
+        .crumb a { color:var(--color-ink-mute); transition:color var(--dur-fast) var(--ease-exp); }
         .crumb a:hover { color:var(--color-ink); }
         .crumb-sep { color:var(--color-ink-mute); opacity:.5; }
         .eyebrow { font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-ink-mute); margin-bottom:16px; display:block; }
@@ -172,7 +174,7 @@ export default function CaseDetailView({ item, locale }: Props) {
         @media (max-width:680px) { .detail-cta { grid-template-columns:1fr; padding:32px 28px; } }
         .tag-pill { padding:4px 10px; font-size:12px; font-weight:500; background:var(--color-bg-soft); border:1px solid var(--color-line); border-radius:9999px; color:var(--color-ink-soft); display:inline-block; }
         .tag-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
-        .btn-arrow { width:18px; height:18px; transition:transform .2s; }
+        .btn-arrow { width:18px; height:18px; transition:transform var(--dur-fast) var(--ease-exp); }
         .btn:hover .btn-arrow { transform:translateX(3px); }
       `}</style>
     </>

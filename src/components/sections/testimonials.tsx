@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/components/motion';
 
 const TESTIMONIALS = [
   {
@@ -27,23 +27,10 @@ const TESTIMONIALS = [
   },
 ];
 
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
-}
-
 export default function Testimonials() {
   const t = useTranslations();
-  const headRef = useRef<HTMLDivElement>(null);
-  useReveal(headRef);
+  const headRef = useInView<HTMLDivElement>();
+  const gridRef = useInView<HTMLDivElement>();
 
   return (
     <section className="section" style={{ paddingTop: 0 }}>
@@ -53,9 +40,9 @@ export default function Testimonials() {
           <h2 className="section-title">{t('testi_title')}</h2>
         </div>
 
-        <div className="testi-grid">
-          {TESTIMONIALS.map(({ quoteKey, nameKey, roleKey, initials, gradient }) => (
-            <div key={nameKey} className="testi-card">
+        <div ref={gridRef} className="testi-grid">
+          {TESTIMONIALS.map(({ quoteKey, nameKey, roleKey, initials, gradient }, i) => (
+            <div key={nameKey} className="testi-card" style={{ '--i': i } as React.CSSProperties}>
               <p className="testi-quote">{t(quoteKey)}</p>
 
               <div className="testi-meta">
@@ -91,11 +78,25 @@ export default function Testimonials() {
           flex-direction: column;
           gap: 24px;
           min-height: 280px;
-          transition: box-shadow 0.2s, transform 0.2s;
+          transition: box-shadow var(--dur-fast) var(--ease-exp), transform var(--dur-fast) var(--ease-exp), border-color var(--dur-fast) var(--ease-exp);
         }
         .testi-card:hover {
           box-shadow: var(--shadow-md);
           transform: translateY(-2px);
+          border-color: var(--color-line-strong);
+        }
+        /* Staggered entrance — animation keeps the hover transition delay-free. */
+        .js .testi-grid:not(.in) .testi-card { opacity: 0; }
+        .js .testi-grid.in .testi-card {
+          animation: testi-card-rise 400ms var(--ease-exp) backwards;
+          animation-delay: calc(var(--i) * 50ms);
+        }
+        @keyframes testi-card-rise {
+          from { opacity: 0; transform: translateY(14px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .js .testi-grid:not(.in) .testi-card { opacity: 1; }
+          .js .testi-grid.in .testi-card { animation: none; }
         }
         .testi-quote {
           font-family: var(--font-display);

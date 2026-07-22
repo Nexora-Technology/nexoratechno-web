@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/components/motion';
 
 const VALUES = [
   { num: '01', titleKey: 'about_v1_t', descKey: 'about_v1_d' },
@@ -9,25 +9,10 @@ const VALUES = [
   { num: '03', titleKey: 'about_v3_t', descKey: 'about_v3_d' },
 ];
 
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
-}
-
 export default function About() {
   const t = useTranslations();
-  const leftRef = useRef<HTMLDivElement>(null);
-  const rightRef = useRef<HTMLDivElement>(null);
-  useReveal(leftRef);
-  useReveal(rightRef);
+  const leftRef = useInView<HTMLDivElement>();
+  const valuesRef = useInView<HTMLDivElement>();
 
   return (
     <section className="section" id="about" style={{ background: 'var(--color-bg-soft)' }}>
@@ -59,11 +44,11 @@ export default function About() {
             </p>
           </div>
 
-          {/* Right — values cards */}
-          <div ref={rightRef} className="reveal">
-            <div className="about-values">
-              {VALUES.map(({ num, titleKey, descKey }) => (
-                <div key={num} className="about-value">
+          {/* Right — values cards, staggered rise */}
+          <div>
+            <div ref={valuesRef} className="about-values">
+              {VALUES.map(({ num, titleKey, descKey }, i) => (
+                <div key={num} className="about-value" style={{ '--i': i } as React.CSSProperties}>
                   <div className="about-value-mark">{num}</div>
                   <div>
                     <h4>{t(titleKey)}</h4>
@@ -100,6 +85,25 @@ export default function About() {
           grid-template-columns: 48px 1fr;
           gap: 20px;
           align-items: start;
+          transition: transform var(--dur-fast) var(--ease-exp), border-color var(--dur-fast) var(--ease-exp);
+        }
+        .about-value:hover {
+          transform: translateY(-2px);
+          border-color: var(--color-line-strong);
+        }
+        /* Staggered entrance — animation (not transition) so the hover
+           transition above never inherits the per-item delay. */
+        .js .about-values:not(.in) .about-value { opacity: 0; }
+        .js .about-values.in .about-value {
+          animation: about-value-rise 400ms var(--ease-exp) backwards;
+          animation-delay: calc(var(--i) * 50ms);
+        }
+        @keyframes about-value-rise {
+          from { opacity: 0; transform: translateY(14px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .js .about-values:not(.in) .about-value { opacity: 1; }
+          .js .about-values.in .about-value { animation: none; }
         }
         .about-value-mark {
           width: 40px;

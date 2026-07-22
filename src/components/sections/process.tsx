@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/components/motion';
 
 const STEPS = [
   { num: '01', t_key: 'proc1_t', d_key: 'proc1_d' },
@@ -14,18 +14,8 @@ const STEPS = [
 
 export default function Process() {
   const t = useTranslations();
-  const headRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = headRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const headRef = useInView<HTMLDivElement>();
+  const trackRef = useInView<HTMLDivElement>();
 
   return (
     <section className="section" style={{ paddingTop: 0 }}>
@@ -36,9 +26,9 @@ export default function Process() {
           <p className="section-sub">{t('process_sub')}</p>
         </div>
 
-        <div className="process-timeline">
-          {STEPS.map(({ num, t_key, d_key }) => (
-            <div key={num} className="process-step">
+        <div ref={trackRef} className="process-timeline">
+          {STEPS.map(({ num, t_key, d_key }, i) => (
+            <div key={num} className="process-step" style={{ '--i': i } as React.CSSProperties}>
               <div className="process-num">{num}</div>
               <h3>{t(t_key)}</h3>
               <p>{t(d_key)}</p>
@@ -67,6 +57,17 @@ export default function Process() {
           background: var(--color-bg-elev);
           padding: 32px 28px;
           position: relative;
+        }
+        /* Entrance: step content rises 14px + fades, staggered 80ms per step.
+           Animating the children (not the cell) keeps the 1px grid hairlines
+           and cell backgrounds intact during the reveal. */
+        .process-step > * {
+          transition: opacity 400ms var(--ease-exp), transform 400ms var(--ease-exp);
+          transition-delay: calc(var(--i, 0) * 80ms);
+        }
+        .js .process-timeline:not(.in) .process-step > * {
+          opacity: 0;
+          transform: translateY(14px);
         }
         .process-num {
           font-family: var(--font-display);

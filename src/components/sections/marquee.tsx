@@ -33,13 +33,13 @@ export default function Marquee() {
         {t('marquee_label')}
       </p>
 
-      <div style={{ overflow: 'hidden' }}>
+      <div className="marquee-viewport">
         <div
           className="marquee-track"
           aria-hidden="true"
         >
           {[...STACK, ...STACK].map((tech, i) => (
-            <span key={i} className="marquee-item">
+            <span key={i} className={i >= STACK.length ? 'marquee-item marquee-dup' : 'marquee-item'}>
               {tech}
               <span className="marquee-dot" />
             </span>
@@ -48,12 +48,18 @@ export default function Marquee() {
       </div>
 
       <style>{`
+        .marquee-viewport {
+          overflow: hidden;
+          -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        }
         .marquee-track {
           display: flex;
           gap: 56px;
           animation: marquee-scroll 40s linear infinite;
           width: max-content;
         }
+        .marquee-track:hover { animation-play-state: paused; }
         .marquee-item {
           font-family: var(--font-display);
           font-size: 28px;
@@ -76,6 +82,23 @@ export default function Marquee() {
         @keyframes marquee-scroll {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
+        }
+        /* Reduced motion: static, centered, wrapping row — no clipped names,
+           no edge fade, duplicate loop copies hidden. */
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-viewport {
+            -webkit-mask-image: none;
+            mask-image: none;
+          }
+          .marquee-track {
+            animation: none;
+            width: auto;
+            flex-wrap: wrap;
+            justify-content: center;
+            row-gap: 16px;
+            padding: 0 24px;
+          }
+          .marquee-dup { display: none; }
         }
       `}</style>
     </section>

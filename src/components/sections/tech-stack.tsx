@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/components/motion';
 
 const STACKS = [
   {
@@ -30,23 +30,10 @@ const STACKS = [
   },
 ];
 
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('in'); observer.disconnect(); } },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
-}
-
 export default function TechStack() {
   const t = useTranslations();
-  const headRef = useRef<HTMLDivElement>(null);
-  useReveal(headRef);
+  const headRef = useInView<HTMLDivElement>();
+  const gridRef = useInView<HTMLDivElement>();
 
   return (
     <section className="section" style={{ paddingTop: 0 }}>
@@ -57,9 +44,9 @@ export default function TechStack() {
           <p className="section-sub">{t('tech_sub')}</p>
         </div>
 
-        <div className="tech-grid">
-          {STACKS.map(({ key, pills }) => (
-            <div key={key} className="tech-card">
+        <div ref={gridRef} className="tech-grid">
+          {STACKS.map(({ key, pills }, i) => (
+            <div key={key} className="tech-card" style={{ '--i': i } as React.CSSProperties}>
               <h4>{t(key)}</h4>
               <div className="tech-pills">
                 {pills.map(pill => (
@@ -84,6 +71,24 @@ export default function TechStack() {
           border: 1px solid var(--color-line);
           border-radius: var(--radius-md);
           padding: 28px;
+          transition: transform var(--dur-fast) var(--ease-exp), border-color var(--dur-fast) var(--ease-exp);
+        }
+        .tech-card:hover {
+          transform: translateY(-2px);
+          border-color: var(--color-line-strong);
+        }
+        /* Staggered entrance — animation keeps hover transitions delay-free. */
+        .js .tech-grid:not(.in) .tech-card { opacity: 0; }
+        .js .tech-grid.in .tech-card {
+          animation: tech-card-rise 400ms var(--ease-exp) backwards;
+          animation-delay: calc(var(--i) * 50ms);
+        }
+        @keyframes tech-card-rise {
+          from { opacity: 0; transform: translateY(14px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .js .tech-grid:not(.in) .tech-card { opacity: 1; }
+          .js .tech-grid.in .tech-card { animation: none; }
         }
         .tech-card h4 {
           font-size: 14px;
@@ -107,7 +112,7 @@ export default function TechStack() {
           border: 1px solid var(--color-line);
           border-radius: 9999px;
           color: var(--color-ink-soft);
-          transition: border-color 0.2s, color 0.2s, background 0.2s;
+          transition: border-color var(--dur-fast) var(--ease-exp), color var(--dur-fast) var(--ease-exp), background var(--dur-fast) var(--ease-exp);
           cursor: default;
         }
         .tech-pill:hover {

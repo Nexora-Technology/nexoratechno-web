@@ -15,7 +15,7 @@ export default function Footer() {
           <div className="footer-brand">
             <Link href={`/${locale}`} className="brand" aria-label="Nexora home">
               <img
-                src="https://nexoratechno.com/wp-content/uploads/2026/04/logo_nex.png"
+                src="/images/logo-nex.png"
                 alt="Nexora Technology"
                 className="brand-logo"
               />

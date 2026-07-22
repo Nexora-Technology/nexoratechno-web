@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
@@ -101,6 +102,13 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        {/* Motion gate: hidden initial states in CSS only apply under html.js,
+            so content stays visible for crawlers and users without JS.
+            next/script beforeInteractive runs before hydration and is injected
+            outside React's client render (no "script tag in component" warning). */}
+        <Script id="motion-js-gate" strategy="beforeInteractive">
+          {"document.documentElement.classList.add('js')"}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

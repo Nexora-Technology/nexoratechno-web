@@ -21,7 +21,7 @@ export default function BlogCard({ post, locale, index = 0 }: Props) {
     <Link
       href={`/${locale}/blog/${post.slug}`}
       className="blog-card"
-      style={{ '--c1': c1, '--c2': c2 } as React.CSSProperties}
+      style={{ '--c1': c1, '--c2': c2, '--i': Math.min(index, 9) } as React.CSSProperties}
     >
       <div className="blog-card-visual" />
       <div className="blog-card-body">
@@ -39,12 +39,14 @@ export default function BlogCard({ post, locale, index = 0 }: Props) {
           display: flex; flex-direction: column; overflow: hidden;
           border-radius: var(--radius-lg); border: 1px solid var(--color-line);
           background: var(--color-bg-elev); cursor: pointer;
-          transition: border-color .2s, transform .2s, box-shadow .2s;
+          transition: border-color var(--dur-base) var(--ease-exp),
+            transform var(--dur-base) var(--ease-exp),
+            box-shadow var(--dur-base) var(--ease-exp);
         }
         .blog-card:hover {
           border-color: var(--color-line-strong);
-          transform: translateY(-3px);
-          box-shadow: 0 6px 24px rgba(0,0,0,.06);
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
         }
         .blog-card-visual {
           aspect-ratio: 16/10;
@@ -58,7 +60,9 @@ export default function BlogCard({ post, locale, index = 0 }: Props) {
             linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
           background-size: auto, 28px 28px, 28px 28px;
+          transition: transform 400ms var(--ease-exp);
         }
+        .blog-card:hover .blog-card-visual::after { transform: scale(1.03); }
         .blog-card-body {
           padding: 24px; display: flex; flex-direction: column;
           gap: 12px; flex: 1;

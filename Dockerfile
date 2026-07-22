@@ -27,6 +27,8 @@ RUN addgroup --system --gid 1001 nodejs \
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Standalone output does NOT bundle public/ — it must be copied next to server.js
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Git SHA label for deploy tracking
 LABEL git_sha="${GIT_SHA:-unknown}"

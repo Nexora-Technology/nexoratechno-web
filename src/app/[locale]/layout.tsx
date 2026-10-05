@@ -7,12 +7,19 @@ import { Providers } from '@/components/providers/providers';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
 import { buildAlternates, localePath, OG_IMAGES, LOGO_URL } from '@/lib/seo';
+import { getWordPressSiteIcons } from '@/lib/wordpress-site-icon';
 import '@/app/globals.css';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }
+
+// ISR so the WordPress Site Icon lands in the HTML even though WordPress is
+// unreachable during `docker build`. Short window = icon appears minutes after
+// a deploy; the icon fetch itself is cached for an hour (wordpress-site-icon.ts).
+// Must be a literal — Next parses segment config statically.
+export const revalidate = 300;
 
 export function generateStaticParams() {
   return routing.locales.map((locale: string) => ({ locale }));
@@ -31,6 +38,7 @@ export async function generateMetadata({
   const title = 'Nexora Technology | Software Development Company';
   const description =
     'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.';
+  const icons = await getWordPressSiteIcons();
 
   return {
     // `absolute` sets the home title verbatim and ignores the root layout's
@@ -39,6 +47,7 @@ export async function generateMetadata({
     // "| Nexora Technology" suffix on their short titles.
     title: { absolute: title, template: '%s | Nexora Technology' },
     description,
+    ...(icons && { icons }),
     alternates: buildAlternates(locale, ''),
     openGraph: {
       locale: isVi ? 'vi_VN' : 'en_US',

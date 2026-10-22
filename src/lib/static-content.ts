@@ -3,6 +3,7 @@ export interface ContentBlock {
   h: string;
   p?: string;
   list?: string[];
+  figures?: { src: string; alt: string; caption?: string }[];
 }
 
 // ── Blog ──────────────────────────────────────────────────────────────────────
@@ -261,6 +262,7 @@ export interface CaseStudy {
   duration: string;
   team: string;
   color: string;
+  image?: string;
   metrics: CaseMetric[];
   body: ContentBlock[];
   wpContent?: string;

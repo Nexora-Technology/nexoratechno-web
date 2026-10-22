@@ -126,6 +126,17 @@ export const CASE_STUDY_BASE_FIELDS = gql`
   }
 `;
 
+// WordPress texturizes rendered content (quotes, dashes, ampersands become entities);
+// the body renders as plain text, so strip tags and decode entities back to characters.
+const NAMED_ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+export function textOf(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, '')
+    .replace(/&#(x?)([0-9a-f]+);/gi, (_, hex, n) => String.fromCodePoint(parseInt(n, hex ? 16 : 10)))
+    .replace(/&(amp|lt|gt|quot|apos|nbsp);/g, (_, name) => NAMED_ENTITIES[name])
+    .trim();
+}
+
 // ─── Meta extraction (embedded JSON in content) ────────────────────────────────
 
 export interface ExtractedCaseMeta extends CaseMeta {

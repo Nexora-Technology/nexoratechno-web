@@ -35,9 +35,10 @@ export default function CaseDetailView({ item, locale }: Props) {
       {/* Hero visual */}
       <div className="container" style={{ paddingTop: '60px' }}>
         <div
-          className="case-hero-visual"
+          className={`case-hero-visual${item.image ? ' has-img' : ''}`}
           style={{ '--case-color': item.color } as React.CSSProperties}
         >
+          {item.image && <img className="case-hero-img" src={item.image} alt="" />}
           <div className="case-hero-content">
             <div>
               <div className="case-client">{item.client}</div>
@@ -92,6 +93,12 @@ export default function CaseDetailView({ item, locale }: Props) {
               {block.list && (
                 <ul>{block.list.map((x, j) => <li key={j}>{x}</li>)}</ul>
               )}
+              {block.figures?.map((f, j) => (
+                <figure key={j} className="detail-figure">
+                  <img src={f.src} alt={f.alt} loading="lazy" />
+                  {f.caption && <figcaption>{f.caption}</figcaption>}
+                </figure>
+              ))}
             </div>
           ))}
           <div className="tag-row" style={{ marginTop: '40px' }}>
@@ -148,6 +155,8 @@ export default function CaseDetailView({ item, locale }: Props) {
         @media (max-width:600px) { .case-hero-visual { height:260px; padding:28px; } }
         .case-hero-visual::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at top right, rgba(255,255,255,0.25), transparent 55%), radial-gradient(ellipse at bottom left, rgba(0,0,0,0.3), transparent 55%), var(--case-color, #4F46E5); }
         .case-hero-visual::after { content:""; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px); background-size:40px 40px; }
+        .case-hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+        .case-hero-visual.has-img::after { background-image:linear-gradient(to top, rgba(0,0,0,0.65), transparent 70%); background-size:auto; }
         .case-hero-content { position:relative; z-index:1; }
         .case-hero-content h2 { font-size:clamp(28px,3.4vw,42px); color:white; letter-spacing:-0.02em; max-width:22ch; line-height:1.1; }
         .case-hero-content .case-client { font-size:16px; opacity:.85; margin-bottom:12px; }
@@ -166,6 +175,9 @@ export default function CaseDetailView({ item, locale }: Props) {
         .detail-body ul { padding-left:0; list-style:none; margin:14px 0; }
         .detail-body ul li { position:relative; padding-left:28px; font-size:17px; color:var(--color-ink-soft); line-height:1.6; margin:10px 0; }
         .detail-body ul li::before { content:""; position:absolute; left:0; top:0.75em; width:16px; height:1px; background:var(--color-accent); }
+        .detail-figure { margin:28px 0 8px; }
+        .detail-figure img { width:100%; height:auto; display:block; border-radius:var(--radius-lg); border:1px solid var(--color-line); }
+        .detail-figure figcaption { margin-top:10px; font-size:14px; line-height:1.5; color:var(--color-ink-mute); }
         .detail-cta { margin:0 auto; max-width:1080px; padding:56px 48px; background:var(--color-ink); color:var(--color-bg); border-radius:var(--radius-xl); display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; }
         [data-theme="dark"] .detail-cta { background:var(--color-bg-elev); border:1px solid var(--color-line); }
         .detail-cta h3 { color:var(--color-bg); font-size:clamp(22px,2.8vw,32px); letter-spacing:-0.02em; max-width:22ch; }

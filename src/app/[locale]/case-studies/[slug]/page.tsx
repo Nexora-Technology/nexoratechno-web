@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import type { CaseStudy } from '@/lib/static-content';
+import type { CaseStudy, ContentBlock } from '@/lib/static-content';
 import { buildAlternates, OG_IMAGES } from '@/lib/seo';
 import CaseDetailView from '@/components/case-studies/case-detail-view';
+import { textOf } from '@/lib/wordpress';
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -11,24 +12,31 @@ interface Props {
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 // Parse rendered HTML into ContentBlocks: <h2> headings define block boundaries;
-// each block collects following <p> (joined) and <ul><li> entries.
-function parseBodyBlocks(html: string): { h: string; p?: string; list?: string[] }[] {
+// each block collects following <p> (joined), <ul><li> entries and <figure> images.
+function parseBodyBlocks(html: string): ContentBlock[] {
   if (!html.trim()) return [];
   const parts = html.split(/(?=<h2[^>]*>)/i).filter((s) => /<h2/i.test(s));
   return parts.map((seg) => {
     const hMatch = seg.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
-    const h = hMatch ? hMatch[1].replace(/<[^>]*>/g, '').trim() : '';
+    const h = hMatch ? textOf(hMatch[1]) : '';
     const rest = seg.replace(/<h2[^>]*>[\s\S]*?<\/h2>/i, '');
+    const figures = Array.from(rest.matchAll(/<figure[^>]*>([\s\S]*?)<\/figure>/gi)).flatMap((m) => {
+      const src = m[1].match(/<img[^>]*\ssrc="([^"]+)"/i)?.[1];
+      if (!src) return [];
+      const alt = textOf(m[1].match(/<img[^>]*\salt="([^"]*)"/i)?.[1] ?? '');
+      const caption = textOf(m[1].match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i)?.[1] ?? '') || undefined;
+      return [{ src, alt, caption }];
+    });
     const pTexts = Array.from(rest.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi))
-      .map((m) => m[1].replace(/<[^>]*>/g, '').trim())
+      .map((m) => textOf(m[1]))
       .filter(Boolean);
     const ulMatch = rest.match(/<ul[^>]*>([\s\S]*?)<\/ul>/i);
     const list = ulMatch
       ? Array.from(ulMatch[1].matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi))
-          .map((m) => m[1].replace(/<[^>]*>/g, '').trim())
+          .map((m) => textOf(m[1]))
           .filter(Boolean)
       : undefined;
-    return { h, p: pTexts.length ? pTexts.join(' ') : undefined, list };
+    return { h, p: pTexts.length ? pTexts.join(' ') : undefined, list, figures: figures.length ? figures : undefined };
   });
 }
 
@@ -51,12 +59,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!res.ok) return { title: 'Case Study' };
     const item = await res.json();
     const title = String(item?.title || 'Case Study').replace(/<[^>]*>/g, '');
-    const description = String(item?.excerpt || '').replace(/<[^>]*>/g, '').slice(0, 160);
+    const description = textOf(String(item?.excerpt || '')).slice(0, 160);
+    const cover = item?.featuredImage?.node?.sourceUrl;
+    const images = cover ? [{ url: cover, width: 1600, height: 900, alt: title }] : OG_IMAGES;
     return {
       title,
       description: description || `How Nexora delivered ${title}.`,
-      openGraph: { type: 'article', title, description, images: OG_IMAGES },
-      twitter: { card: 'summary_large_image', title, description, images: OG_IMAGES },
+      openGraph: { type: 'article', title, description, images },
+      twitter: { card: 'summary_large_image', title, description, images },
       alternates: buildAlternates(locale, `/case-studies/${slug}`),
     };
   } catch {
@@ -82,12 +92,13 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       client: meta?.client ?? '',
       industry: meta?.industry ?? '',
       title: String(p.title || '').replace(/<[^>]*>/g, ''),
-      summary: String(p.excerpt || '').replace(/<[^>]*>/g, ''),
+      summary: textOf(String(p.excerpt || '')),
       services: cats?.nodes?.map((n) => n.name) ?? [],
       year: parseInt(meta?.year ?? '0') || new Date(String(p.date)).getFullYear(),
       duration: meta?.duration ?? '',
       team: meta?.team ?? '',
       color: meta?.color ?? '#6B46C1',
+      image: p.featuredImage?.node?.sourceUrl,
       metrics,
       body,
       wpContent: String(p.content || ''),

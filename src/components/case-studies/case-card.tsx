@@ -14,7 +14,8 @@ export default function CaseCard({ item, locale, index = 0 }: Props) {
       style={{ '--case-color': item.color, '--i': Math.min(index, 9) } as React.CSSProperties}
     >
       {/* Visual header */}
-      <div className="case-visual">
+      <div className={`case-visual${item.image ? ' has-img' : ''}`}>
+        {item.image && <img className="case-visual-img" src={item.image} alt="" loading="lazy" />}
         <div className="case-visual-content">
           <div>
             <p className="case-client">{item.client}</p>
@@ -81,7 +82,21 @@ export default function CaseCard({ item, locale, index = 0 }: Props) {
           transition: transform 400ms var(--ease-exp);
         }
         .case-card:hover .case-visual::before,
-        .case-card:hover .case-visual::after { transform: scale(1.03); }
+        .case-card:hover .case-visual::after,
+        .case-card:hover .case-visual-img { transform: scale(1.03); }
+        .case-visual-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 400ms var(--ease-exp);
+        }
+        /* Scrim keeps the overlaid client name legible on any cover image */
+        .case-visual.has-img::after {
+          background-image: linear-gradient(to top, rgba(0,0,0,0.6), transparent 65%);
+          background-size: auto;
+        }
         .case-visual-content {
           position: relative;
           z-index: 1;

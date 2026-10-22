@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import type { CaseStudy } from '@/lib/static-content';
+import { textOf } from '@/lib/wordpress';
 import { useInView } from '@/components/motion';
 import CaseCard from './case-card';
 import { localeHref } from '@/lib/seo';
@@ -37,12 +38,13 @@ export default function CaseStudiesListing({ locale }: Props) {
               client: meta?.client ?? '',
               industry: meta?.industry ?? '',
               title: String(p.title || '').replace(/<[^>]*>/g, ''),
-              summary: String(p.excerpt || '').replace(/<[^>]*>/g, ''),
+              summary: textOf(String(p.excerpt || '')),
               services: cats?.nodes?.map((n) => n.name) ?? [],
               year: parseInt(meta?.year ?? '0') || new Date(String(p.date)).getFullYear(),
               duration: meta?.duration ?? '',
               team: meta?.team ?? '',
               color: meta?.color ?? '#6B46C1',
+              image: (p.featuredImage as { node?: { sourceUrl?: string } } | null)?.node?.sourceUrl,
               metrics: [],
               body: [],
             };

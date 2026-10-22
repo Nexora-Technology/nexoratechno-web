@@ -12,6 +12,18 @@ interface Props {
   locale: string;
 }
 
+// WordPress industries are free text and grow with every case study; the filter
+// groups them into a few sectors so the bar stays on one row.
+const SECTORS: { key: string; industries: string[] }[] = [
+  { key: 'finance', industries: ['Fintech', 'Insurance'] },
+  { key: 'industry', industries: ['Manufacturing', 'Energy', 'Infrastructure', 'Automotive', 'Agriculture', 'GIS'] },
+  { key: 'commerce', industries: ['E-commerce', 'Distribution', 'Logistics', 'Retail & F&B', 'F&B', 'Loyalty', 'Beauty Retail', 'Real Estate', 'Hospitality'] },
+  { key: 'health', industries: ['Healthcare', 'Biotech Compliance'] },
+  { key: 'enterprise', industries: ['Enterprise Software', 'Productivity SaaS', 'Service Tech', 'Web Services', 'Education', 'Gaming', 'AI Data'] },
+];
+const sectorOf = (industry: string) =>
+  SECTORS.find((s) => s.industries.includes(industry))?.key ?? 'other';
+
 export default function CaseStudiesListing({ locale }: Props) {
   const t = useTranslations();
   const [cases, setCases] = useState<CaseStudy[]>([]);
@@ -56,12 +68,13 @@ export default function CaseStudiesListing({ locale }: Props) {
       .finally(() => setLoading(false));
   }, []);
 
-  // Filter by industry (domain) — skills/tech are shown per card, not as filters.
-  const allIndustries = Array.from(new Set(cases.map((c) => c.industry).filter(Boolean)));
+  // Filter by sector (grouped industries) — skills/tech are shown per card, not as filters.
+  const present = new Set(cases.map((c) => sectorOf(c.industry)));
+  const sectors = [...SECTORS.map((s) => s.key), 'other'].filter((k) => present.has(k));
   const filtered =
     activeService === 'all'
       ? cases
-      : cases.filter((c) => c.industry === activeService);
+      : cases.filter((c) => sectorOf(c.industry) === activeService);
 
   return (
     <>
@@ -97,13 +110,13 @@ export default function CaseStudiesListing({ locale }: Props) {
             >
               {t('sub_all')}
             </button>
-            {allIndustries.map((ind) => (
+            {sectors.map((key) => (
               <button
-                key={ind}
-                className={activeService === ind ? 'active' : ''}
-                onClick={() => selectService(ind)}
+                key={key}
+                className={activeService === key ? 'active' : ''}
+                onClick={() => selectService(key)}
               >
-                {ind}
+                {t(`cs_sector_${key}`)}
               </button>
             ))}
           </div>
@@ -184,7 +197,8 @@ export default function CaseStudiesListing({ locale }: Props) {
           .js .stagger-wrap.in .cases-grid > * { opacity: 1; animation: none; }
         }
 
-        .listing-filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px; padding:6px; background:var(--color-bg-elev); border:1px solid var(--color-line); border-radius:9999px; width:fit-content; max-width:100%; overflow-x:auto; }
+        .listing-filters { display:flex; gap:8px; flex-wrap:nowrap; margin-bottom:40px; padding:6px; background:var(--color-bg-elev); border:1px solid var(--color-line); border-radius:9999px; width:fit-content; max-width:100%; overflow-x:auto; scrollbar-width:none; }
+        .listing-filters::-webkit-scrollbar { display:none; }
         .listing-filters button { padding:9px 16px; font-size:13px; font-weight:500; border-radius:9999px; color:var(--color-ink-soft); transition:background var(--dur-fast) var(--ease-exp), color var(--dur-fast) var(--ease-exp); white-space:nowrap; background:transparent; border:none; cursor:pointer; }
         .listing-filters button:hover { color:var(--color-ink); }
         .listing-filters button.active { background:var(--color-ink); color:var(--color-bg); }

@@ -59,10 +59,12 @@ export default function CaseDetailView({ item, locale }: Props) {
             <div className="case-fact-l">{t('cs_detail_industry')}</div>
             <div className="case-fact-v">{item.industry}</div>
           </div>
-          <div className="case-fact">
-            <div className="case-fact-l">{t('cs_detail_duration')}</div>
-            <div className="case-fact-v">{item.duration}</div>
-          </div>
+          {item.duration && (
+            <div className="case-fact">
+              <div className="case-fact-l">{t('cs_detail_duration')}</div>
+              <div className="case-fact-v">{item.duration}</div>
+            </div>
+          )}
           <div className="case-fact">
             <div className="case-fact-l">{t('cs_detail_team')}</div>
             <div className="case-fact-v">{item.team}</div>
@@ -160,7 +162,7 @@ export default function CaseDetailView({ item, locale }: Props) {
         .case-hero-content { position:relative; z-index:1; }
         .case-hero-content h2 { font-size:clamp(28px,3.4vw,42px); color:white; letter-spacing:-0.02em; max-width:22ch; line-height:1.1; }
         .case-hero-content .case-client { font-size:16px; opacity:.85; margin-bottom:12px; }
-        .case-facts { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin:0 auto 40px; max-width:1080px; }
+        .case-facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:24px; margin:0 auto 40px; max-width:1080px; }
         @media (max-width:680px) { .case-facts { grid-template-columns:repeat(2,1fr); gap:16px; } }
         .case-fact { border-top:1px solid var(--color-line); padding-top:14px; }
         .case-fact-l { font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-ink-mute); }

@@ -31,7 +31,7 @@ export default function CaseCard({ item, locale, index = 0 }: Props) {
         <p>{item.summary}</p>
         <div className="case-foot">
           <span>{item.services.slice(0, 2).join(' · ')}</span>
-          <span>{item.duration}</span>
+          {item.duration && <span>{item.duration}</span>}
         </div>
       </div>
 

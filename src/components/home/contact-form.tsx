@@ -56,7 +56,13 @@ export default function ContactForm() {
     invalid ? t(`invalid_${invalid}`) : status === 'success' ? t('success') : status === 'error' ? t('error') : '';
 
   return (
-    <form id="contact-form" ref={form} onSubmit={submit} noValidate aria-labelledby="contact-form-title" aria-describedby="contact-form-note">
+    <form
+      id="contact-form"
+      ref={form}
+      onSubmit={submit}
+      // Editing after a failed check clears the error until the next submit.
+      onInput={() => invalid && setInvalid(null)}
+      noValidate aria-labelledby="contact-form-title" aria-describedby="contact-form-note">
       <h3 className="form-title" id="contact-form-title">
         {t('form_title')}
       </h3>

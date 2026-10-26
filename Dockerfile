@@ -10,6 +10,10 @@ RUN npm ci
 FROM node:24-alpine AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
+# The internal WordPress host is unreachable from CI; prerender pages from the
+# public GraphQL endpoint so a deploy never serves empty listings. Runtime uses
+# WPGRAPHQL_URL from docker-compose (internal network).
+ENV WPGRAPHQL_URL=https://nexoratechno.com/graphql
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build

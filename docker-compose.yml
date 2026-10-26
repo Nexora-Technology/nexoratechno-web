@@ -24,6 +24,8 @@ services:
       SMTP_PASS: ${SMTP_PASS:-}
       SMTP_FROM: ${SMTP_FROM:-}
       CONTACT_TO: ${CONTACT_TO:-}
+      # Token for POST /api/revalidate (called by deploy.sh after each deploy)
+      REVALIDATE_TOKEN: ${REVALIDATE_TOKEN:-}
     depends_on:
       wordpress:
         condition: service_healthy

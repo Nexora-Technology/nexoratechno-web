@@ -583,7 +583,12 @@
       "error": "Your message was not sent. Please try again or email email@nexoratechno.com directly.",
       "invalid_name": "Please enter your name.",
       "invalid_email": "Please enter a valid email.",
-      "invalid_message": "Please write at least 10 characters."
+      "invalid_message": "Please write at least 10 characters.",
+      "form_title": "Tell us what’s next.",
+      "ph_name": "Your full name",
+      "ph_email": "you@company.com",
+      "ph_company": "Company or organization",
+      "ph_message": "Your goals, key features and ideal timeline…"
     }
   },
   "sub": {

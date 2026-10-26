@@ -38,9 +38,6 @@ form input,
 form textarea {
   font-family: inherit;
 }
-form [aria-invalid="true"] {
-  border-bottom-color: #9b2c1f;
-}
 #form-status[data-state="error"] {
   color: #8a2a1c;
 }
@@ -49,10 +46,12 @@ form [aria-invalid="true"] {
   cursor: progress;
 }
 /* Honeypot field for bots; kept out of view and out of the accessibility tree. */
-.contact-trap {
+#contact-form .contact-trap {
   position: absolute;
   left: -9999px;
   width: 1px;
   height: 1px;
+  min-height: 0;
+  padding: 0;
   opacity: 0;
 }

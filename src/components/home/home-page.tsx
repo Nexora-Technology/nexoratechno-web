@@ -17,6 +17,7 @@ import './home-palette.css';
 import './home-motion.css';
 import './home-production.css';
 import './home-react.css';
+import './home-form.css';
 
 const ROOT_ID = 'home-root';
 

@@ -1,0 +1,198 @@
+/* Contact form refinement: defined surfaces, clear labels and visible focus. */
+#contact-form {
+  background: #f8f6f0;
+  border: 1px solid #b9ad8d;
+  border-top: 3px solid var(--gold);
+  border-radius: 10px;
+  padding: 32px;
+  box-shadow: 0 18px 55px #4c452414;
+  min-width: 0;
+}
+#contact-form .form-title {
+  font: 500 30px/1.25 var(--display);
+  letter-spacing: -0.045em;
+  margin: 0 0 26px;
+  color: #202422;
+}
+#contact-form > .mono {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: #565c53;
+}
+#contact-form .service-chips {
+  gap: 8px;
+  margin: 14px 0 26px;
+}
+#contact-form .service-chips button {
+  background: #fffefa;
+  border: 1px solid #8f9185;
+  color: #3f463e;
+  font-size: 11px;
+  padding: 9px 13px;
+  min-height: 40px;
+}
+#contact-form .service-chips button:hover {
+  background: #ede8d9;
+  border-color: #82631e;
+}
+#contact-form .service-chips button[aria-pressed="true"] {
+  background: #202422;
+  border-color: #202422;
+  color: #e6c77c;
+}
+#contact-form .form-row {
+  gap: 18px;
+}
+#contact-form label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #30392f;
+  margin: 0 0 20px;
+  min-width: 0;
+}
+#contact-form label > span {
+  display: block;
+  margin-bottom: 9px;
+}
+#contact-form input,
+#contact-form textarea,
+#contact-form #contact-budget {
+  display: block;
+  width: 100%;
+  background: #fffefa;
+  border: 1px solid #8f9185;
+  border-radius: 6px;
+  padding: 13px 14px;
+  min-height: 52px;
+  color: #202422;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  box-shadow: 0 1px 2px #20242205;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+#contact-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+#contact-form input::placeholder,
+#contact-form textarea::placeholder {
+  color: #71786c;
+  opacity: 1;
+  font-size: 13px;
+}
+#contact-form input:hover,
+#contact-form textarea:hover,
+#contact-form #contact-budget:hover {
+  border-color: #656e60;
+}
+#contact-form input:focus,
+#contact-form textarea:focus,
+#contact-form #contact-budget:focus {
+  outline: 2px solid #82631e;
+  outline-offset: 2px;
+  border-color: #82631e;
+  box-shadow: 0 0 0 5px #dab66026;
+  background: #fff;
+}
+#contact-form label:focus-within > span {
+  color: #82631e;
+}
+#contact-form .form-bottom {
+  flex-direction: column-reverse;
+  align-items: stretch;
+  gap: 14px;
+  margin-top: 6px;
+}
+#contact-form .submit-button {
+  width: 100%;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border: 1px solid #202422;
+  border-radius: 6px;
+  background: #202422;
+  color: #e6c77c;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 5px 12px #20242215;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+#contact-form .submit-button:hover {
+  background: #343d30;
+  box-shadow: 0 8px 18px #20242222;
+}
+#contact-form .form-note {
+  font-size: 10px;
+  color: #606858;
+  line-height: 1.7;
+  max-width: none;
+  font-weight: 400;
+}
+#contact-form #form-status:not(:empty) {
+  margin-top: 18px;
+  border: 1px solid #b9ad8d;
+  background: #eae8dc;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+@media (max-width: 1050px) {
+  #contact-form {
+    padding: 26px;
+  }
+  .contact-layout {
+    gap: 6%;
+  }
+}
+@media (max-width: 760px) {
+  #contact-form {
+    padding: 25px 20px;
+    border-radius: 8px;
+  }
+  .contact-layout {
+    gap: 35px;
+  }
+  #contact-form .form-title {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+  #contact-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  #contact-form label {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  #contact-form .service-chips button {
+    min-height: 44px;
+    font-size: 11px;
+  }
+  #contact-form .form-note {
+    font-size: 11px;
+  }
+  #contact-form .submit-button {
+    font-size: 13px;
+    min-height: 56px;
+  }
+}
+
+/* Production-only states (the mockup has no API errors). */
+#contact-form [aria-invalid="true"],
+#contact-form [aria-invalid="true"]:hover {
+  border-color: #9b2c1f;
+}
+#contact-form #form-status[data-state="error"]:not(:empty) {
+  border-color: #c99a8f;
+  background: #f6e8e3;
+}

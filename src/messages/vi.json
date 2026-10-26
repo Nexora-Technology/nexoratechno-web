@@ -583,7 +583,12 @@
       "error": "Chưa gửi được. Vui lòng thử lại hoặc email trực tiếp email@nexoratechno.com.",
       "invalid_name": "Vui lòng nhập tên.",
       "invalid_email": "Vui lòng nhập email hợp lệ.",
-      "invalid_message": "Mô tả cần ít nhất 10 ký tự."
+      "invalid_message": "Mô tả cần ít nhất 10 ký tự.",
+      "form_title": "Kể về dự án của bạn.",
+      "ph_name": "Nhập tên của bạn",
+      "ph_email": "ban@congty.com",
+      "ph_company": "Tên công ty hoặc tổ chức",
+      "ph_message": "Mục tiêu, tính năng và thời gian bạn mong muốn…"
     }
   },
   "sub": {

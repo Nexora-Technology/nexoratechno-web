@@ -1,7 +1,7 @@
 'use client';
 
 import { NextIntlClientProvider } from 'next-intl';
-import { ThemeProvider } from '@/components/providers/theme-provider';
+import { MotionProvider } from '@/components/providers/motion-provider';
 import type { ReactNode } from 'react';
 
 interface ProvidersProps {
@@ -13,7 +13,7 @@ interface ProvidersProps {
 export function Providers({ children, locale, messages }: ProvidersProps) {
   return (
     <NextIntlClientProvider locale={locale} messages={messages} timeZone="Asia/Ho_Chi_Minh">
-      <ThemeProvider>{children}</ThemeProvider>
+      <MotionProvider>{children}</MotionProvider>
     </NextIntlClientProvider>
   );
 }

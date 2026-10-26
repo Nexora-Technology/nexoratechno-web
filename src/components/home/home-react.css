@@ -1,0 +1,58 @@
+/* Adjustments for the React port of the mockup markup. */
+
+/* The WebGL host is attached by home-scene into one of these empty slots. */
+.scene-slot,
+.scene-host {
+  position: absolute;
+  inset: 0;
+}
+.scene-host canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#sculpture[data-webgl="ready"] .sculpture-fallback,
+.connection[data-scene="stage"] .stage-fallback {
+  display: none;
+}
+.motion-off .connection .stage-fallback {
+  display: grid;
+}
+
+/* Semantic list / address elements replacing the mockup's divs. */
+.process-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+address.address {
+  font-style: normal;
+}
+.live-time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Contact form states (production API instead of a mailto draft). */
+#contact-budget,
+form input,
+form textarea {
+  font-family: inherit;
+}
+form [aria-invalid="true"] {
+  border-bottom-color: #9b2c1f;
+}
+#form-status[data-state="error"] {
+  color: #8a2a1c;
+}
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+/* Honeypot field for bots; kept out of view and out of the accessibility tree. */
+.contact-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}

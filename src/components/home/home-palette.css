@@ -1,0 +1,92 @@
+/* Brand palette v2: official champagne gold, graphite and warm ivory. */
+.hero {
+  --ink: #f4f1e8;
+  --muted: #b3bbb4;
+  --line: #3d4540;
+  --accent: var(--gold);
+  background: radial-gradient(ellipse at 80% 70%, #dab6600c, transparent 55%),
+    var(--graphite);
+  color: var(--ink);
+}
+.hero-description p {
+  color: #c7cdc6;
+}
+.hero-top {
+  color: #bec6bd;
+}
+.hero .orbit {
+  border-color: #dab6602b;
+}
+.hero .orbit:after {
+  color: #ac9670;
+}
+.hero .scroll-icon {
+  color: var(--gold);
+}
+.hero .hero-index {
+  color: #a9b2a8;
+}
+.expertise {
+  --accent: var(--gold);
+}
+.expertise {
+  background: var(--graphite);
+}
+.expertise .wire-sphere {
+  border-color: #9c8346;
+}
+.expertise .wire-sphere i {
+  border-color: #9c8346;
+}
+.expertise .wire-sphere span {
+  color: var(--gold);
+}
+.journey {
+  background: #dab660;
+  color: #191b1a;
+}
+.contact {
+  background: #e9e3d3;
+  --accent: var(--gold-ink);
+  color: #202422;
+}
+.contact .section-marker {
+  --line: #b4ac98;
+  color: #62634f;
+}
+.contact-heading h2 em {
+  color: #82631e;
+}
+.contact input,
+.contact textarea {
+  color: #202422;
+  border-color: #a49b87;
+}
+.contact .service-chips button {
+  border-color: #a49b87;
+}
+.contact .service-chips button[aria-pressed="true"] {
+  background: #202422;
+  color: #f4f1e8;
+}
+.contact .submit-button {
+  background: #202422;
+  color: #e6c77c;
+  border: 0;
+  padding: 15px 22px;
+  border-radius: 2px;
+}
+.vision-art {
+  background: #25332e;
+}
+.platform-art {
+  background: #ccc5b2;
+}
+@media (max-width: 760px) {
+  .hero .hero-top > span:last-child {
+    color: #bec6bd;
+  }
+  .contact .submit-button {
+    min-height: 48px;
+  }
+}

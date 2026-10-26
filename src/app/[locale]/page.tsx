@@ -1,19 +1,9 @@
-import { Hero, Marquee, Services, Process, Models, TechStack, Stats, Clients, Testimonials, About, Contact } from '@/components/sections';
+import { setRequestLocale } from 'next-intl/server';
+import HomePage from '@/components/home/home-page';
+import { getHomeData } from '@/components/home/home-data';
 
-export default function HomePage() {
-  return (
-    <main className="pt-16">
-      <Hero />
-      <Marquee />
-      <Services />
-      <Process />
-      <Models />
-      <TechStack />
-      <Stats />
-      <Clients />
-      <Testimonials />
-      <About />
-      <Contact />
-    </main>
-  );
+export default async function LocaleHomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  return <HomePage locale={locale} data={await getHomeData(locale)} />;
 }

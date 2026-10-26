@@ -1,0 +1,344 @@
+/* Motion direction 03 — connected pieces and spatial project stories. */
+.hero-title h1 > span {
+  perspective: 900px;
+  transform-origin: center bottom;
+}
+.statement .word-reveal {
+  display: inline-block;
+  color: inherit;
+}
+.statement > span .word-reveal {
+  color: inherit;
+}
+.connection {
+  background: var(--graphite);
+  color: var(--paper);
+  overflow: clip;
+  position: relative;
+}
+.connection-stage {
+  height: 100svh;
+  min-height: 650px;
+  position: relative;
+  padding: 35px var(--pad);
+  isolation: isolate;
+  overflow: hidden;
+}
+.stage-header,
+.stage-footer {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #bfc7bb;
+  font-size: 9px;
+  gap: 30px;
+}
+.stage-header {
+  border-top: 1px solid #445044;
+  padding-top: 20px;
+}
+.stage-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#9eafa00c 1px, transparent 1px),
+    linear-gradient(90deg, #9eafa00c 1px, transparent 1px);
+  background-size: 9vw 9vw;
+  mask-image: radial-gradient(ellipse at 70% 50%, black, transparent 80%);
+  z-index: -2;
+}
+.stage-halo {
+  width: 48vw;
+  height: 48vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, #dab66012, transparent 68%);
+  position: absolute;
+  left: 40%;
+  top: 10%;
+  z-index: -1;
+}
+.stage-copy {
+  position: relative;
+  z-index: 3;
+  margin-top: 7vh;
+  pointer-events: none;
+}
+.stage-kicker {
+  color: var(--gold);
+  font-size: 8px;
+}
+.stage-copy h2 {
+  font-family: var(--display);
+  font-size: clamp(65px, 7.3vw, 120px);
+  line-height: 1.02;
+  letter-spacing: -0.07em;
+  margin: 23px 0;
+}
+.stage-line {
+  display: block;
+  width: max-content;
+}
+.stage-line:nth-child(2) {
+  color: var(--gold);
+}
+.stage-copy p {
+  font-size: 13px;
+  color: #c7cdc6;
+  line-height: 1.9;
+  margin-top: 25px;
+  max-width: 30ch;
+}
+.stage-visual {
+  position: absolute;
+  inset: 6% -6% 3% 29%;
+  pointer-events: none;
+  z-index: 2;
+}
+.stage-canvas,
+.stage-canvas > #sculpture {
+  position: absolute;
+  inset: 0;
+}
+.stage-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.stage-fallback {
+  position: absolute;
+  inset: 22% 22%;
+  display: grid;
+  place-items: center;
+}
+.stage-fallback i {
+  border: 1.5vw solid var(--gold);
+  border-radius: 50%;
+  width: 70%;
+  height: 70%;
+  position: absolute;
+  transform: rotateX(45deg);
+}
+.stage-fallback i:nth-child(2) {
+  transform: rotateY(55deg) rotateZ(40deg);
+}
+.stage-fallback i:nth-child(3) {
+  transform: rotateY(-55deg) rotateZ(-40deg);
+}
+.scene-in-stage .stage-fallback {
+  display: none;
+}
+.stage-watermark {
+  position: absolute;
+  bottom: 9vh;
+  left: 4%;
+  font: 15vw/0.8 var(--display);
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px #72806d26;
+  pointer-events: none;
+  z-index: 0;
+}
+.stage-footer {
+  position: absolute;
+  bottom: 35px;
+  left: var(--pad);
+  right: var(--pad);
+}
+.stage-meter {
+  height: 1px;
+  background: #7e8b7744;
+  flex: 1;
+  max-width: 48%;
+}
+.stage-meter > span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+}
+.stage-phase {
+  min-width: 120px;
+  color: var(--gold);
+}
+.stage-percent {
+  min-width: 40px;
+  text-align: right;
+}
+.work-scroll-label {
+  display: none;
+}
+.work.is-stack .work-scroll-label {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 9px;
+  padding-bottom: 15px;
+}
+.work.is-stack .project-grid {
+  height: 75svh;
+  min-height: 480px;
+  max-height: 760px;
+  display: block;
+  perspective: 1400px;
+  isolation: isolate;
+}
+.work.is-stack .project {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 5%;
+  margin: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 30px;
+  transform-origin: 50% 0;
+  border-radius: 5px;
+  box-shadow: 0 -10px 30px #2224190b;
+  will-change: transform;
+}
+.work.is-stack .project-art {
+  aspect-ratio: auto;
+  height: 100%;
+  width: 100%;
+}
+.work.is-stack .project-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 0 1vw 0 0;
+  gap: 20px;
+}
+.work.is-stack .project-caption h3 {
+  font-size: clamp(26px, 2.7vw, 43px);
+  line-height: 1.35;
+  margin: 25px 0;
+}
+.work.is-stack .project-caption p {
+  font-size: 13px;
+  max-width: 35ch;
+}
+.work.is-stack .project-arrow {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 27px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+.work.is-stack .work-note {
+  margin-top: 35px;
+}
+.motion-off .connection-stage {
+  height: auto;
+  min-height: 620px;
+}
+.motion-off .stage-fallback {
+  display: grid;
+}
+.motion-off .stage-footer {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  margin-top: 70px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .project-art {
+    transform: perspective(1200px) rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg));
+    transition:
+      transform 0.45s,
+      border-radius 0.4s;
+  }
+}
+@media (max-width: 1050px) and (min-width: 761px) {
+  .stage-copy h2 {
+    font-size: 8vw;
+  }
+  .work.is-stack .project {
+    padding: 20px;
+    gap: 4%;
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .work.is-stack .project-caption h3 {
+    font-size: 28px;
+  }
+  .work.is-stack .project-caption p {
+    font-size: 12px;
+  }
+  .work.is-stack .project-grid {
+    height: 68svh;
+    min-height: 440px;
+  }
+}
+@media (max-width: 760px) {
+  .connection-stage {
+    height: 880px;
+    min-height: 0;
+    padding-top: 30px;
+  }
+  .stage-header {
+    font-size: 7px;
+    gap: 12px;
+  }
+  .stage-header > span:last-child {
+    text-align: right;
+  }
+  .stage-copy {
+    margin-top: 35px;
+  }
+  .stage-copy h2 {
+    font-size: 51px;
+    line-height: 1.02;
+    margin: 17px 0;
+  }
+  .stage-kicker {
+    font-size: 7px;
+  }
+  .stage-copy p {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 20px;
+  }
+  .stage-visual {
+    inset: 310px -18% 75px -18%;
+  }
+  .stage-watermark {
+    font-size: 17vw;
+    bottom: 100px;
+    left: 1%;
+  }
+  .stage-footer {
+    font-size: 8px;
+    bottom: 25px;
+    gap: 15px;
+  }
+  .stage-phase {
+    min-width: 100px;
+  }
+  .stage-meter {
+    max-width: none;
+  }
+  .stage-fallback {
+    inset: 20% 25%;
+  }
+  .stage-fallback i {
+    border-width: 16px;
+  }
+  .motion-off .connection-stage {
+    min-height: 0;
+    height: 850px;
+  }
+  .motion-off .stage-footer {
+    position: absolute;
+    bottom: 25px;
+    left: var(--pad);
+    right: var(--pad);
+    margin: 0;
+  }
+}

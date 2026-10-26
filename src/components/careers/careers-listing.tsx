@@ -1,184 +1,71 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { getCareers, orEmpty } from '@/lib/wordpress-content';
+import { textOf } from '@/lib/wordpress';
 import type { Career } from '@/lib/static-content';
-import { useInView } from '@/components/motion';
+import SubHero from '@/components/subpages/sub-hero';
+import SubCta from '@/components/subpages/sub-cta';
 import CareerCard from './career-card';
-import { localeHref } from '@/lib/seo';
 
-interface Props {
-  locale: string;
-}
+export const CAREERS_EMAIL = 'email@nexoratechno.com';
 
-const DEPARTMENTS = ['Engineering', 'Mobile', 'Design', 'Infrastructure', 'Quality', 'Product'];
+export default async function CareersListing({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: 'sub' });
+  const rows = await orEmpty(getCareers, 'careers');
 
-export default function CareersListing({ locale }: Props) {
-  const t = useTranslations();
-  const [careers, setCareers] = useState<Career[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [activeDept, setActiveDept] = useState('all');
-  const [hasFiltered, setHasFiltered] = useState(false);
-  const staggerRef = useInView<HTMLDivElement>();
-
-  const selectDept = (dept: string) => {
-    setActiveDept(dept);
-    setHasFiltered(true);
-  };
-
-  useEffect(() => {
-    fetch('/api/wordpress/careers')
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          const mapped: Career[] = data.map((p: Record<string, unknown>) => {
-            const meta = p.careerMeta as Record<string, string> | null;
-            return {
-              slug: String(p.slug),
-              title: String(p.title || '').replace(/<[^>]*>/g, ''),
-              dept: meta?.department ?? '',
-              location: meta?.location ?? '',
-              type: meta?.jobType ?? '',
-              level: meta?.level ?? '',
-              salary: meta?.salary ?? '',
-              tags: [],
-              summary: String(p.excerpt || '').replace(/<[^>]*>/g, ''),
-              posted: new Date(String(p.date)).toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' }),
-              body: [],
-            };
-          });
-          setCareers(mapped);
-        }
-      })
-      .catch(() => { /* show empty state */ })
-      .finally(() => setLoading(false));
-  }, []);
-
-  const filtered = activeDept === 'all' ? careers : careers.filter((c) => c.dept === activeDept);
+  const careers: Career[] = rows.map((c) => ({
+    slug: c.slug,
+    title: textOf(c.title),
+    dept: c.careerMeta?.department ?? '',
+    location: c.careerMeta?.location ?? '',
+    type: c.careerMeta?.jobType ?? '',
+    level: c.careerMeta?.level ?? '',
+    salary: c.careerMeta?.salary ?? '',
+    summary: textOf(c.excerpt ?? ''),
+    date: c.date,
+  }));
 
   return (
     <>
-      {/* Hero */}
-      <section className="subpage-hero">
-        <div className="container">
-          <div className="subpage-hero-inner">
-            <div className="crumb">
-              <a href={localeHref(locale)}>{t('sub_home')}</a>
-              <span className="crumb-sep">/</span>
-              <span>{t('career_breadcrumb')}</span>
-            </div>
-            <p className="cl-eyebrow">{t('career_eyebrow')}</p>
-            <h1 className="subpage-title">{t('career_title')}</h1>
-            <p className="subpage-lead">{t('career_lead')}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Content */}
-      <section className="section">
-        <div className="container">
-          {/* Filter chips */}
-          <div className="listing-filters">
-            <button
-              className={activeDept === 'all' ? 'active' : ''}
-              onClick={() => selectDept('all')}
-            >
-              {t('sub_all')}
-            </button>
-            {DEPARTMENTS.map((dept) => (
-              <button
-                key={dept}
-                className={activeDept === dept ? 'active' : ''}
-                onClick={() => selectDept(dept)}
-              >
-                {dept}
-              </button>
+      <SubHero
+       
+        crumbs={[{ label: t('home'), href: '/' }, { label: 'Careers' }]}
+        status={t('career_status')}
+        title={
+          <>
+            {t('career_title_1')}
+            <br />
+            <em>{t('career_title_2')}</em>
+          </>
+        }
+        lead={t('career_lead')}
+      />
+      <section className="sub-section">
+        {careers.length ? (
+          <div className="sub-roles">
+            {careers.map((c) => (
+              <CareerCard key={c.slug} career={c} viewLabel={t('career_view')} />
             ))}
           </div>
-
-          {/* Job list */}
-          <div
-            ref={staggerRef}
-            className="stagger-wrap"
-            style={hasFiltered ? ({ '--stag-step': '30ms', '--stag-dur': '250ms' } as React.CSSProperties) : undefined}
-          >
-            <div className="careers-grid" key={activeDept}>
-              {loading ? (
-                <div className="empty-state">...</div>
-              ) : filtered.length === 0 ? (
-                <div className="empty-state">{t('career_empty')}</div>
-              ) : (
-                filtered.map((career, i) => (
-                  <CareerCard key={career.slug} career={career} locale={locale} index={i} />
-                ))
-              )}
-            </div>
+        ) : (
+          <div className="sub-empty">
+            <h2>{t('career_empty_title')}</h2>
+            <p>
+              {t.rich('career_empty_desc', {
+                email: () => (
+                  <a className="sub-inline-link" href={`mailto:${CAREERS_EMAIL}`}>{CAREERS_EMAIL}</a>
+                ),
+              })}
+            </p>
           </div>
-
-          {/* CTA dark band */}
-          <div className="detail-cta">
-            <div>
-              <h3>{t('career_cta_title')}</h3>
-              <p>{t('career_cta_desc')}</p>
-            </div>
-            <a href="mailto:careers@nexoratechno.com" className="btn-accent">
-              {t('career_cta_btn')}
-              <svg className="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-            </a>
-          </div>
-        </div>
+        )}
       </section>
-
-      <style>{`
-        .subpage-hero { padding-top:140px; padding-bottom:56px; background:var(--color-bg-soft); border-bottom:1px solid var(--color-line); position:relative; overflow:hidden; }
-        .subpage-hero::before { content:""; position:absolute; right:-20%; top:-80%; width:70%; height:260%; background:radial-gradient(ellipse at center, color-mix(in oklab, var(--color-accent) 18%, transparent) 0%, transparent 60%); pointer-events:none; }
-        .subpage-hero-inner { position:relative; z-index:1; }
-        .subpage-title { font-size:clamp(40px,5.5vw,80px); letter-spacing:-0.035em; line-height:1.02; max-width:18ch; font-family:var(--font-display); color:var(--color-ink); }
-        .subpage-lead { margin-top:20px; font-size:clamp(17px,1.6vw,20px); color:var(--color-ink-soft); max-width:60ch; line-height:1.55; }
-        .cl-eyebrow { font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-ink-mute); margin-bottom:16px; }
-        .crumb { display:inline-flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--color-ink-mute); margin-bottom:28px; }
-        .crumb a { color:var(--color-ink-mute); transition:color var(--dur-fast) var(--ease-exp); }
-        .crumb a:hover { color:var(--color-ink); }
-        .crumb-sep { color:var(--color-ink-mute); opacity:.5; }
-
-        .careers-grid { display:grid; grid-template-columns:1fr; gap:14px; }
-
-        /* Sibling stagger: items rise once the wrap scrolls into view; a filter
-           change remounts the list (key) and replays a quicker snap-in.
-           Hidden state gated behind html.js — SSR/no-JS stays visible. */
-        .js .stagger-wrap:not(.in) .careers-grid > * { opacity: 0; }
-        .js .stagger-wrap.in .careers-grid > * {
-          animation: grid-rise var(--stag-dur, 400ms) var(--ease-exp) backwards;
-          animation-delay: calc(var(--i, 0) * var(--stag-step, 50ms));
-        }
-        @keyframes grid-rise {
-          from { opacity: 0; transform: translateY(14px); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .js .stagger-wrap:not(.in) .careers-grid > *,
-          .js .stagger-wrap.in .careers-grid > * { opacity: 1; animation: none; }
-        }
-
-        .listing-filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px; padding:6px; background:var(--color-bg-elev); border:1px solid var(--color-line); border-radius:9999px; width:fit-content; max-width:100%; overflow-x:auto; }
-        .listing-filters button { padding:9px 16px; font-size:13px; font-weight:500; border-radius:9999px; color:var(--color-ink-soft); transition:background var(--dur-fast) var(--ease-exp), color var(--dur-fast) var(--ease-exp); white-space:nowrap; background:transparent; border:none; cursor:pointer; }
-        .listing-filters button:hover { color:var(--color-ink); }
-        .listing-filters button.active { background:var(--color-ink); color:var(--color-bg); }
-
-        .empty-state { text-align:center; padding:60px 20px; color:var(--color-ink-mute); font-size:15px; }
-
-        .detail-cta { margin:80px auto 0; max-width:1080px; padding:56px 48px; background:var(--color-ink); color:var(--color-bg); border-radius:var(--radius-xl); display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; }
-        [data-theme="dark"] .detail-cta { background:var(--color-bg-elev); border:1px solid var(--color-line); }
-        .detail-cta h3 { color:var(--color-bg); font-size:clamp(22px,2.8vw,32px); letter-spacing:-0.02em; max-width:22ch; font-family:var(--font-display); }
-        [data-theme="dark"] .detail-cta h3 { color:var(--color-ink); }
-        .detail-cta p { color:rgba(255,255,255,.7); font-size:15px; margin-top:8px; max-width:50ch; }
-        [data-theme="dark"] .detail-cta p { color:var(--color-ink-soft); }
-        @media(max-width:680px) { .detail-cta { grid-template-columns:1fr; padding:32px 28px; } }
-
-        .btn-accent { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:9999px; background:var(--color-accent); color:#1A1508; font-weight:600; font-size:15px; transition:opacity var(--dur-fast) var(--ease-exp); text-decoration:none; }
-        .btn-accent:hover { opacity:.9; }
-        .btn-arrow { width:18px; height:18px; transition:transform var(--dur-fast) var(--ease-exp); }
-        .btn-accent:hover .btn-arrow { transform:translateX(3px); }
-      `}</style>
+      <SubCta locale={locale}
+       
+        title={t('career_cta_title')}
+        desc={t('career_cta_desc')}
+        label={t('career_cta_btn')}
+        href={`mailto:${CAREERS_EMAIL}`}
+      />
     </>
   );
 }

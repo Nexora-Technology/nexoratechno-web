@@ -1,94 +1,45 @@
-import Link from 'next/link';
-import type { BlogPost } from '@/lib/static-content';
-import { localeHref } from '@/lib/seo';
+import { Link } from '@/i18n/routing';
 
-const GRADIENT_PAIRS = [
-  ['#4F46E5', '#06B6D4'],
-  ['#7C3AED', '#EC4899'],
-  ['#DAB660', '#4F46E5'],
-  ['#059669', '#06B6D4'],
-];
-
-interface Props {
-  post: BlogPost;
-  locale: string;
-  index?: number;
+export interface BlogItem {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  date: string; // already formatted for the locale
+  image?: string;
 }
 
-export default function BlogCard({ post, locale, index = 0 }: Props) {
-  const [c1, c2] = GRADIENT_PAIRS[index % GRADIENT_PAIRS.length];
-
+export function BlogImage({ src, eager }: { src?: string; eager?: boolean }) {
   return (
-    <Link
-      href={localeHref(locale, `/blog/${post.slug}`)}
-      className="blog-card"
-      style={{ '--c1': c1, '--c2': c2, '--i': Math.min(index, 9) } as React.CSSProperties}
-    >
-      <div className="blog-card-visual" />
-      <div className="blog-card-body">
-        <div className="b-cat">{post.category}</div>
-        <h3>{post.title}</h3>
-        <p className="b-sum">{post.summary}</p>
-        <div className="blog-card-foot">
-          <span>{post.date}</span>
-          <span>{post.readTime}</span>
-        </div>
-      </div>
+    <div className="archive-image">
+      {src && (
+        <img
+          src={src}
+          alt=""
+          width={1600}
+          height={900}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+          referrerPolicy="no-referrer"
+        />
+      )}
+    </div>
+  );
+}
 
-      <style>{`
-        .blog-card {
-          display: flex; flex-direction: column; overflow: hidden;
-          border-radius: var(--radius-lg); border: 1px solid var(--color-line);
-          background: var(--color-bg-elev); cursor: pointer;
-          transition: border-color var(--dur-base) var(--ease-exp),
-            transform var(--dur-base) var(--ease-exp),
-            box-shadow var(--dur-base) var(--ease-exp);
-        }
-        .blog-card:hover {
-          border-color: var(--color-line-strong);
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-md);
-        }
-        .blog-card-visual {
-          aspect-ratio: 16/10;
-          background: linear-gradient(135deg, var(--c1, #4F46E5) 0%, var(--c2, #06B6D4) 100%);
-          position: relative; overflow: hidden;
-        }
-        .blog-card-visual::after {
-          content: ""; position: absolute; inset: 0;
-          background-image:
-            radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25) 0%, transparent 40%),
-            linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-          background-size: auto, 28px 28px, 28px 28px;
-          transition: transform 400ms var(--ease-exp);
-        }
-        .blog-card:hover .blog-card-visual::after { transform: scale(1.03); }
-        .blog-card-body {
-          padding: 24px; display: flex; flex-direction: column;
-          gap: 12px; flex: 1;
-        }
-        .blog-card-body .b-cat {
-          font-family: var(--font-mono); font-size: 11px;
-          letter-spacing: .12em; text-transform: uppercase;
-          color: var(--color-accent-ink);
-        }
-        .blog-card-body h3 {
-          font-size: 18px; letter-spacing: -.015em; line-height: 1.3;
-          color: var(--color-ink);
-        }
-        .blog-card-body .b-sum {
-          font-size: 14px; color: var(--color-ink-soft); line-height: 1.55;
-          display: -webkit-box; -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical; overflow: hidden;
-        }
-        .blog-card-foot {
-          margin-top: auto; padding-top: 12px;
-          border-top: 1px solid var(--color-line);
-          display: flex; justify-content: space-between;
-          font-size: 12.5px; color: var(--color-ink-mute);
-        }
-      `}</style>
-    </Link>
+export default function BlogCard({ post, readLabel }: { post: BlogItem; readLabel: string }) {
+  const href = `/blog/${post.slug}`;
+  return (
+    <article className="archive-card">
+      <Link href={href} className="sub-card-link">
+        <BlogImage src={post.image} />
+        <span className="mono">{[post.date, post.category].filter(Boolean).join(' · ')}</span>
+        <h4>{post.title}</h4>
+      </Link>
+      {post.excerpt && <p className="sub-card-summary">{post.excerpt}</p>}
+      <Link href={href} className="text-link sub-card-more" aria-label={`${readLabel}: ${post.title}`}>
+        {readLabel} <span aria-hidden="true">↗</span>
+      </Link>
+    </article>
   );
 }

@@ -1,155 +1,46 @@
-'use client';
+import { Link } from '@/i18n/routing';
 
-import Link from 'next/link';
-import type { CaseStudy } from '@/lib/static-content';
-import { localeHref } from '@/lib/seo';
+export interface CaseItem {
+  slug: string;
+  title: string;
+  summary: string;
+  industry: string;
+  image?: string;
+  tags: string[];
+}
 
-interface Props { item: CaseStudy; locale: string; index?: number; }
-
-export default function CaseCard({ item, locale, index = 0 }: Props) {
+export default function CaseCard({ item, readLabel }: { item: CaseItem; readLabel: string }) {
+  const href = `/case-studies/${item.slug}`;
   return (
-    <Link
-      href={localeHref(locale, `/case-studies/${item.slug}`)}
-      className="case-card group"
-      style={{ '--case-color': item.color, '--i': Math.min(index, 9) } as React.CSSProperties}
-    >
-      {/* Visual header */}
-      <div className={`case-visual${item.image ? ' has-img' : ''}`}>
-        {item.image && <img className="case-visual-img" src={item.image} alt="" loading="lazy" />}
-        <div className="case-visual-content">
-          <div>
-            <p className="case-client">{item.client}</p>
-            <p className="case-industry">{item.industry}</p>
-          </div>
-          <span className="case-year">{item.year}</span>
+    <article className="archive-card">
+      <Link href={href} className="sub-card-link">
+        <div className="archive-image">
+          {item.image && (
+            <img
+              src={item.image}
+              alt=""
+              width={1600}
+              height={900}
+              loading="lazy"
+              decoding="async"
+              referrerPolicy="no-referrer"
+            />
+          )}
         </div>
-      </div>
-
-      {/* Body */}
-      <div className="case-body">
-        <h3>{item.title}</h3>
-        <p>{item.summary}</p>
-        <div className="case-foot">
-          <span>{item.services.slice(0, 2).join(' · ')}</span>
-          {item.duration && <span>{item.duration}</span>}
+        {item.industry && <span className="mono">{item.industry}</span>}
+        <h4>{item.title}</h4>
+      </Link>
+      {item.summary && <p className="sub-card-summary">{item.summary}</p>}
+      {item.tags.length > 0 && (
+        <div className="archive-tags">
+          {item.tags.slice(0, 4).map((tag) => (
+            <span key={tag}>{tag}</span>
+          ))}
         </div>
-      </div>
-
-      <style>{`
-        .case-card {
-          background: var(--color-bg-elev);
-          border: 1px solid var(--color-line);
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-          cursor: pointer;
-          transition: border-color var(--dur-base) var(--ease-exp),
-            transform var(--dur-base) var(--ease-exp),
-            box-shadow var(--dur-base) var(--ease-exp);
-        }
-        .case-card:hover {
-          border-color: var(--color-line-strong);
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-lg);
-        }
-        .case-visual {
-          aspect-ratio: 16/9;
-          position: relative;
-          overflow: hidden;
-          display: flex;
-          align-items: flex-end;
-          padding: 24px;
-          color: white;
-        }
-        .case-visual::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(ellipse at top right, rgba(255,255,255,0.22), transparent 60%),
-            radial-gradient(ellipse at bottom left, rgba(0,0,0,0.25), transparent 60%),
-            var(--case-color, #4F46E5);
-          transition: transform 400ms var(--ease-exp);
-        }
-        .case-visual::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
-          background-size: 32px 32px;
-          transition: transform 400ms var(--ease-exp);
-        }
-        .case-card:hover .case-visual::before,
-        .case-card:hover .case-visual::after,
-        .case-card:hover .case-visual-img { transform: scale(1.03); }
-        .case-visual-img {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 400ms var(--ease-exp);
-        }
-        /* Scrim keeps the overlaid client name legible on any cover image */
-        .case-visual.has-img::after {
-          background-image: linear-gradient(to top, rgba(0,0,0,0.6), transparent 65%);
-          background-size: auto;
-        }
-        .case-visual-content {
-          position: relative;
-          z-index: 1;
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          gap: 12px;
-        }
-        .case-client {
-          font-family: var(--font-display);
-          font-size: 26px;
-          font-weight: 600;
-          letter-spacing: -0.025em;
-          line-height: 1.1;
-        }
-        .case-industry {
-          font-family: var(--font-mono);
-          font-size: 11px;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          opacity: 0.85;
-          margin-top: 6px;
-        }
-        .case-year {
-          font-family: var(--font-mono);
-          font-size: 12px;
-          padding: 4px 10px;
-          background: rgba(255,255,255,0.18);
-          border: 1px solid rgba(255,255,255,0.25);
-          border-radius: 9999px;
-          backdrop-filter: blur(6px);
-        }
-        .case-body {
-          padding: 28px;
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          flex: 1;
-        }
-        .case-body h3 { font-size: 22px; letter-spacing: -0.015em; line-height: 1.25; color: var(--color-ink); }
-        .case-body p { font-size: 14.5px; color: var(--color-ink-soft); line-height: 1.55; }
-        .case-foot {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-top: auto;
-          padding-top: 12px;
-          border-top: 1px solid var(--color-line);
-          font-size: 13px;
-          color: var(--color-ink-soft);
-        }
-      `}</style>
-    </Link>
+      )}
+      <Link href={href} className="text-link sub-card-more" aria-label={`${readLabel}: ${item.title}`}>
+        {readLabel} <span aria-hidden="true">↗</span>
+      </Link>
+    </article>
   );
 }

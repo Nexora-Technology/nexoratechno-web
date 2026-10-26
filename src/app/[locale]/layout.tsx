@@ -1,14 +1,35 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { Providers } from '@/components/providers/providers';
-import Navbar from '@/components/layout/navbar';
-import Footer from '@/components/layout/footer';
+import { Be_Vietnam_Pro, DM_Sans, IBM_Plex_Mono } from 'next/font/google';
+import SiteHeader from '@/components/layout/site-header';
+import SiteFooter from '@/components/layout/site-footer';
 import { buildAlternates, localePath, OG_IMAGES, LOGO_URL } from '@/lib/seo';
 import { getWordPressSiteIcons } from '@/lib/wordpress-site-icon';
 import '@/app/globals.css';
+
+const bodyFont = Be_Vietnam_Pro({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-body',
+  display: 'swap',
+});
+// DM Sans has no Vietnamese glyphs; the display stack falls back to Be Vietnam Pro per glyph.
+const displayFont = DM_Sans({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-display',
+  display: 'swap',
+});
+const monoFont = IBM_Plex_Mono({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -90,15 +111,20 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     url: 'https://nexoratechno.com',
     logo: LOGO_URL,
     description: 'Software company in Ho Chi Minh City — web development, mobile apps, IoT, and legacy migration.',
+    foundingDate: '2025',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: '17/5 Tân Thuận Tây, Khu phố 34, Phường Tân Thuận',
       addressLocality: 'Ho Chi Minh City',
       addressCountry: 'VN',
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'web@nexoratechno.com',
+      // Matches the contact section shown on the site.
+      email: 'email@nexoratechno.com',
+      telephone: '+84 969 536 234',
       contactType: 'customer service',
+      availableLanguage: ['Vietnamese', 'English'],
     },
     // TODO: add real social profile URLs (LinkedIn, Facebook, GitHub) to strengthen
     // the entity's knowledge-graph signal once the accounts are live.
@@ -106,15 +132,12 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   };
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* Motion gate: hidden initial states in CSS only apply under html.js,
-            so content stays visible for crawlers and users without JS.
-            next/script beforeInteractive runs before hydration and is injected
-            outside React's client render (no "script tag in component" warning). */}
-        <Script id="motion-js-gate" strategy="beforeInteractive">
-          {"document.documentElement.classList.add('js')"}
-        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -122,9 +145,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       </head>
       <body>
         <Providers locale={locale} messages={messages}>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <SiteHeader />
+          <main id="main">{children}</main>
+          <SiteFooter />
         </Providers>
       </body>
     </html>

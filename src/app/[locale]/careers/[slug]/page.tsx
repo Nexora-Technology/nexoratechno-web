@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
 import type { Career } from '@/lib/static-content';
 import { buildAlternates, OG_IMAGES } from '@/lib/seo';
+import { textOf } from '@/lib/wordpress';
 import CareerDetailView from '@/components/careers/career-detail-view';
 
 interface Props {
@@ -44,6 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CareerDetailPage({ params }: Props) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
 
   try {
     const res = await fetch(`${BASE_URL}/api/wordpress/careers/${slug}`);
@@ -54,17 +57,14 @@ export default async function CareerDetailPage({ params }: Props) {
     const meta = p.careerMeta as Record<string, string> | null;
     const career: Career = {
       slug: String(p.slug),
-      title: String(p.title || '').replace(/<[^>]*>/g, ''),
+      title: textOf(String(p.title || '')),
       dept: meta?.department ?? '',
       location: meta?.location ?? '',
       type: meta?.jobType ?? '',
       level: meta?.level ?? '',
       salary: meta?.salary ?? '',
-      tags: [],
-      summary: String(p.excerpt || '').replace(/<[^>]*>/g, ''),
-      posted: new Date(String(p.date)).toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' }),
-      body: [],
-      wpContent: String(p.content || ''),
+      summary: textOf(String(p.excerpt || '')),
+      date: String(p.date),
     };
 
     return <CareerDetailView career={career} locale={locale} />;

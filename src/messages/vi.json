@@ -5,7 +5,6 @@
   "nav_about": "Về chúng tôi",
   "nav_contact": "Liên hệ",
   "nav_cta": "Bắt đầu dự án",
-
   "hero_badge": "Software Company · TP. Hồ Chí Minh",
   "hero_title_1": "Kiến tạo phần mềm",
   "hero_title_2": "cho doanh nghiệp",
@@ -17,9 +16,7 @@
   "hero_stat_2": "Trụ sở",
   "hero_stat_3": "Dự án hoàn thành",
   "hero_stat_4": "Tỉ lệ đúng hạn",
-
   "marquee_label": "Chúng tôi làm việc với",
-
   "services_eyebrow": "Dịch vụ",
   "services_title": "Sáu năng lực cốt lõi, một đội ngũ chuyên gia.",
   "services_sub": "Từ MVP đầu tiên đến hệ thống doanh nghiệp quy mô lớn — Nexora đồng hành ở mọi giai đoạn.",
@@ -66,7 +63,6 @@
   "svc6_f4": "Training & support",
   "svc6_f5": "Zero-downtime deploy",
   "svc_learn": "Tìm hiểu thêm",
-
   "process_eyebrow": "Quy trình",
   "process_title": "Cách Nexora đưa sản phẩm ra thị trường.",
   "process_sub": "Một quy trình chặt chẽ, minh bạch và lặp lại — được điều chỉnh theo từng mô hình hợp tác.",
@@ -82,7 +78,6 @@
   "proc5_d": "Deploy zero-downtime, monitoring 24/7, rollback tức thì khi cần.",
   "proc6_t": "Phát triển tiếp",
   "proc6_d": "Bảo trì, cải tiến, mở rộng tính năng. Sản phẩm sống, không phải dự án đã đóng.",
-
   "models_eyebrow": "Mô hình hợp tác",
   "models_title": "Chọn mô hình phù hợp với cách bạn làm việc.",
   "models_sub": "Ba mô hình hợp tác IT Outsource — mỗi mô hình giải một bài toán khác nhau.",
@@ -95,7 +90,6 @@
   "m3_name": "Time & Material",
   "m3_tag": "T&M — Linh hoạt",
   "m3_desc": "Thanh toán linh hoạt theo giờ làm việc thực tế và tài nguyên sử dụng.",
-
   "m_desc": "Mô tả",
   "m_cost": "Chi phí",
   "m_flex": "Linh hoạt",
@@ -104,7 +98,6 @@
   "m_cons": "Nhược điểm",
   "m_fit": "Phù hợp cho",
   "m_min": "Cam kết tối thiểu",
-
   "m1_desc_v": "Khách hàng thuê đội ngũ phát triển toàn thời gian như nhân viên nội bộ.",
   "m1_cost_v": "Theo tháng",
   "m1_flex_v": "Rất linh hoạt — nhiệm vụ có thể thay đổi bất cứ lúc nào",
@@ -113,7 +106,6 @@
   "m1_cons_v": "Chi phí cố định hàng tháng · Đòi hỏi quản lý nội bộ rõ ràng",
   "m1_fit_v": "Startups / Công ty xây dựng sản phẩm dài hạn",
   "m1_min_v": "2–3 tháng",
-
   "m2_desc_v": "Giá cố định một lần cho toàn bộ dự án với phạm vi được xác định rõ.",
   "m2_cost_v": "Cố định cho toàn bộ dự án",
   "m2_flex_v": "Không linh hoạt — thay đổi có thể phát sinh chi phí thêm",
@@ -122,7 +114,6 @@
   "m2_cons_v": "Rủi ro nếu yêu cầu chưa rõ · Ít linh hoạt hơn",
   "m2_fit_v": "Dự án ngắn hạn với thông số kỹ thuật rõ ràng",
   "m2_min_v": "Theo hợp đồng dự án",
-
   "m3_desc_v": "Tính phí dựa trên giờ làm việc thực tế và sử dụng tài nguyên.",
   "m3_cost_v": "Linh hoạt, theo giờ làm việc thực tế",
   "m3_flex_v": "Rất linh hoạt — dễ dàng thích ứng với nhu cầu thay đổi",
@@ -131,12 +122,10 @@
   "m3_cons_v": "Ngân sách có thể tăng nếu không theo dõi đúng",
   "m3_fit_v": "R&D, PoC, khách hàng có yêu cầu thay đổi",
   "m3_min_v": "Cam kết tối thiểu 1 tháng",
-
   "compare_title": "So sánh trực tiếp",
   "compare_sub": "Nhấn vào cột để highlight mô hình bạn quan tâm. Sắp xếp theo tiêu chí bên trái.",
   "compare_highlight": "Highlight:",
   "compare_all": "Tất cả",
-
   "tech_eyebrow": "Tech stack",
   "tech_title": "Công nghệ chúng tôi sử dụng",
   "tech_sub": "Stack trưởng thành, được chọn theo bài toán — không theo trend.",
@@ -146,7 +135,6 @@
   "tech_cloud": "Cloud & DevOps",
   "tech_data": "Data & AI",
   "tech_iot": "IoT",
-
   "stats_title": "Con số nói lên tất cả",
   "stat1_l": "Năm thành lập",
   "stat2_l": "Trụ sở",
@@ -155,10 +143,8 @@
   "stat4_l": "Dự án bàn giao",
   "stat5_l": "Khách hàng doanh nghiệp",
   "stat6_l": "Tỉ lệ khách hàng quay lại",
-
   "clients_title": "Được tin dùng bởi các doanh nghiệp tiên phong",
   "clients_sub": "Từ startup đến tập đoàn — Nexora là đối tác công nghệ đằng sau.",
-
   "testi_eyebrow": "Khách hàng nói gì",
   "testi_title": "Review từ khách hàng",
   "testi1_q": "Nexora giao sản phẩm đúng tiến độ, chất lượng vượt mong đợi. Chúng tôi coi họ như một phần của đội ngũ nội bộ.",
@@ -170,19 +156,16 @@
   "testi3_q": "Họ không chỉ viết code — họ hiểu bài toán kinh doanh. Đó là khác biệt lớn nhất.",
   "testi3_n": "Lê Thảo Vy",
   "testi3_r": "Founder, Orbit Commerce",
-
   "about_eyebrow": "Về Nexora",
   "about_title": "Công ty phần mềm sinh năm 2025, tại Sài Gòn.",
   "about_p1": "Nexora Technology được thành lập với niềm tin rằng phần mềm tốt không đến từ khuôn mẫu có sẵn — mà đến từ việc hiểu sâu bài toán, chọn đúng công cụ, và thực thi kỷ luật.",
   "about_p2": "Chúng tôi là đội ngũ kỹ sư, thiết kế và quản lý sản phẩm cùng chung triết lý: làm ít hơn, làm tốt hơn. Mỗi dự án Nexora nhận đều được chọn lọc — để chúng tôi có thể dồn tâm sức đúng mức.",
-
   "about_v1_t": "Chất lượng trên hết",
   "about_v1_d": "Mỗi dòng code đều được review. Mỗi release đều được kiểm thử.",
   "about_v2_t": "Minh bạch tuyệt đối",
   "about_v2_d": "Bạn biết mọi thứ chúng tôi đang làm, mọi lúc.",
   "about_v3_t": "Đối tác dài hạn",
   "about_v3_d": "Sản phẩm sống rất lâu sau khi ra mắt. Chúng tôi ở đó cùng bạn.",
-
   "contact_eyebrow": "Liên hệ",
   "contact_title": "Hãy kể cho chúng tôi về dự án của bạn.",
   "contact_sub": "Phản hồi trong vòng 24 giờ làm việc. Không spam, không telemarketing.",
@@ -207,7 +190,6 @@
   "f_phone": "Điện thoại",
   "f_hours": "Giờ làm việc",
   "f_hours_v": "Thứ 2 – Thứ 6, 9:00 – 18:00 (GMT+7)",
-
   "foot_tag": "Software · Mobile · IoT · Cloud",
   "foot_services": "Dịch vụ",
   "foot_company": "Công ty",
@@ -220,7 +202,6 @@
   "foot_l_terms": "Điều khoản dịch vụ",
   "foot_l_cookies": "Cookies",
   "foot_copy": "© 2026 Nexora Technology. Đã đăng ký bản quyền.",
-
   "sub_home": "Trang chủ",
   "sub_all": "Tất cả",
   "sub_back": "Quay về",
@@ -231,7 +212,6 @@
   "sub_contact_btn": "Liên hệ ngay",
   "sub_results": "Kết quả",
   "sub_read_more": "Đọc tiếp",
-
   "cs_breadcrumb": "Case Studies",
   "cs_eyebrow": "Dự án",
   "cs_title_1": "Kết quả thực tế,",
@@ -253,7 +233,6 @@
   "cs_cta_title": "Bạn có một dự án tương tự?",
   "cs_cta_desc": "Kể cho chúng tôi nghe. Cuộc tư vấn đầu tiên miễn phí.",
   "cs_cta_btn": "Đặt lịch tư vấn",
-
   "blog_breadcrumb": "Blog",
   "blog_eyebrow": "Blog",
   "blog_title_1": "Kiến thức,",
@@ -268,7 +247,6 @@
   "blog_cta_btn": "Đăng ký",
   "blog_written": "Bởi",
   "blog_read": "phút đọc",
-
   "career_breadcrumb": "Careers",
   "career_eyebrow": "Tuyển dụng",
   "career_title": "Xây dựng cùng chúng tôi.",
@@ -283,5 +261,386 @@
   "career_detail_salary": "Lương",
   "career_detail_level": "Cấp độ",
   "career_detail_posted": "Đăng",
-  "career_detail_type": "Loại"
+  "career_detail_type": "Loại",
+  "site": {
+    "skip": "Bỏ qua điều hướng",
+    "nav_work": "Dự án",
+    "nav_expertise": "Năng lực",
+    "nav_about": "Về Nexora",
+    "nav_journal": "Journal",
+    "nav_careers": "Tuyển dụng",
+    "nav_contact": "Liên hệ",
+    "talk": "Kết nối với chúng tôi",
+    "lang_label": "Switch to English",
+    "lang_target": "EN",
+    "menu_open": "Mở menu",
+    "menu_close": "Đóng menu",
+    "nav_main": "Điều hướng chính",
+    "nav_mobile": "Điều hướng di động",
+    "home_label": "Nexora Technology — Trang chủ",
+    "footer_tag": "Independent minds.<br></br>Connected by craft.",
+    "footer_services": "Dịch vụ",
+    "footer_models": "Hợp tác",
+    "footer_cases": "Case study",
+    "footer_blog": "Journal",
+    "footer_careers": "Tuyển dụng",
+    "back_top": "BACK TO TOP ↑",
+    "footer_line": "ENGINEERING WHAT’S NEXT",
+    "motion_on": "MOTION: ON",
+    "motion_off": "MOTION: OFF",
+    "motion_label": "Tắt/bật chuyển động"
+  },
+  "home": {
+    "hero": {
+      "status": "INDEPENDENT SOFTWARE PARTNER",
+      "city": "HỒ CHÍ MINH, VIETNAM",
+      "sculpture": "Khối điêu khắc vàng champagne 3D chuyển động, biểu tượng kết nối của Nexora",
+      "scroll": "CUỘN ĐỂ KHÁM PHÁ",
+      "description": "Từ ý tưởng táo bạo đến phần mềm vận hành mỗi ngày. Nexora kết nối tư duy sản phẩm, kỹ thuật và con người để đưa doanh nghiệp tiến xa hơn.",
+      "explore": "Khám phá những gì chúng tôi xây dựng"
+    },
+    "intro": {
+      "marker": "CÔNG NGHỆ CÓ MỤC ĐÍCH",
+      "statement": [
+        "Không chỉ viết code.",
+        "Chúng tôi giải bài toán",
+        "phía sau sản phẩm."
+      ],
+      "p1": "Nexora Technology là đối tác phát triển phần mềm tại TP. Hồ Chí Minh, đồng hành cùng doanh nghiệp Việt Nam và quốc tế từ khám phá bài toán, thiết kế, phát triển đến vận hành.",
+      "p2": "Cần một sản phẩm mới, hiện đại hóa hệ thống đang chạy hay bổ sung kỹ sư vào đội ngũ? Chúng tôi bắt đầu bằng việc hiểu điều doanh nghiệp thực sự cần."
+    },
+    "stage": {
+      "label": "Nguyên lý Nexora",
+      "cue": "CUỘN ĐỂ KẾT NỐI ↓",
+      "kicker": "TƯ DUY → KẾT NỐI → KIẾN TẠO",
+      "sub": "Những mảnh ghép khác nhau.<br></br>Một hệ thống cùng vận hành."
+    },
+    "work": {
+      "heading": "Bài toán thật.<br></br><span>Sản phẩm thật.</span>",
+      "count": "{count} case study đang công bố",
+      "scroll": "CUỘN ĐỂ ĐỔI DỰ ÁN ↓",
+      "note": "CASE STUDY ẨN DANH. ẢNH BÌA LÀ MINH HOẠ ĐÃ CÔNG BỐ TRÊN WEBSITE NEXORA.",
+      "cover": "ẢNH BÌA / MINH HOẠ ĐÃ CÔNG BỐ",
+      "cursor": "XEM CASE ↗",
+      "featured": [
+        {
+          "title": "Tái xây dựng sổ cái.<br></br>Giữ dòng tiền vận hành.",
+          "text": "Sửa tính đúng đắn của hệ thống tài chính ngay khi giao dịch vẫn đang chạy.",
+          "art": "MINH HOẠ KIẾN TRÚC"
+        },
+        {
+          "title": "Đọc mặt đường.<br></br>Bằng thị giác máy tính.",
+          "text": "Phân tích độ mòn vạch đường từ video camera hành trình.",
+          "art": "MINH HOẠ NGUYÊN LÝ"
+        },
+        {
+          "title": "Từ ý tưởng chuyến đi<br></br>đến lịch trình hoàn chỉnh.",
+          "text": "",
+          "art": "MINH HOẠ SẢN PHẨM"
+        },
+        {
+          "title": "Hệ thống quản trị<br></br>chúng tôi dùng mỗi ngày.",
+          "text": "Kết nối nhân sự, khách hàng, hợp đồng và tài chính trên một nền tảng.",
+          "art": "MINH HOẠ GIAO DIỆN"
+        }
+      ]
+    },
+    "library": {
+      "title": "Khám phá toàn bộ năng lực.",
+      "search": "TÌM DỰ ÁN / CÔNG NGHỆ",
+      "filter": "Lọc theo ngành",
+      "all": "Tất cả",
+      "results": "{shown} / {total} hồ sơ",
+      "empty": "Chưa có hồ sơ phù hợp. Thử từ khoá hoặc nhóm ngành khác.",
+      "more": "Xem thêm {count} hồ sơ ↓",
+      "all_cases": "Mở trang Case Studies",
+      "note": "Nội dung case study hiện bằng tiếng Anh. Ảnh bìa là minh hoạ đã được công bố.",
+      "quick": "Xem nhanh",
+      "close": "Đóng",
+      "read_full": "Đọc case study đầy đủ",
+      "cover_alt": "ảnh bìa minh hoạ",
+      "diagram_alt": "sơ đồ đã công bố",
+      "diagram_caption": "Sơ đồ từ bài case study trên website Nexora.",
+      "dialog_note": "Nội dung và hình ảnh lấy từ bài đã công bố. Khách hàng được ẩn danh theo bản gốc.",
+      "unavailable": "Thư viện case tạm thời chưa tải được. Vui lòng thử lại sau."
+    },
+    "expertise": {
+      "marker": "TỪ GIAO DIỆN ĐẾN HẠ TẦNG",
+      "heading": "Đủ chiều sâu.<br></br>Đủ <em>khả năng.</em>",
+      "text": "Một đối tác kỹ thuật. Nhiều cách đưa bài toán của bạn đến lời giải.",
+      "cta": "Trao đổi bài toán của bạn",
+      "services": [
+        {
+          "name": "Web & trải nghiệm số",
+          "desc": "Website, nền tảng web và giao diện sản phẩm kết hợp UI/UX, hiệu năng, khả năng truy cập và khả năng mở rộng.",
+          "tags": [
+            "React",
+            "Next.js",
+            "Vue",
+            "UI & UX"
+          ]
+        },
+        {
+          "name": "Ứng dụng di động",
+          "desc": "Ứng dụng iOS, Android và đa nền tảng. Kết nối trải nghiệm người dùng với hệ thống phía sau, từ MVP đến các phiên bản tiếp theo.",
+          "tags": [
+            "Swift",
+            "Kotlin",
+            "React Native",
+            "Flutter"
+          ]
+        },
+        {
+          "name": "Phần mềm doanh nghiệp",
+          "desc": "CRM, ERP, SaaS và hệ thống nghiệp vụ theo yêu cầu. Thiết kế luồng dữ liệu, tích hợp hệ thống và tự động hóa theo cách doanh nghiệp thực sự vận hành.",
+          "tags": [
+            ".NET",
+            "Go",
+            "Node.js",
+            "PostgreSQL"
+          ]
+        },
+        {
+          "name": "AI & kỹ thuật dữ liệu",
+          "desc": "Ứng dụng AI agent, thị giác máy tính và dữ liệu vào bài toán cụ thể. Từ thử nghiệm tính khả thi đến tích hợp vào quy trình sản phẩm.",
+          "tags": [
+            "AI Agents",
+            "PyTorch",
+            "ONNX",
+            "Data Pipelines"
+          ]
+        },
+        {
+          "name": "IoT & hệ thống kết nối",
+          "desc": "Kết nối thiết bị, thu thập dữ liệu và trực quan hóa hoạt động. Tích hợp cảm biến, hệ thống công nghiệp và dashboard phục vụ vận hành.",
+          "tags": [
+            "IoT",
+            "Edge AI",
+            "MQTT",
+            "Real-time Data"
+          ]
+        },
+        {
+          "name": "Hiện đại hóa & vận hành",
+          "desc": "Đánh giá hệ thống cũ, di chuyển từng giai đoạn, bảo trì và xử lý sự cố production. Ưu tiên tính liên tục của hoạt động và khả năng quan sát hệ thống.",
+          "tags": [
+            "Cloud",
+            "Migration",
+            "CI/CD",
+            "Maintenance"
+          ]
+        }
+      ]
+    },
+    "process": {
+      "marker": "CUỘN ĐỂ ĐI QUA QUY TRÌNH →",
+      "heading": "Từ câu hỏi đầu tiên.<br></br>Đến bước tiến tiếp theo.",
+      "steps": [
+        {
+          "name": "Hiểu bài toán",
+          "desc": "Làm rõ mục tiêu kinh doanh, người dùng và ràng buộc. Thống nhất phạm vi trước khi chọn công nghệ.",
+          "output": "Đầu ra / Problem brief · Scope"
+        },
+        {
+          "name": "Định hình giải pháp",
+          "desc": "Thiết kế kiến trúc, luồng nghiệp vụ và giao diện. Kiểm chứng các giả định quan trọng bằng prototype.",
+          "output": "Đầu ra / Architecture · Prototype"
+        },
+        {
+          "name": "Xây dựng từng bước",
+          "desc": "Chia nhỏ công việc, phát triển theo sprint và review tiến độ. Bạn nhìn thấy sản phẩm hình thành qua từng phiên bản.",
+          "output": "Đầu ra / Working software · Sprint demo"
+        },
+        {
+          "name": "Kiểm chứng chất lượng",
+          "desc": "Kiểm thử chức năng, tích hợp và các rủi ro kỹ thuật theo yêu cầu dự án. Đối chiếu với tiêu chí nghiệm thu.",
+          "output": "Đầu ra / Test evidence · UAT"
+        },
+        {
+          "name": "Đưa vào vận hành",
+          "desc": "Chuẩn bị triển khai, giám sát và phương án khôi phục. Bàn giao tài liệu và hướng dẫn đội vận hành.",
+          "output": "Đầu ra / Deployment · Handover"
+        },
+        {
+          "name": "Tiếp tục tiến xa",
+          "desc": "Theo dõi cách hệ thống được sử dụng, xử lý vấn đề và cải tiến. Cùng bạn lên kế hoạch cho cột mốc tiếp theo.",
+          "output": "Đầu ra / Support · Next roadmap"
+        }
+      ]
+    },
+    "models": {
+      "marker": "CHỌN CÁCH ĐỒNG HÀNH",
+      "heading": "Đội ngũ của bạn.<br></br><span>Theo cách của bạn.</span>",
+      "text": "Linh hoạt theo giai đoạn sản phẩm, mức độ rõ ràng của yêu cầu và cách bạn muốn quản lý.",
+      "fit": "Phù hợp với",
+      "billing": "Chi phí",
+      "manage": "Quản lý",
+      "cta": "Trao đổi mô hình này",
+      "compare": "So sánh trước khi chọn.",
+      "compare_caption": "Ba cách làm việc cùng Nexora",
+      "criterion": "Tiêu chí",
+      "compare_label": "Bảng so sánh",
+      "compare_note": "Phạm vi và cam kết cụ thể được thống nhất trong từng hợp đồng.",
+      "items": [
+        {
+          "name": "Dedicated Team",
+          "tag": "AN EXTENSION OF YOUR TEAM",
+          "desc": "Bổ sung kỹ sư hoặc một đội ngũ chuyên trách vào sản phẩm của bạn. Cùng làm việc theo quy trình và ưu tiên đã thống nhất.",
+          "fit": "Sản phẩm dài hạn, cần mở rộng năng lực",
+          "cost": "Chi phí theo tháng, theo đội hình",
+          "manage": "Khách hàng dẫn dắt, phối hợp cùng Nexora"
+        },
+        {
+          "name": "Fixed Price",
+          "tag": "A CLEAR PATH TO DELIVERY",
+          "desc": "Phạm vi và đầu ra được làm rõ trước khi bắt đầu. Nexora quản lý quá trình thực hiện và bàn giao theo các mốc nghiệm thu.",
+          "fit": "Yêu cầu ổn định, đầu ra xác định rõ",
+          "cost": "Ngân sách thống nhất theo phạm vi",
+          "manage": "Nexora quản lý thực hiện"
+        },
+        {
+          "name": "Time & Material",
+          "tag": "ROOM TO EXPLORE & ADAPT",
+          "desc": "Linh hoạt thay đổi ưu tiên khi sản phẩm phát triển. Thanh toán theo thời gian và nguồn lực thực tế, với tiến độ được theo dõi cùng nhau.",
+          "fit": "R&D, MVP và yêu cầu còn thay đổi",
+          "cost": "Theo thời gian và nguồn lực thực tế",
+          "manage": "Hai bên cùng quản lý ưu tiên"
+        }
+      ]
+    },
+    "tech": {
+      "marker": "CHỌN CÔNG NGHỆ THEO BÀI TOÁN",
+      "heading": "Công nghệ thay đổi.<br></br><em>Tư duy kỹ thuật ở lại.</em>"
+    },
+    "about": {
+      "heading": "Từ Sài Gòn.<br></br>Đồng hành cùng<br></br><em>tham vọng của bạn.</em>",
+      "text": "Thành lập năm 2025, Nexora Technology làm việc cùng các doanh nghiệp trong nước và quốc tế. Chúng tôi tin mối quan hệ kỹ thuật tốt được xây bằng sự thẳng thắn, trách nhiệm và những gì thực sự bàn giao.",
+      "values": [
+        "Hiểu vấn đề trước khi chọn giải pháp.",
+        "Minh bạch trong công việc và kỳ vọng.",
+        "Đồng hành cả sau ngày ra mắt."
+      ]
+    },
+    "journal": {
+      "heading": "Những điều học được.<br></br>Đáng để chia sẻ.",
+      "text": "Kỹ thuật, sản phẩm và cách chúng tôi làm phần mềm.",
+      "read": "Đọc bài viết",
+      "all": "Đọc Nexora Journal"
+    },
+    "careers": {
+      "heading": "Làm việc có tâm.<br></br>Cùng người có nghề.",
+      "none": "Hiện chưa có vị trí đang công bố trên website. Bạn vẫn có thể gửi hồ sơ để kết nối với đội ngũ Nexora.",
+      "open": "{count, plural, other {# vị trí đang tuyển.}} Xem mô tả công việc và ứng tuyển trực tiếp.",
+      "cta": "Theo dõi cơ hội"
+    },
+    "faq": {
+      "heading": "Trước khi<br></br><em>bắt đầu.</em>",
+      "items": [
+        {
+          "q": "Tôi mới có ý tưởng, chưa có đặc tả. Bắt đầu thế nào?",
+          "a": "Chúng tôi bắt đầu bằng một buổi trao đổi về mục tiêu, người dùng và bối cảnh. Từ đó đề xuất bước discovery hoặc prototype để làm rõ phạm vi và kiểm chứng giả định trước khi cam kết phát triển."
+        },
+        {
+          "q": "Nexora có làm cùng đội ngũ kỹ thuật hiện tại không?",
+          "a": "Có. Với mô hình Dedicated Team hoặc Time & Material, kỹ sư Nexora có thể phối hợp cùng đội hiện tại. Cách phân công, review code, trao đổi và quản lý quyền truy cập sẽ được thống nhất khi bắt đầu."
+        },
+        {
+          "q": "Quyền sở hữu mã nguồn và bảo mật được xử lý ra sao?",
+          "a": "Quyền sở hữu, bàn giao mã nguồn, sử dụng dữ liệu và NDA được làm rõ trong hợp đồng từng dự án. Chúng tôi trao đổi các yêu cầu bảo mật trước khi tiếp cận tài liệu hoặc hệ thống của bạn."
+        },
+        {
+          "q": "Sau khi ra mắt, ai hỗ trợ sản phẩm?",
+          "a": "Nexora có dịch vụ bảo trì và vận hành. Phạm vi hỗ trợ, thời gian phản hồi, giám sát và quy trình xử lý sự cố được thống nhất theo nhu cầu của hệ thống."
+        },
+        {
+          "q": "Làm sao để nhận ước tính chi phí và tiến độ?",
+          "a": "Gửi mô tả bài toán, tài liệu hiện có và mốc thời gian mong muốn. Sau khi làm rõ phạm vi, Nexora đề xuất cách tiếp cận, mô hình hợp tác và ước tính kèm các giả định."
+        }
+      ]
+    },
+    "contact": {
+      "text": "Một ý tưởng mới. Một hệ thống cần tốt hơn. Hay một đội ngũ cần thêm sức mạnh. Kể cho chúng tôi nghe.",
+      "email_label": "Gửi email cho Nexora",
+      "hours": "Thứ Hai–Thứ Sáu · 09:00–18:00 (GMT+7)",
+      "need": "BẠN ĐANG CẦN GÌ?",
+      "other": "Khác",
+      "name": "Tên của bạn *",
+      "email": "Email công việc *",
+      "company": "Công ty",
+      "budget": "Ngân sách dự kiến",
+      "budgets": [
+        "Chưa xác định",
+        "Dưới 10.000 USD",
+        "10.000–50.000 USD",
+        "50.000–200.000 USD",
+        "Trên 200.000 USD"
+      ],
+      "message": "Kể một chút về dự án của bạn *",
+      "note": "Thông tin chỉ dùng để phản hồi yêu cầu của bạn.",
+      "submit": "Bắt đầu cuộc trò chuyện",
+      "sending": "Đang gửi…",
+      "success": "Đã gửi. Cảm ơn bạn, đội ngũ Nexora sẽ phản hồi qua email.",
+      "error": "Chưa gửi được. Vui lòng thử lại hoặc email trực tiếp email@nexoratechno.com.",
+      "invalid_name": "Vui lòng nhập tên.",
+      "invalid_email": "Vui lòng nhập email hợp lệ.",
+      "invalid_message": "Mô tả cần ít nhất 10 ký tự.",
+      "form_title": "Kể về dự án của bạn.",
+      "ph_name": "Nhập tên của bạn",
+      "ph_email": "ban@congty.com",
+      "ph_company": "Tên công ty hoặc tổ chức",
+      "ph_message": "Mục tiêu, tính năng và thời gian bạn mong muốn…"
+    }
+  },
+  "sub": {
+    "home": "Trang chủ",
+    "cs_status": "DỰ ÁN / LƯU TRỮ",
+    "cs_title_1": "Bài toán thật.",
+    "cs_title_2": "Sản phẩm thật.",
+    "cs_lead": "{count} dự án đã công bố, từ fintech, logistics đến IoT. Mỗi trang kể lại bài toán, cách làm và kết quả.",
+    "cs_note": "Nội dung chi tiết của các case study được viết bằng tiếng Anh.",
+    "cs_search": "Tìm theo tên dự án, ngành, công nghệ",
+    "cs_filter": "Lọc theo lĩnh vực",
+    "cs_count": "Hiển thị {shown} / {total} dự án",
+    "cs_more": "Xem thêm {n} dự án",
+    "cs_none": "Không có dự án nào khớp với tìm kiếm.",
+    "cs_empty": "Chưa có case study nào được công bố.",
+    "cs_read": "Xem case study",
+    "cs_back": "Tất cả case study",
+    "cs_status_detail": "CASE STUDY",
+    "cs_details": "Thông tin dự án",
+    "cs_services": "Dịch vụ",
+    "blog_status": "NHẬT KÝ / KỸ THUẬT",
+    "blog_none": "Chưa có bài viết nào bằng ngôn ngữ này.",
+    "blog_read_article": "Đọc bài viết",
+    "blog_latest": "Mới nhất",
+    "blog_all": "Tất cả bài viết",
+    "blog_back": "Tất cả bài viết",
+    "blog_cta_title": "Có bài toán phần mềm cần bàn?",
+    "blog_cta_desc": "Kể cho chúng tôi nghe. Cuộc tư vấn đầu tiên miễn phí.",
+    "min_read": "{n} phút đọc",
+    "by": "Bởi {name}",
+    "career_status": "TUYỂN DỤNG / VỊ TRÍ ĐANG MỞ",
+    "career_title_1": "Xây dựng",
+    "career_title_2": "cùng chúng tôi.",
+    "career_lead": "Nexora làm phần mềm cho doanh nghiệp Việt Nam và quốc tế từ TP. Hồ Chí Minh. Các vị trí đang mở được đăng tại đây.",
+    "career_empty_title": "Hiện chưa có vị trí nào được đăng.",
+    "career_empty_desc": "Khi mở vị trí mới, chúng tôi sẽ đăng tại trang này. Bạn vẫn có thể gửi hồ sơ và giới thiệu ngắn về bản thân tới <email>x</email>.",
+    "career_view": "Xem vị trí",
+    "career_back": "Tất cả vị trí",
+    "career_apply": "Ứng tuyển vị trí này",
+    "career_cta_title": "Muốn làm cùng Nexora?",
+    "career_cta_desc": "Gửi hồ sơ cho chúng tôi, kể cả khi chưa có vị trí phù hợp.",
+    "career_cta_btn": "Gửi hồ sơ",
+    "all": "Tất cả",
+    "cta_title": "Bạn có một dự án tương tự?",
+    "cta_desc": "Kể cho chúng tôi nghe. Cuộc tư vấn đầu tiên miễn phí.",
+    "cta_btn": "Đặt lịch tư vấn",
+    "year": "Năm",
+    "blog_title_1": "Kiến thức,",
+    "blog_title_2": "kinh nghiệm thực chiến.",
+    "blog_lead": "Bài viết về kỹ thuật, thiết kế và cách chúng tôi xây dựng phần mềm tại Nexora.",
+    "published": "Ngày đăng",
+    "reading": "Thời gian đọc",
+    "author": "Tác giả"
+  }
 }

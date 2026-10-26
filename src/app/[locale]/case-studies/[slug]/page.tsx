@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
 import type { CaseStudy, ContentBlock } from '@/lib/static-content';
 import { buildAlternates, OG_IMAGES } from '@/lib/seo';
 import CaseDetailView from '@/components/case-studies/case-detail-view';
@@ -76,6 +77,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CaseStudyDetailPage({ params }: Props) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
 
   try {
     const res = await fetch(`${BASE_URL}/api/wordpress/case-studies/${slug}`);
@@ -97,11 +99,9 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       year: parseInt(meta?.year ?? '0') || new Date(String(p.date)).getFullYear(),
       duration: meta?.duration ?? '',
       team: meta?.team ?? '',
-      color: meta?.color ?? '#6B46C1',
       image: p.featuredImage?.node?.sourceUrl,
       metrics,
       body,
-      wpContent: String(p.content || ''),
     };
 
     return <CaseDetailView item={item} locale={locale} />;

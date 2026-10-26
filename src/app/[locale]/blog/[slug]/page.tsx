@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
 import type { BlogPost } from '@/lib/static-content';
 import { buildAlternates, OG_IMAGES } from '@/lib/seo';
+import { textOf } from '@/lib/wordpress';
 import BlogDetailView from '@/components/blog/blog-detail-view';
 
 interface Props {
@@ -44,6 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogDetailPage({ params }: Props) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
 
   try {
     const res = await fetch(`${BASE_URL}/api/wordpress/blog/${slug}`);
@@ -51,22 +54,14 @@ export default async function BlogDetailPage({ params }: Props) {
     const p = await res.json();
     if (!p || p.error) notFound();
 
-    const cats = p.categories as { nodes?: Array<{ name: string }> } | null;
-    const catName = cats?.nodes?.[0]?.name ?? 'General';
-    const auth = p.author as { node: { name: string } } | null;
-    const authName = auth?.node?.name ?? '';
-
     const post: BlogPost = {
       slug: String(p.slug),
-      title: String(p.title || '').replace(/<[^>]*>/g, ''),
-      category: catName,
-      author: authName,
-      authorRole: '',
-      date: new Date(String(p.date)).toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' }),
-      readTime: '5 phút đọc',
-      summary: String(p.excerpt || '').replace(/<[^>]*>/g, ''),
-      body: [],
-      tags: [],
+      title: textOf(String(p.title || '')),
+      category: p.categories?.nodes?.[0]?.name ?? '',
+      author: p.author?.node?.name ?? '',
+      date: String(p.date),
+      summary: textOf(String(p.excerpt || '')),
+      image: p.featuredImage?.node?.sourceUrl,
       wpContent: String(p.content || ''),
     };
 

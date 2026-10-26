@@ -5,7 +5,6 @@
   "nav_about": "About",
   "nav_contact": "Contact",
   "nav_cta": "Start a project",
-
   "hero_badge": "Software Company · Ho Chi Minh City",
   "hero_title_1": "Software crafted for",
   "hero_title_2": "the next generation",
@@ -17,9 +16,7 @@
   "hero_stat_2": "HQ",
   "hero_stat_3": "Projects delivered",
   "hero_stat_4": "On-time rate",
-
   "marquee_label": "We work with",
-
   "services_eyebrow": "Services",
   "services_title": "Six core capabilities, one expert team.",
   "services_sub": "From your first MVP to enterprise-scale systems — Nexora is with you at every stage.",
@@ -66,7 +63,6 @@
   "svc6_f4": "Training & support",
   "svc6_f5": "Zero-downtime deploy",
   "svc_learn": "Learn more",
-
   "process_eyebrow": "Process",
   "process_title": "How Nexora ships product.",
   "process_sub": "A tight, transparent, repeatable loop — adapted to each partnership model.",
@@ -82,7 +78,6 @@
   "proc5_d": "Zero-downtime deploys, 24/7 monitoring, instant rollback when needed.",
   "proc6_t": "Evolve",
   "proc6_d": "Maintenance, improvements, new features. Products live on — not closed projects.",
-
   "models_eyebrow": "Engagement models",
   "models_title": "Pick the model that matches how you work.",
   "models_sub": "Three IT outsourcing models — each solves a different problem.",
@@ -95,7 +90,6 @@
   "m3_name": "Time & Material",
   "m3_tag": "T&M — Flexible",
   "m3_desc": "Flexible billing based on actual hours and resources used.",
-
   "m_desc": "Description",
   "m_cost": "Cost",
   "m_flex": "Flexibility",
@@ -104,7 +98,6 @@
   "m_cons": "Cons",
   "m_fit": "Best for",
   "m_min": "Min commitment",
-
   "m1_desc_v": "You hire a full-time development team as if they were internal staff.",
   "m1_cost_v": "Monthly",
   "m1_flex_v": "Very flexible — tasks can shift anytime",
@@ -113,7 +106,6 @@
   "m1_cons_v": "Fixed monthly cost · Requires clear internal management",
   "m1_fit_v": "Startups / Companies building long-term products",
   "m1_min_v": "2–3 months",
-
   "m2_desc_v": "One fixed price for the whole project with a clearly defined scope.",
   "m2_cost_v": "Fixed for the whole project",
   "m2_flex_v": "Inflexible — changes add cost",
@@ -122,7 +114,6 @@
   "m2_cons_v": "Risk if scope is unclear · Less flexible",
   "m2_fit_v": "Short-term projects with clear specs",
   "m2_min_v": "Per project contract",
-
   "m3_desc_v": "Billed on actual hours worked and resources used.",
   "m3_cost_v": "Flexible, per actual hour",
   "m3_flex_v": "Very flexible — adapts to change easily",
@@ -131,12 +122,10 @@
   "m3_cons_v": "Budget can grow if not tracked",
   "m3_fit_v": "R&D, PoC, evolving requirements",
   "m3_min_v": "Commitment of at least 1 month",
-
   "compare_title": "Head-to-head comparison",
   "compare_sub": "Click a column to highlight. Sort by any criterion on the left.",
   "compare_highlight": "Highlight:",
   "compare_all": "All",
-
   "tech_eyebrow": "Tech stack",
   "tech_title": "Technology we bet on.",
   "tech_sub": "A mature stack, chosen to fit the problem — not the trend.",
@@ -146,7 +135,6 @@
   "tech_cloud": "Cloud & DevOps",
   "tech_data": "Data & AI",
   "tech_iot": "IoT",
-
   "stats_title": "Numbers that speak",
   "stat1_l": "Founded",
   "stat2_l": "Headquarters",
@@ -155,10 +143,8 @@
   "stat4_l": "Projects delivered",
   "stat5_l": "Enterprise clients",
   "stat6_l": "Client retention rate",
-
   "clients_title": "Trusted by forward-thinking companies",
   "clients_sub": "From startups to enterprises — Nexora is the tech partner behind.",
-
   "testi_eyebrow": "What clients say",
   "testi_title": "Reviews from clients",
   "testi1_q": "Nexora delivered on time, with quality above expectations. We treat them as part of our internal team.",
@@ -170,19 +156,16 @@
   "testi3_q": "They don't just write code — they understand the business. That's the biggest difference.",
   "testi3_n": "Le Thao Vy",
   "testi3_r": "Founder, Orbit Commerce",
-
   "about_eyebrow": "About Nexora",
   "about_title": "A software company born in 2025, in Saigon.",
   "about_p1": "Nexora Technology was founded on a simple belief: great software doesn't come from templates — it comes from deeply understanding the problem, picking the right tools, and disciplined execution.",
   "about_p2": "We're engineers, designers and product managers sharing one philosophy: do less, do it better. Every project we take is carefully selected — so we can pour in the care it deserves.",
-
   "about_v1_t": "Quality first",
   "about_v1_d": "Every line reviewed. Every release tested.",
   "about_v2_t": "Total transparency",
   "about_v2_d": "You see everything we're doing, always.",
   "about_v3_t": "Long-term partners",
   "about_v3_d": "Products live long past launch. We're there with you.",
-
   "contact_eyebrow": "Contact",
   "contact_title": "Tell us about your project.",
   "contact_sub": "We reply within 24 business hours. No spam, no telemarketing.",
@@ -207,7 +190,6 @@
   "f_phone": "Phone",
   "f_hours": "Business hours",
   "f_hours_v": "Mon – Fri, 9:00 – 18:00 (GMT+7)",
-
   "foot_tag": "Software · Mobile · IoT · Cloud",
   "foot_services": "Services",
   "foot_company": "Company",
@@ -220,7 +202,6 @@
   "foot_l_terms": "Terms of service",
   "foot_l_cookies": "Cookies",
   "foot_copy": "© 2026 Nexora Technology. All rights reserved.",
-
   "sub_home": "Home",
   "sub_all": "All",
   "sub_back": "Back",
@@ -231,7 +212,6 @@
   "sub_contact_btn": "Contact us",
   "sub_results": "Results",
   "sub_read_more": "Read more",
-
   "cs_breadcrumb": "Case Studies",
   "cs_eyebrow": "Projects",
   "cs_title_1": "Real results,",
@@ -253,7 +233,6 @@
   "cs_cta_title": "Got a similar project?",
   "cs_cta_desc": "Tell us about it. First consultation is free.",
   "cs_cta_btn": "Book a call",
-
   "blog_breadcrumb": "Blog",
   "blog_eyebrow": "Blog",
   "blog_title_1": "Knowledge,",
@@ -268,7 +247,6 @@
   "blog_cta_btn": "Subscribe",
   "blog_written": "By",
   "blog_read": "min read",
-
   "career_breadcrumb": "Careers",
   "career_eyebrow": "Careers",
   "career_title": "Build with us.",
@@ -283,5 +261,386 @@
   "career_detail_salary": "Salary",
   "career_detail_level": "Level",
   "career_detail_posted": "Posted",
-  "career_detail_type": "Type"
+  "career_detail_type": "Type",
+  "site": {
+    "skip": "Skip to content",
+    "nav_work": "Work",
+    "nav_expertise": "Expertise",
+    "nav_about": "About us",
+    "nav_journal": "Journal",
+    "nav_careers": "Careers",
+    "nav_contact": "Contact",
+    "talk": "Let's talk",
+    "lang_label": "Chuyển sang tiếng Việt",
+    "lang_target": "VI",
+    "menu_open": "Open menu",
+    "menu_close": "Close menu",
+    "nav_main": "Main navigation",
+    "nav_mobile": "Mobile navigation",
+    "home_label": "Nexora Technology — Home",
+    "footer_tag": "Independent minds.<br></br>Connected by craft.",
+    "footer_services": "Services",
+    "footer_models": "Partnership",
+    "footer_cases": "Case studies",
+    "footer_blog": "Journal",
+    "footer_careers": "Careers",
+    "back_top": "BACK TO TOP ↑",
+    "footer_line": "ENGINEERING WHAT’S NEXT",
+    "motion_on": "MOTION: ON",
+    "motion_off": "MOTION: OFF",
+    "motion_label": "Toggle motion"
+  },
+  "home": {
+    "hero": {
+      "status": "INDEPENDENT SOFTWARE PARTNER",
+      "city": "HO CHI MINH CITY, VIETNAM",
+      "sculpture": "A moving champagne-gold 3D sculpture, the Nexora symbol of connection",
+      "scroll": "SCROLL TO EXPLORE",
+      "description": "From ambitious ideas to software that works every day. Nexora brings product thinking, engineering and people together to move your business forward.",
+      "explore": "Explore what we build"
+    },
+    "intro": {
+      "marker": "TECHNOLOGY WITH INTENT",
+      "statement": [
+        "Beyond the code.",
+        "We solve the problem",
+        "behind the product."
+      ],
+      "p1": "Nexora Technology is a software development partner based in Ho Chi Minh City. We work with businesses in Vietnam and internationally, from discovery and design to development and operations.",
+      "p2": "Building a new product, modernizing a live system or extending your engineering team? We start by understanding what your business actually needs."
+    },
+    "stage": {
+      "label": "The Nexora principle",
+      "cue": "SCROLL TO CONNECT ↓",
+      "kicker": "THINK → CONNECT → BUILD",
+      "sub": "Different pieces.<br></br>One system, working together."
+    },
+    "work": {
+      "heading": "Real challenges.<br></br><span>Working software.</span>",
+      "count": "{count} published case studies",
+      "scroll": "SCROLL TO CHANGE PROJECT ↓",
+      "note": "ANONYMIZED CASE STUDIES. COVERS ARE ILLUSTRATIONS PUBLISHED ON THE NEXORA WEBSITE.",
+      "cover": "COVER ILLUSTRATION / PUBLISHED",
+      "cursor": "VIEW CASE ↗",
+      "featured": [
+        {
+          "title": "Rebuilding the ledger.<br></br>Keeping money moving.",
+          "text": "Restoring correctness to a financial core while transactions keep running.",
+          "art": "ARCHITECTURE ILLUSTRATION"
+        },
+        {
+          "title": "Reading the road.<br></br>With computer vision.",
+          "text": "Measuring road-marking wear from dashcam video.",
+          "art": "CONCEPT ILLUSTRATION"
+        },
+        {
+          "title": "From a spark of wanderlust<br></br>to a complete itinerary.",
+          "text": "",
+          "art": "PRODUCT ILLUSTRATION"
+        },
+        {
+          "title": "The operating system<br></br>we use every day.",
+          "text": "Connecting people, customers, contracts and finance on one platform.",
+          "art": "INTERFACE ILLUSTRATION"
+        }
+      ]
+    },
+    "library": {
+      "title": "Explore the full picture.",
+      "search": "SEARCH PROJECTS / TECHNOLOGY",
+      "filter": "Filter by sector",
+      "all": "All sectors",
+      "results": "{shown} / {total} case studies",
+      "empty": "No matching case studies. Try another search or sector.",
+      "more": "Show {count} more cases ↓",
+      "all_cases": "Open the case studies page",
+      "note": "Case study content is in English. Covers are published illustrations.",
+      "quick": "Quick view",
+      "close": "Close",
+      "read_full": "Read the full case study",
+      "cover_alt": "cover illustration",
+      "diagram_alt": "published diagram",
+      "diagram_caption": "Diagram from the published Nexora case study.",
+      "dialog_note": "Content and imagery from the published article. Client anonymity is preserved as in the original.",
+      "unavailable": "The case library could not be loaded right now. Please try again later."
+    },
+    "expertise": {
+      "marker": "FROM INTERFACE TO INFRASTRUCTURE",
+      "heading": "Deep expertise.<br></br>Full <em>possibility.</em>",
+      "text": "One engineering partner. More ways to take your challenge from question to solution.",
+      "cta": "Discuss your challenge",
+      "services": [
+        {
+          "name": "Web & Digital Experiences",
+          "desc": "Websites, web platforms and product interfaces that bring together UX, performance, accessibility and room to scale.",
+          "tags": [
+            "React",
+            "Next.js",
+            "Vue",
+            "UI & UX"
+          ]
+        },
+        {
+          "name": "Mobile Applications",
+          "desc": "Native and cross-platform apps for iOS and Android. Connecting the user experience with the systems behind it, from MVP to the next release.",
+          "tags": [
+            "Swift",
+            "Kotlin",
+            "React Native",
+            "Flutter"
+          ]
+        },
+        {
+          "name": "Enterprise & Custom Software",
+          "desc": "Custom CRM, ERP, SaaS and business applications. Data flows, integrations and automation shaped around how your business actually operates.",
+          "tags": [
+            ".NET",
+            "Go",
+            "Node.js",
+            "PostgreSQL"
+          ]
+        },
+        {
+          "name": "AI & Data Engineering",
+          "desc": "AI agents, computer vision and data engineering applied to specific challenges. From feasibility exploration to integration into product workflows.",
+          "tags": [
+            "AI Agents",
+            "PyTorch",
+            "ONNX",
+            "Data Pipelines"
+          ]
+        },
+        {
+          "name": "IoT & Connected Systems",
+          "desc": "Connected devices, data collection and operational visibility. Integrating sensors, industrial systems and dashboards for the people running them.",
+          "tags": [
+            "IoT",
+            "Edge AI",
+            "MQTT",
+            "Real-time Data"
+          ]
+        },
+        {
+          "name": "Modernization & Operations",
+          "desc": "Legacy assessment, phased migration, maintenance and production incident response. Prioritizing operational continuity and system observability.",
+          "tags": [
+            "Cloud",
+            "Migration",
+            "CI/CD",
+            "Maintenance"
+          ]
+        }
+      ]
+    },
+    "process": {
+      "marker": "SCROLL THROUGH THE PROCESS →",
+      "heading": "From the first question.<br></br>To the next milestone.",
+      "steps": [
+        {
+          "name": "Discover",
+          "desc": "Understand business goals, users and constraints. Align on scope before choosing technology.",
+          "output": "Output / Problem brief · Scope"
+        },
+        {
+          "name": "Design",
+          "desc": "Shape architecture, workflows and interfaces. Test the important assumptions through prototypes.",
+          "output": "Output / Architecture · Prototype"
+        },
+        {
+          "name": "Build",
+          "desc": "Break work into sprints and review progress together. See the product take shape through working releases.",
+          "output": "Output / Working software · Sprint demo"
+        },
+        {
+          "name": "Validate",
+          "desc": "Test functionality, integrations and technical risks relevant to the project. Verify against agreed acceptance criteria.",
+          "output": "Output / Test evidence · UAT"
+        },
+        {
+          "name": "Launch",
+          "desc": "Prepare deployment, monitoring and rollback plans. Hand over documentation and guide the operations team.",
+          "output": "Output / Deployment · Handover"
+        },
+        {
+          "name": "Evolve",
+          "desc": "Observe real usage, resolve issues and improve. Plan the next milestone together.",
+          "output": "Output / Support · Next roadmap"
+        }
+      ]
+    },
+    "models": {
+      "marker": "A PARTNERSHIP THAT FITS",
+      "heading": "Your team.<br></br><span>Your way forward.</span>",
+      "text": "Aligned with your product stage, the clarity of your scope and how you want to manage delivery.",
+      "fit": "Best for",
+      "billing": "Billing",
+      "manage": "Management",
+      "cta": "Explore this model",
+      "compare": "Compare before you commit.",
+      "compare_caption": "Three ways to work with Nexora",
+      "criterion": "Criterion",
+      "compare_label": "Comparison table",
+      "compare_note": "Specific scope and commitments are agreed in each contract.",
+      "items": [
+        {
+          "name": "Dedicated Team",
+          "tag": "AN EXTENSION OF YOUR TEAM",
+          "desc": "Add engineers or a dedicated team to your product. Work together with shared priorities and an agreed delivery rhythm.",
+          "fit": "Long-term products and growing engineering teams",
+          "cost": "Monthly, based on team composition",
+          "manage": "Client-led, coordinated with Nexora"
+        },
+        {
+          "name": "Fixed Price",
+          "tag": "A CLEAR PATH TO DELIVERY",
+          "desc": "Define scope and deliverables before work begins. Nexora manages implementation and delivery against agreed milestones.",
+          "fit": "Well-defined scope and stable requirements",
+          "cost": "An agreed budget for the defined scope",
+          "manage": "Nexora-managed delivery"
+        },
+        {
+          "name": "Time & Material",
+          "tag": "ROOM TO EXPLORE & ADAPT",
+          "desc": "Adapt priorities as the product develops. Pay for actual time and resources, with progress reviewed together.",
+          "fit": "R&D, MVPs and evolving requirements",
+          "cost": "Actual time and resources",
+          "manage": "Shared planning and prioritization"
+        }
+      ]
+    },
+    "tech": {
+      "marker": "THE RIGHT TOOL FOR THE PROBLEM",
+      "heading": "Tools evolve.<br></br><em>Engineering endures.</em>"
+    },
+    "about": {
+      "heading": "From Saigon.<br></br>Alongside<br></br><em>your ambition.</em>",
+      "text": "Founded in 2025, Nexora Technology works with local and international businesses. We believe strong engineering partnerships are built on honest conversations, ownership and what actually gets delivered.",
+      "values": [
+        "Understand the problem before choosing a solution.",
+        "Keep work and expectations transparent.",
+        "Stay involved beyond launch day."
+      ]
+    },
+    "journal": {
+      "heading": "Lessons learned.<br></br>Worth sharing.",
+      "text": "Engineering, product thinking and how we build software.",
+      "read": "Read the article",
+      "all": "Read the journal"
+    },
+    "careers": {
+      "heading": "Care about the craft?<br></br>You're in good company.",
+      "none": "There are currently no roles published on the website. You can still send your profile and connect with the Nexora team.",
+      "open": "{count, plural, one {# open role.} other {# open roles.}} Read the details and apply directly.",
+      "cta": "Explore careers"
+    },
+    "faq": {
+      "heading": "Before<br></br><em>we begin.</em>",
+      "items": [
+        {
+          "q": "I have an idea, but no specification. Where do we start?",
+          "a": "We start with a conversation about goals, users and context. Then we propose discovery or a prototype to clarify scope and test assumptions before committing to development."
+        },
+        {
+          "q": "Can Nexora work with our existing engineering team?",
+          "a": "Yes. Through Dedicated Team or Time & Material engagements, Nexora engineers can work with your existing team. Responsibilities, code review, communication and access arrangements are agreed at the start."
+        },
+        {
+          "q": "How are source-code ownership and confidentiality handled?",
+          "a": "Ownership, source-code handover, data use and NDA terms are defined in each project contract. We discuss confidentiality requirements before accessing your documents or systems."
+        },
+        {
+          "q": "Who supports the product after launch?",
+          "a": "Nexora provides maintenance and operations services. Support scope, response times, monitoring and incident processes are agreed around your system’s needs."
+        },
+        {
+          "q": "How do we get a cost and timeline estimate?",
+          "a": "Share the challenge, existing documentation and your desired timeline. Once scope is clear, Nexora proposes an approach, engagement model and estimate with explicit assumptions."
+        }
+      ]
+    },
+    "contact": {
+      "text": "A new idea. A system that could work better. A team that needs more firepower. Tell us about it.",
+      "email_label": "Email Nexora",
+      "hours": "Mon–Fri · 09:00–18:00 (GMT+7)",
+      "need": "WHAT ARE YOU WORKING ON?",
+      "other": "Something else",
+      "name": "Your name *",
+      "email": "Work email *",
+      "company": "Company",
+      "budget": "Estimated budget",
+      "budgets": [
+        "Not sure yet",
+        "Under 10,000 USD",
+        "10,000–50,000 USD",
+        "50,000–200,000 USD",
+        "Over 200,000 USD"
+      ],
+      "message": "Tell us a little about your project *",
+      "note": "We only use these details to reply to your enquiry.",
+      "submit": "Start a conversation",
+      "sending": "Sending…",
+      "success": "Sent. Thank you, the Nexora team will reply by email.",
+      "error": "Your message was not sent. Please try again or email email@nexoratechno.com directly.",
+      "invalid_name": "Please enter your name.",
+      "invalid_email": "Please enter a valid email.",
+      "invalid_message": "Please write at least 10 characters.",
+      "form_title": "Tell us what’s next.",
+      "ph_name": "Your full name",
+      "ph_email": "you@company.com",
+      "ph_company": "Company or organization",
+      "ph_message": "Your goals, key features and ideal timeline…"
+    }
+  },
+  "sub": {
+    "home": "Home",
+    "cs_status": "SELECTED WORK / ARCHIVE",
+    "cs_title_1": "Real challenges.",
+    "cs_title_2": "Working software.",
+    "cs_lead": "{count} published projects, from fintech and logistics to IoT. Each page covers the problem, the approach and the outcome.",
+    "cs_note": "Case studies are written in English.",
+    "cs_search": "Search by project, industry or technology",
+    "cs_filter": "Filter by sector",
+    "cs_count": "Showing {shown} of {total} projects",
+    "cs_more": "Show {n} more",
+    "cs_none": "No projects match your search.",
+    "cs_empty": "No case studies are published yet.",
+    "cs_read": "Read case study",
+    "cs_back": "All case studies",
+    "cs_status_detail": "CASE STUDY",
+    "cs_details": "Project details",
+    "cs_services": "Services",
+    "blog_status": "JOURNAL / ENGINEERING NOTES",
+    "blog_none": "No articles are published in this language yet.",
+    "blog_read_article": "Read article",
+    "blog_latest": "Latest",
+    "blog_all": "All articles",
+    "blog_back": "All articles",
+    "blog_cta_title": "Have a software problem to talk through?",
+    "blog_cta_desc": "Tell us about it. The first consultation is free.",
+    "min_read": "{n} min read",
+    "by": "By {name}",
+    "career_status": "CAREERS / OPEN ROLES",
+    "career_title_1": "Build",
+    "career_title_2": "with us.",
+    "career_lead": "Nexora builds software for businesses in Vietnam and abroad from Ho Chi Minh City. Open roles are listed here.",
+    "career_empty_title": "No roles are published right now.",
+    "career_empty_desc": "New roles will appear on this page. You are still welcome to send a profile and a short introduction to <email>x</email>.",
+    "career_view": "View role",
+    "career_back": "All roles",
+    "career_apply": "Apply for this role",
+    "career_cta_title": "Want to work with Nexora?",
+    "career_cta_desc": "Send us your profile, even when no role fits yet.",
+    "career_cta_btn": "Send a profile",
+    "all": "All",
+    "cta_title": "Got a similar project?",
+    "cta_desc": "Tell us about it. The first consultation is free.",
+    "cta_btn": "Book a call",
+    "year": "Year",
+    "blog_title_1": "Knowledge,",
+    "blog_title_2": "real-world experience.",
+    "blog_lead": "Articles on engineering, design and how we build software at Nexora.",
+    "published": "Published",
+    "reading": "Reading time",
+    "author": "Author"
+  }
 }

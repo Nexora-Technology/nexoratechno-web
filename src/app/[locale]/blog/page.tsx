@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { buildAlternates, OG_IMAGES } from '@/lib/seo';
-import BlogPageClient from '@/components/blog/blog-page-client';
+import BlogListing from '@/components/blog/blog-listing';
+
+// Listings are rendered from WordPress; refresh them in the background.
+export const revalidate = 300;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -27,5 +31,6 @@ export default async function BlogPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return <BlogPageClient locale={locale} />;
+  setRequestLocale(locale);
+  return <BlogListing locale={locale} />;
 }

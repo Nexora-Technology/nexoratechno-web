@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { wpClient, CAREER_BASE_FIELDS, WPCareer } from '@/lib/wordpress';
+import { wpClient, CAREER_BASE_FIELDS, WPCareer, extractCareerMeta } from '@/lib/wordpress';
 
 const GET_CAREER = `
   ${CAREER_BASE_FIELDS}
@@ -24,7 +24,8 @@ export async function GET(
     if (!data.career) {
       return NextResponse.json({ error: 'Career not found' }, { status: 404 });
     }
-    return NextResponse.json(data.career);
+    const { careerMeta, cleanContent } = extractCareerMeta(data.career.content ?? '');
+    return NextResponse.json({ ...data.career, content: cleanContent, careerMeta });
   } catch (err) {
     console.error('[WP API /careers/slug]', err);
     return NextResponse.json({ error: 'Failed to fetch career' }, { status: 500 });

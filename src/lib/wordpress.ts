@@ -19,7 +19,7 @@ export interface WPCategory {
   slug: string;
 }
 
-// ─── ACF Meta Types ────────────────────────────────────────────────────────────
+// ─── Meta Types (embedded as JSON comments in content, see extractEmbeddedMeta) ─
 
 export interface CareerMeta {
   department: string;
@@ -102,13 +102,6 @@ export const CAREER_BASE_FIELDS = gql`
     excerpt
     date
     modified
-    careerMeta {
-      department
-      location
-      salary
-      jobType
-      level
-    }
   }
 `;
 
@@ -152,12 +145,25 @@ export function extractCaseMeta(html: string): {
   caseMeta: ExtractedCaseMeta | null;
   cleanContent: string;
 } {
-  const m = html.match(/<!--\s*case-meta:(\{[\s\S]*?\})\s*-->/);
-  if (!m) return { caseMeta: null, cleanContent: html };
+  const { meta, cleanContent } = extractEmbeddedMeta<ExtractedCaseMeta>(html, 'case-meta');
+  return { caseMeta: meta, cleanContent };
+}
+
+/** Parse `<!-- career-meta:{...} -->`, the career counterpart of case-meta. */
+export function extractCareerMeta(html: string): {
+  careerMeta: CareerMeta | null;
+  cleanContent: string;
+} {
+  const { meta, cleanContent } = extractEmbeddedMeta<CareerMeta>(html, 'career-meta');
+  return { careerMeta: meta, cleanContent };
+}
+
+function extractEmbeddedMeta<T>(html: string, key: string): { meta: T | null; cleanContent: string } {
+  const m = html.match(new RegExp(`<!--\\s*${key}:(\\{[\\s\\S]*?\\})\\s*-->`));
+  if (!m) return { meta: null, cleanContent: html };
   try {
-    const caseMeta = JSON.parse(m[1]) as ExtractedCaseMeta;
-    return { caseMeta, cleanContent: html.replace(m[0], '').trim() };
+    return { meta: JSON.parse(m[1]) as T, cleanContent: html.replace(m[0], '').trim() };
   } catch {
-    return { caseMeta: null, cleanContent: html };
+    return { meta: null, cleanContent: html };
   }
 }

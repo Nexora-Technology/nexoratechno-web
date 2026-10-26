@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
-import { wpClient, CAREER_BASE_FIELDS, WPCareer } from '@/lib/wordpress';
+import { wpClient, CAREER_BASE_FIELDS, WPCareer, extractCareerMeta } from '@/lib/wordpress';
 
+// Listing pulls `content` only to read the embedded career-meta JSON.
 const GET_CAREERS = `
   ${CAREER_BASE_FIELDS}
   query GetCareers($first: Int!) {
     careers(first: $first) {
-      nodes { ...CareerBaseFields }
+      nodes {
+        ...CareerBaseFields
+        content
+      }
     }
   }
 `;
@@ -16,7 +20,11 @@ export async function GET() {
       GET_CAREERS,
       { first: 50 }
     );
-    return NextResponse.json(data.careers.nodes, {
+    const careers = data.careers.nodes.map(({ content, ...node }) => ({
+      ...node,
+      careerMeta: extractCareerMeta(content ?? '').careerMeta,
+    }));
+    return NextResponse.json(careers, {
       headers: { 'Cache-Control': 's-maxage=60, stale-while-revalidate=120' },
     });
   } catch (err) {
